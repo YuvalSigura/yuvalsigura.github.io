@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RoboEduTech Robotics Kits</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    .header {
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: white;
+      padding: 40px 20px;
+      text-align: center;
+    }
+    .header h1 {
+      font-size: 3em;
+      margin: 0;
+    }
+    .section {
+      padding: 30px 20px;
+      max-width: 1000px;
+      margin: auto;
+      background: white;
+    }
+    .section h2 {
+      text-align: center;
+    }
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+    .card {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transition: transform 0.3s;
+    }
+    .card:hover {
+      transform: scale(1.03);
+    }
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    .card .content {
+      padding: 15px;
+    }
+    .card .content h3 {
+      font-size: 1.2em;
+      margin: 0 0 10px 0;
+    }
+    .card .content p {
+      font-size: 0.9em;
+      color: #555;
+    }
+    .cta-button {
+      display: block;
+      text-align: center;
+      margin-top: 40px;
+    }
+    .cta-button a {
+      background: #00a86b;
+      color: white;
+      text-decoration: none;
+      padding: 12px 25px;
+      font-size: 1em;
+      border-radius: 5px;
+      transition: background 0.3s;
+    }
+    .cta-button a:hover {
+      background: #007f52;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>RoboEduTech Robotics</h1>
+    <p>Explore advanced AI-powered robot kits by Yahboom</p>
+  </div>
+
+  <div class="section">
+    <h2>Featured Robotics Kits</h2>
+    <div class="products">
+      <div class="card">
+        <img src="https://category.yahboom.net/cdn/shop/files/Jetbot-Yahboom-_1.jpg?v=1684313807&amp;width=300" alt="Jetbot AI Robot">
+        <div class="content">
+          <h3>Jetbot AI Robot Car</h3>
+          <p>Python programming and object tracking for Jetson Nano.</p>
+        </div>
+      </div>
+      <div class="card">
+        <img src="https://category.yahboom.net/cdn/shop/files/Yahboom_Jetbot_Smart_Robot_Car_ROS_01.jpg?v=1742371410&amp;width=300" alt="Jetbot Mini ROS Kit">
+        <div class="content">
+          <h3>Jetbot Mini ROS Kit</h3>
+          <p>AI vision robot with ROS support, designed for Nano 2GB/4GB.</p>
+        </div>
+      </div>
+      <div class="card">
+        <img src="https://category.yahboom.net/cdn/shop/products/Yahboom_ROSMASTER_R2_Robot_Car_main_image.jpg?v=1748329216&amp;width=300" alt="ROSMASTER R2">
+        <div class="content">
+          <h3>ROSMASTER R2</h3>
+          <p>Ackermann robot with Jetson Orin/Nano and ROS2 integration.</p>
+        </div>
+      </div>
+    </div>
+    <div class="cta-button">
+      <a href="https://category.yahboom.net/collections/robotics" target="_blank">See Full Collection on Yahboom</a>
+    </div>
+  </div>
+</body>
+</html>
