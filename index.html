@@ -3,12 +3,35 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Cooking, makeup, Love Island reactions and creator merch — Stir, Slay, Spill.">
+  <meta name="description" content="Cooking, makeup, Love Island reactions, creator merch and massage therapy — Stir, Slay, Spill.">
   <title>Stir · Slay · Spill — Cooking, Makeup & Reactions</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <style>
+    .creator-gallery{display:grid;grid-template-columns:1.08fr .92fr;grid-template-rows:1fr 1fr;gap:12px;min-height:560px;position:relative}
+    .creator-gallery figure{margin:0;overflow:hidden;border:1px solid rgba(23,18,24,.12);background:#fff;box-shadow:var(--shadow)}
+    .creator-gallery figure:first-child{grid-row:1/3;border-radius:42px 18px 18px 42px;transform:rotate(-1deg)}
+    .creator-gallery figure:nth-child(2){border-radius:18px 42px 18px 18px;transform:rotate(1deg)}
+    .creator-gallery figure:nth-child(3){border-radius:18px 18px 42px 18px;transform:rotate(-1deg)}
+    .creator-gallery img{width:100%;height:100%;object-fit:cover;object-position:center;transition:transform .35s ease}
+    .creator-gallery figure:hover img{transform:scale(1.025)}
+    .gallery-label{position:absolute;z-index:3;right:-12px;top:-16px;padding:10px 14px;border:1.5px solid var(--ink);border-radius:999px;background:var(--lime);font-weight:900;box-shadow:4px 4px 0 var(--ink);transform:rotate(4deg)}
+    .massage-panel{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:center;padding:clamp(28px,5vw,54px);border-radius:36px;background:linear-gradient(135deg,#fff,var(--peach));border:1px solid var(--line);box-shadow:var(--shadow)}
+    .massage-panel h2{margin:.25rem 0 .7rem;font-size:clamp(2.4rem,6vw,5rem);line-height:.94;letter-spacing:-.06em}
+    .massage-panel p{max-width:58ch;color:var(--muted)}
+    .massage-offer{background:var(--ink);color:#fff;border-radius:28px;padding:28px;box-shadow:8px 8px 0 var(--pink)}
+    .massage-offer .label{font-size:.75rem;text-transform:uppercase;letter-spacing:.12em;font-weight:900;color:var(--pink)}
+    .massage-offer .price{font-size:clamp(2.8rem,7vw,5rem);font-weight:900;letter-spacing:-.06em;line-height:1;margin:.35rem 0 .1rem}
+    .massage-offer .duration{color:#d8d0d8;font-weight:700}
+    .massage-payments{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0}
+    .massage-payments span{padding:8px 11px;border-radius:999px;background:#332b33;font-size:.82rem;font-weight:800}
+    .massage-contact{padding-top:18px;border-top:1px solid rgba(255,255,255,.16)}
+    .massage-contact strong{display:block;font-size:1.2rem;margin-top:4px}
+    @media (max-width:900px){.creator-gallery{min-height:520px}.massage-panel{grid-template-columns:1fr}}
+    @media (max-width:700px){.creator-gallery{grid-template-columns:1fr 1fr;grid-template-rows:360px 220px;min-height:auto}.creator-gallery figure:first-child{grid-column:1/3;grid-row:auto;border-radius:28px}.creator-gallery figure:nth-child(2),.creator-gallery figure:nth-child(3){border-radius:22px}.gallery-label{right:8px;top:-12px}.massage-offer{padding:24px}}
+  </style>
 </head>
 <body>
 <header class="site-header">
@@ -16,7 +39,7 @@
     <a class="brand" href="index.html" aria-label="Stir Slay Spill home"><span class="brand-mark">✦</span><span>Stir · Slay · Spill</span></a>
     <button class="menu-btn" aria-expanded="false" aria-label="Open navigation">Menu</button>
     <nav class="nav-links" aria-label="Primary navigation">
-      <a href="index.html" aria-current="page">Home</a><a href="blog.html">Blog</a><a href="reactions.html">Reactions</a><a href="shop.html">Shop</a>
+      <a href="index.html" aria-current="page">Home</a><a href="blog.html">Blog</a><a href="reactions.html">Reactions</a><a href="shop.html">Shop</a><a href="#massage">Massage</a>
     </nav>
   </div>
 </header>
@@ -28,17 +51,17 @@
         <h1>Stir. <em>Slay.</em> Spill.</h1>
         <p class="lede">Cooking experiments, makeup obsessions, and the kind of Love Island commentary you send your best friend at 1 a.m.</p>
         <div class="hero-actions"><a class="button button-dark" href="reactions.html">Watch the reactions →</a><a class="button button-light" href="blog.html">Read the blog</a></div>
-        <div class="hero-note"><span class="dot"></span><span>Built as the home base for YouTube, blog posts and future merch.</span></div>
+        <div class="hero-note"><span class="dot"></span><span>Built as the home base for YouTube, blog posts, services and future merch.</span></div>
       </div>
-      <div class="portrait-wrap">
-        <div class="scribble" aria-hidden="true"></div>
-        <span class="sticker one">cooks for fun 🍝</span>
-        <span class="sticker two">watches too much<br>Love Island ♡</span>
-        <figure class="portrait-card"><img src="assets/portrait.webp" alt="Creator portrait"></figure>
+      <div class="creator-gallery" aria-label="Photo gallery">
+        <span class="gallery-label">3-photo gallery ✦</span>
+        <figure><img src="assets/gallery-1.webp" alt="Portrait photo" loading="eager"></figure>
+        <figure><img src="assets/gallery-2.webp" alt="Outdoor portrait photo" loading="eager"></figure>
+        <figure><img src="assets/gallery-3.webp" alt="Portrait photo indoors" loading="eager"></figure>
       </div>
     </div>
   </section>
-  <div class="ticker" aria-hidden="true"><div class="container ticker-track"><span>Cook with me</span><span>GRWM</span><span>Love Island reactions</span><span>Hot takes</span><span>Merch drops</span><span>Beauty notes</span></div></div>
+  <div class="ticker" aria-hidden="true"><div class="container ticker-track"><span>Cook with me</span><span>GRWM</span><span>Love Island reactions</span><span>Hot takes</span><span>Massage therapy</span><span>Beauty notes</span></div></div>
   <section class="section">
     <div class="container">
       <div class="section-head"><div><div class="kicker">Three moods, one channel</div><h2>What we’re doing here.</h2></div><p class="section-copy">No single-niche pressure. The whole point is personality: food when she feels like cooking, beauty when she feels like getting ready, and reality-TV chaos whenever it deserves commentary.</p></div>
@@ -49,6 +72,24 @@
       </div>
     </div>
   </section>
+
+  <section class="section-tight" id="massage">
+    <div class="container massage-panel">
+      <div>
+        <div class="kicker">Massage therapy</div>
+        <h2>Book a 2-hour session.</h2>
+        <p>Massage therapy sessions are available by booking. For the full massage menu and appointment details, contact <strong>@alishabecker3344</strong>.</p>
+      </div>
+      <div class="massage-offer">
+        <div class="label">Massage therapy</div>
+        <div class="price">1200</div>
+        <div class="duration">for two hours</div>
+        <div class="massage-payments"><span>Bit app</span><span>Crypto</span></div>
+        <div class="massage-contact"><span>Full menu & booking</span><strong>@alishabecker3344</strong></div>
+      </div>
+    </div>
+  </section>
+
   <section class="section-tight">
     <div class="container feature">
       <div class="feature-copy"><div class="kicker">YouTube reaction channel</div><h2>The villa has entered the chat.</h2><p>Use this section for the newest reaction video as soon as the YouTube channel is connected. The structure is ready for episode recaps, hot takes, watch-alongs and Shorts.</p><div class="hero-actions"><a class="button button-light" href="reactions.html">Explore reaction ideas</a></div></div>
@@ -73,7 +114,7 @@
     </div>
   </section>
 </main>
-<footer class="site-footer"><div class="container"><div class="footer-grid"><div><a class="brand" href="index.html"><span class="brand-mark">✦</span><span>Stir · Slay · Spill</span></a><p class="footer-note">Cooking, makeup and reality-TV reactions — built for a creator brand that can grow into YouTube, blog content and merch.</p></div><nav class="footer-nav"><a href="blog.html">Blog</a><a href="reactions.html">YouTube</a><a href="shop.html">Merch</a><a href="mailto:hello@example.com">Contact</a></nav></div><p class="footer-note">© 2026 Stir · Slay · Spill. Replace the placeholder contact and social links before launch.</p></div></footer>
+<footer class="site-footer"><div class="container"><div class="footer-grid"><div><a class="brand" href="index.html"><span class="brand-mark">✦</span><span>Stir · Slay · Spill</span></a><p class="footer-note">Cooking, makeup, reality-TV reactions and massage therapy.</p></div><nav class="footer-nav"><a href="blog.html">Blog</a><a href="reactions.html">YouTube</a><a href="shop.html">Merch</a><a href="#massage">Massage</a></nav></div><p class="footer-note">© 2026 Stir · Slay · Spill.</p></div></footer>
 <script src="script.js"></script>
 </body>
 </html>
