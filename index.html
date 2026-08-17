@@ -1,120 +1,95 @@
 <!doctype html>
-<html lang="en">
+<html lang="he" dir="rtl">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Cooking, makeup, Love Island reactions, creator merch and massage therapy — Stir, Slay, Spill.">
-  <title>Stir · Slay · Spill — Cooking, Makeup & Reactions</title>
+  <meta name="description" content="אלישה בייקר — מסאג׳יסטית בתל אביב. טיפולי עיסוי להרפיה ושחרור לחצים.">
+  <title>אלישה בייקר | מסאג׳ בתל אביב</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
-    .creator-gallery{display:grid;grid-template-columns:1.08fr .92fr;grid-template-rows:1fr 1fr;gap:12px;min-height:560px;position:relative}
-    .creator-gallery figure{margin:0;overflow:hidden;border:1px solid rgba(23,18,24,.12);background:#fff;box-shadow:var(--shadow)}
-    .creator-gallery figure:first-child{grid-row:1/3;border-radius:42px 18px 18px 42px;transform:rotate(-1deg)}
-    .creator-gallery figure:nth-child(2){border-radius:18px 42px 18px 18px;transform:rotate(1deg)}
-    .creator-gallery figure:nth-child(3){border-radius:18px 18px 42px 18px;transform:rotate(-1deg)}
-    .creator-gallery img{width:100%;height:100%;object-fit:cover;object-position:center;transition:transform .35s ease}
-    .creator-gallery figure:hover img{transform:scale(1.025)}
-    .gallery-label{position:absolute;z-index:3;right:-12px;top:-16px;padding:10px 14px;border:1.5px solid var(--ink);border-radius:999px;background:var(--lime);font-weight:900;box-shadow:4px 4px 0 var(--ink);transform:rotate(4deg)}
-    .massage-panel{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:center;padding:clamp(28px,5vw,54px);border-radius:36px;background:linear-gradient(135deg,#fff,var(--peach));border:1px solid var(--line);box-shadow:var(--shadow)}
-    .massage-panel h2{margin:.25rem 0 .7rem;font-size:clamp(2.4rem,6vw,5rem);line-height:.94;letter-spacing:-.06em}
-    .massage-panel p{max-width:58ch;color:var(--muted)}
-    .massage-offer{background:var(--ink);color:#fff;border-radius:28px;padding:28px;box-shadow:8px 8px 0 var(--pink)}
-    .massage-offer .label{font-size:.75rem;text-transform:uppercase;letter-spacing:.12em;font-weight:900;color:var(--pink)}
-    .massage-offer .price{font-size:clamp(2.8rem,7vw,5rem);font-weight:900;letter-spacing:-.06em;line-height:1;margin:.35rem 0 .1rem}
-    .massage-offer .duration{color:#d8d0d8;font-weight:700}
-    .massage-payments{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0}
-    .massage-payments span{padding:8px 11px;border-radius:999px;background:#332b33;font-size:.82rem;font-weight:800}
-    .massage-contact{padding-top:18px;border-top:1px solid rgba(255,255,255,.16)}
-    .massage-contact strong{display:block;font-size:1.2rem;margin-top:4px}
-    @media (max-width:900px){.creator-gallery{min-height:520px}.massage-panel{grid-template-columns:1fr}}
-    @media (max-width:700px){.creator-gallery{grid-template-columns:1fr 1fr;grid-template-rows:360px 220px;min-height:auto}.creator-gallery figure:first-child{grid-column:1/3;grid-row:auto;border-radius:28px}.creator-gallery figure:nth-child(2),.creator-gallery figure:nth-child(3){border-radius:22px}.gallery-label{right:8px;top:-12px}.massage-offer{padding:24px}}
+    :root{--ink:#20191d;--muted:#75676e;--paper:#fffdfb;--rose:#c85f83;--pink:#f7dbe5;--cream:#fff7f3;--line:rgba(32,25,29,.10);--shadow:0 24px 60px rgba(88,55,69,.14)}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family:'Heebo',system-ui,sans-serif;color:var(--ink);background:radial-gradient(circle at 12% 0%,rgba(247,219,229,.75),transparent 30rem),linear-gradient(180deg,#fffaf7,#fff);line-height:1.7}
+    a{color:inherit}
+    .wrap{width:min(1120px,calc(100% - 32px));margin:auto}
+    .hero{padding:54px 0 32px}
+    .hero-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:48px;align-items:center}
+    .eyebrow{display:inline-flex;padding:7px 12px;border-radius:999px;background:var(--pink);font-weight:800;font-size:.85rem}
+    h1{font-size:clamp(3.2rem,8vw,6.8rem);line-height:.9;letter-spacing:-.06em;margin:18px 0 18px}
+    .intro{font-size:clamp(1.05rem,2vw,1.25rem);color:var(--muted);max-width:31rem;margin:0}
+    .details{display:flex;flex-wrap:wrap;gap:10px;margin:28px 0 0}
+    .pill{padding:10px 14px;border-radius:999px;background:#fff;border:1px solid var(--line);font-weight:800;box-shadow:0 8px 20px rgba(88,55,69,.06)}
+    .cta{display:inline-flex;align-items:center;justify-content:center;margin-top:24px;min-height:54px;padding:0 24px;border-radius:999px;background:var(--ink);color:#fff;text-decoration:none;font-weight:900;box-shadow:6px 7px 0 var(--rose);transition:.2s ease}
+    .cta:hover{transform:translateY(-2px)}
+    .gallery{display:grid;grid-template-columns:1.06fr .94fr;grid-template-rows:1fr 1fr;gap:14px;min-height:610px}
+    .photo{position:relative;margin:0;overflow:hidden;background:#eee;border:1px solid var(--line);box-shadow:var(--shadow)}
+    .photo:first-child{grid-row:1/3;border-radius:42px 18px 18px 42px}
+    .photo:nth-child(2){border-radius:18px 42px 18px 18px}
+    .photo:nth-child(3){border-radius:18px 18px 42px 18px}
+    .photo img{width:100%;height:100%;display:block;object-fit:cover}
+    .face-blur{position:absolute;z-index:2;border-radius:50%;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);background:rgba(255,255,255,.03)}
+    .photo.one .face-blur{width:31%;height:23%;left:34.5%;top:12%}
+    .photo.two .face-blur{width:29%;height:29%;left:30%;top:15%}
+    .photo.three .face-blur{width:30%;height:27%;left:37%;top:12%}
+    .about{padding:56px 0 72px}
+    .card{display:grid;grid-template-columns:1.25fr .75fr;gap:30px;padding:clamp(26px,5vw,52px);border-radius:36px;background:var(--paper);border:1px solid var(--line);box-shadow:var(--shadow);align-items:center}
+    .card h2{font-size:clamp(2.2rem,5vw,4.3rem);line-height:1;margin:0 0 18px;letter-spacing:-.045em}
+    .card p{font-size:1.1rem;color:var(--muted);margin:0;max-width:39rem}
+    .offer{background:var(--ink);color:#fff;border-radius:28px;padding:28px}
+    .offer small{display:block;color:#f2bdcf;font-weight:800;margin-bottom:8px}
+    .price{font-size:clamp(2.8rem,7vw,5rem);font-weight:900;line-height:1;letter-spacing:-.05em}
+    .time{font-size:1.05rem;font-weight:700;color:#ddd5d9;margin-top:6px}
+    .payment{margin-top:20px;padding-top:18px;border-top:1px solid rgba(255,255,255,.16);font-weight:800}
+    .payment span{display:inline-flex;margin-top:8px;padding:8px 12px;border-radius:999px;background:#332b30}
+    .offer .cta{background:#fff;color:var(--ink);box-shadow:none;width:100%;margin-top:22px}
+    footer{padding:0 0 36px;text-align:center;color:#95878e;font-size:.9rem}
+    @media(max-width:860px){.hero-grid,.card{grid-template-columns:1fr}.gallery{min-height:560px}}
+    @media(max-width:640px){.hero{padding-top:30px}.hero-grid{gap:32px}h1{font-size:clamp(3.3rem,17vw,5.5rem)}.gallery{grid-template-columns:1fr 1fr;grid-template-rows:390px 210px;min-height:auto}.photo:first-child{grid-column:1/3;grid-row:auto;border-radius:28px}.photo:nth-child(2),.photo:nth-child(3){border-radius:22px}.photo.one .face-blur{width:27%;height:24%;left:36.5%;top:11%}.photo.two .face-blur{width:31%;height:30%;left:28%;top:14%}.photo.three .face-blur{width:31%;height:29%;left:36%;top:11%}.about{padding-top:36px}.card{padding:25px;border-radius:28px}.offer{padding:22px}}
   </style>
 </head>
 <body>
-<header class="site-header">
-  <div class="container nav">
-    <a class="brand" href="index.html" aria-label="Stir Slay Spill home"><span class="brand-mark">✦</span><span>Stir · Slay · Spill</span></a>
-    <button class="menu-btn" aria-expanded="false" aria-label="Open navigation">Menu</button>
-    <nav class="nav-links" aria-label="Primary navigation">
-      <a href="index.html" aria-current="page">Home</a><a href="blog.html">Blog</a><a href="reactions.html">Reactions</a><a href="shop.html">Shop</a><a href="#massage">Massage</a>
-    </nav>
-  </div>
-</header>
-<main>
-  <section class="hero">
-    <div class="container hero-grid">
-      <div>
-        <span class="eyebrow">New creator era ✦</span>
-        <h1>Stir. <em>Slay.</em> Spill.</h1>
-        <p class="lede">Cooking experiments, makeup obsessions, and the kind of Love Island commentary you send your best friend at 1 a.m.</p>
-        <div class="hero-actions"><a class="button button-dark" href="reactions.html">Watch the reactions →</a><a class="button button-light" href="blog.html">Read the blog</a></div>
-        <div class="hero-note"><span class="dot"></span><span>Built as the home base for YouTube, blog posts, services and future merch.</span></div>
-      </div>
-      <div class="creator-gallery" aria-label="Photo gallery">
-        <span class="gallery-label">3-photo gallery ✦</span>
-        <figure><img src="assets/gallery-1.webp" alt="Portrait photo" loading="eager"></figure>
-        <figure><img src="assets/gallery-2.webp" alt="Outdoor portrait photo" loading="eager"></figure>
-        <figure><img src="assets/gallery-3.webp" alt="Portrait photo indoors" loading="eager"></figure>
-      </div>
-    </div>
-  </section>
-  <div class="ticker" aria-hidden="true"><div class="container ticker-track"><span>Cook with me</span><span>GRWM</span><span>Love Island reactions</span><span>Hot takes</span><span>Massage therapy</span><span>Beauty notes</span></div></div>
-  <section class="section">
-    <div class="container">
-      <div class="section-head"><div><div class="kicker">Three moods, one channel</div><h2>What we’re doing here.</h2></div><p class="section-copy">No single-niche pressure. The whole point is personality: food when she feels like cooking, beauty when she feels like getting ready, and reality-TV chaos whenever it deserves commentary.</p></div>
-      <div class="grid-3">
-        <article class="card color-card peach"><div class="icon-big">🍳</div><div><div class="mini">Kitchen</div><h3>Recipes that actually look fun to make.</h3><p>Easy dinners, comfort food, little experiments and the occasional “I made this from whatever was in the fridge.”</p><a class="card-link" href="blog.html">See food posts →</a></div></article>
-        <article class="card color-card lav"><div class="icon-big">💄</div><div><div class="mini">Beauty</div><h3>Makeup, GRWMs & honest favorites.</h3><p>Looks worth recreating, products that earned a spot in the bag, and getting ready while talking about absolutely everything.</p><a class="card-link" href="blog.html">See beauty posts →</a></div></article>
-        <article class="card color-card lime"><div class="icon-big">🏝️</div><div><div class="mini">Reality TV</div><h3>Because somebody has to say it.</h3><p>Love Island reactions, recoupling predictions, chemistry rankings and the moments that require an immediate group-chat debrief.</p><a class="card-link" href="reactions.html">Go to reactions →</a></div></article>
-      </div>
-    </div>
-  </section>
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <span class="eyebrow">Massage Therapy · Tel Aviv</span>
+          <h1>היי, אני אלישה בייקר</h1>
+          <p class="intro">מסאג׳יסטית בת 25. הגעתי מארצות הברית וכעת אני מקבלת בתל אביב.</p>
+          <div class="details">
+            <span class="pill">הרפיה</span>
+            <span class="pill">שחרור לחצים</span>
+            <span class="pill">תל אביב</span>
+          </div>
+          <a class="cta" href="https://t.me/alishabecker3344" target="_blank" rel="noopener noreferrer">לפרטים וקביעת טיפול בטלגרם</a>
+        </div>
 
-  <section class="section-tight" id="massage">
-    <div class="container massage-panel">
-      <div>
-        <div class="kicker">Massage therapy</div>
-        <h2>Book a 2-hour session.</h2>
-        <p>Massage therapy sessions are available by booking. For the full massage menu and appointment details, contact <strong>@alishabecker3344</strong>.</p>
+        <div class="gallery" aria-label="גלריית תמונות">
+          <figure class="photo one"><img src="assets/gallery-1.webp" alt="תמונה של אלישה" loading="eager"><span class="face-blur" aria-hidden="true"></span></figure>
+          <figure class="photo two"><img src="assets/gallery-2.webp" alt="תמונה של אלישה" loading="eager"><span class="face-blur" aria-hidden="true"></span></figure>
+          <figure class="photo three"><img src="assets/gallery-3.webp" alt="תמונה של אלישה" loading="eager"><span class="face-blur" aria-hidden="true"></span></figure>
+        </div>
       </div>
-      <div class="massage-offer">
-        <div class="label">Massage therapy</div>
-        <div class="price">1200</div>
-        <div class="duration">for two hours</div>
-        <div class="massage-payments"><span>Bit app</span><span>Crypto</span></div>
-        <div class="massage-contact"><span>Full menu & booking</span><strong>@alishabecker3344</strong></div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="section-tight">
-    <div class="container feature">
-      <div class="feature-copy"><div class="kicker">YouTube reaction channel</div><h2>The villa has entered the chat.</h2><p>Use this section for the newest reaction video as soon as the YouTube channel is connected. The structure is ready for episode recaps, hot takes, watch-alongs and Shorts.</p><div class="hero-actions"><a class="button button-light" href="reactions.html">Explore reaction ideas</a></div></div>
-      <div class="tv-card"><div class="tv-screen"><span class="play">▶</span></div><div class="tv-meta"><span>Latest reaction</span><span>Channel link coming soon</span></div></div>
-    </div>
-  </section>
-  <section class="section"><div class="container"><div class="quote"><p>“Cooking. Makeup. And, yes, probably way too much Love Island.”</p><small>The brand in one sentence.</small></div></div></section>
-  <section class="section-tight">
-    <div class="container">
-      <div class="section-head"><div><div class="kicker">First merch concepts</div><h2>Wear the inside jokes.</h2></div><a class="button button-light" href="shop.html">See the shop →</a></div>
-      <div class="shop-strip">
-        <article class="card product"><div class="product-art">☕</div><div class="product-body"><span class="badge">Coming soon</span><h3>Spill The Tea Mug</h3><div class="price-row"><span>Reaction-night essential</span><strong>—</strong></div></div></article>
-        <article class="card product"><div class="product-art">👕</div><div class="product-body"><span class="badge">Coming soon</span><h3>Snack. Slay. Repeat. Tee</h3><div class="price-row"><span>Oversized creator tee</span><strong>—</strong></div></div></article>
-        <article class="card product"><div class="product-art">👜</div><div class="product-body"><span class="badge">Coming soon</span><h3>After The Recoupling Tote</h3><div class="price-row"><span>For very serious opinions</span><strong>—</strong></div></div></article>
+    <section class="about">
+      <div class="wrap card">
+        <div>
+          <h2>רגע לעצור ולהירגע.</h2>
+          <p>אם אתם מחפשים רגע של רוגע, הרפיה ושחרור לחצים מהשגרה, אשמח להציע לכם את השירותים שלי באווירה נעימה, רגועה ודיסקרטית.</p>
+        </div>
+        <div class="offer">
+          <small>טיפול של שעתיים</small>
+          <div class="price">1,200 ₪</div>
+          <div class="time">שעתיים</div>
+          <div class="payment">תשלום מתבצע באפליקציית <span>Bit בלבד</span></div>
+          <a class="cta" href="https://t.me/alishabecker3344" target="_blank" rel="noopener noreferrer">צרו איתי קשר בטלגרם</a>
+        </div>
       </div>
-    </div>
-  </section>
-  <section class="section">
-    <div class="container newsletter">
-      <div><div class="kicker" style="color:#ffd9e5">No spam, just the good stuff</div><h2 style="margin:.25rem 0 0">Get the next post, reaction or drop.</h2><p>Demo signup for now — connect it to Mailchimp, Beehiiv or ConvertKit before launch.</p></div>
-      <form class="newsletter-form" data-newsletter><input type="email" aria-label="Email address" placeholder="you@example.com" required><button type="submit">Join the list</button></form>
-    </div>
-  </section>
-</main>
-<footer class="site-footer"><div class="container"><div class="footer-grid"><div><a class="brand" href="index.html"><span class="brand-mark">✦</span><span>Stir · Slay · Spill</span></a><p class="footer-note">Cooking, makeup, reality-TV reactions and massage therapy.</p></div><nav class="footer-nav"><a href="blog.html">Blog</a><a href="reactions.html">YouTube</a><a href="shop.html">Merch</a><a href="#massage">Massage</a></nav></div><p class="footer-note">© 2026 Stir · Slay · Spill.</p></div></footer>
-<script src="script.js"></script>
+    </section>
+  </main>
+  <footer>אלישה בייקר · תל אביב</footer>
 </body>
 </html>
