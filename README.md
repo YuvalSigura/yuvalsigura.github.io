@@ -1,14 +1,23 @@
 # Stir · Slay · Spill
 
-Creator website for a cooking, makeup and reality-TV reaction brand.
+Creator website for a cooking, makeup and Love Island / reality-TV reaction brand.
+
+## Live site
+https://yuvalsigura.github.io/
 
 ## Pages
-- `index.html` — landing page
-- `blog.html` — sample food / makeup / Love Island posts
-- `reactions.html` — YouTube reaction-channel hub
-- `shop.html` — merch concepts / future store links
-- `assets/portrait.webp` — optimized creator portrait
-- `styles.css` / `script.js` — shared styling and mobile navigation
+- `index.html` — creator landing page
+- `blog.html` — cooking, makeup and Love Island starter content
+- `reactions.html` — YouTube reaction-channel hub and repeatable show formats
+- `shop.html` — merch concepts ready for a future print-on-demand store
+- `assets/creator.webp` — optimized creator photo
+- `styles.css` / `script.js` — shared responsive styling and navigation
 
-## Before public launch
-Replace the placeholder contact address, connect the real YouTube/social profiles, choose the final creator/brand name, and wire merch links to the chosen commerce platform.
+## Still needed for the public launch
+- final creator name / brand approval
+- real YouTube, TikTok and Instagram URLs
+- real contact email if desired
+- print-on-demand/store provider and product links
+- optional custom domain
+
+No fake social, checkout or YouTube links are used in the current build.
