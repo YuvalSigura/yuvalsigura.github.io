@@ -8,12 +8,15 @@ const names={discrete:"בדידה 2",systems:"מבוא למערכות מחשב"}
 const $=id=>document.getElementById(id), shuffle=a=>[...a].sort(()=>Math.random()-.5);
 let state=JSON.parse(localStorage.getItem("examRecallV2")||'{"right":0,"wrong":0,"streak":0,"items":{},"chains":{},"timing":{"fast":0,"normal":0,"slow":0,"samples":[]}}');
 state.timing??={fast:0,normal:0,slow:0,samples:[]};
+state.sessions??=[];
+for(const v of Object.values(state.items||{})){if(v.everWeak===undefined)v.everWeak=(v.wrong||0)>0;}
 let appMode="warmup",current=null,locked=false,chain=null,chainStep=0,chainMistakes=0;
 let sessionStarted=false,questionStartedAt=0,firstAttemptRecorded=false,timerHandle=null;
+let sessionSnapshot=null;
 
 function save(){localStorage.setItem("examRecallV2",JSON.stringify(state))}
-function stat(id){return state.items[id]||{right:0,wrong:0}}
-function weakness(id){const s=stat(id);return s.wrong-s.right}
+function stat(id){return state.items[id]||{right:0,wrong:0,everWeak:false}}
+function weakness(id){return !!stat(id).everWeak}
 const TIME_LIMITS={
  definition:{fast:8,normal:20},classification:{fast:8,normal:20},recognition:{fast:10,normal:25},
  formula:{fast:12,normal:30},first_step:{fast:12,normal:30},concept:{fast:15,normal:35},
@@ -52,7 +55,7 @@ function renderStats(){
  $("weakStat").textContent=allEasy().filter(q=>weakness(q.id)>0).length;
  $("fastStat").textContent=state.timing.fast||0;$("normalStat").textContent=state.timing.normal||0;$("slowStat").textContent=state.timing.slow||0;
  const sm=state.timing.samples||[];$("avgStat").textContent=sm.length?(sm.reduce((a,x)=>a+x.seconds,0)/sm.length).toFixed(1):"—";
- renderDiagnostics();
+ renderDiagnostics();renderTopicStats();
 }
 function renderDiagnostics(){
  const map={};
@@ -67,6 +70,42 @@ function renderDiagnostics(){
  const rows=Object.entries(map).filter(([,v])=>v.errors>0||v.slow>0).sort((a,b)=>(b[1].errors*3+b[1].slow)-(a[1].errors*3+a[1].slow)).slice(0,8);
  $("diagnosticList").innerHTML=rows.length?rows.map(([topic,v])=>'<div class="diag-item"><div><b>'+topic+'</b><small>'+names[v.course]+' · '+(v.samples?("ממוצע "+(v.total/v.samples).toFixed(1)+" שנ׳"):"אין עדיין מדידת זמן")+'</small></div><div class="diag-badges">'+(v.errors?'<span class="mini err">'+v.errors+' טעויות</span>':'')+(v.slow?'<span class="mini slow">'+v.slow+' איטי</span>':'')+'</div></div>').join(""):'<p class="muted">עדיין אין חולשות מאובחנות. לחץ התחל וענה על כמה שאלות.</p>';
 }
+
+function renderTopicStats(){
+ const map={};
+ for(const q of allEasy()){
+  const s=stat(q.id); if(!map[q.topic])map[q.topic]={course:q.course,right:0,wrong:0,weak:0,slow:0,time:0,samples:0};
+  map[q.topic].right+=s.right||0;map[q.topic].wrong+=s.wrong||0;if(s.everWeak)map[q.topic].weak++;
+ }
+ for(const x of state.timing.samples||[]){
+  if(!map[x.topic])map[x.topic]={course:x.course,right:0,wrong:0,weak:0,slow:0,time:0,samples:0};
+  map[x.topic].samples++;map[x.topic].time+=x.seconds;if(x.cls==="slow")map[x.topic].slow++;
+ }
+ const rows=Object.entries(map).filter(([,v])=>v.right+v.wrong+v.samples>0).sort((a,b)=>(b[1].wrong+b[1].slow)-(a[1].wrong+a[1].slow));
+ $("statsByTopic").innerHTML=rows.length?rows.map(([topic,v])=>{
+  const attempts=v.right+v.wrong,acc=attempts?Math.round(100*v.right/attempts):0,avg=v.samples?(v.time/v.samples).toFixed(1):"—";
+  return '<div class="diag-item"><div><b>'+topic+'</b><small>'+names[v.course]+' · דיוק '+acc+'% · זמן ממוצע '+avg+' שנ׳</small></div><div class="diag-badges"><span class="mini">'+v.right+' נכון</span><span class="mini err">'+v.wrong+' טעויות</span>'+(v.weak?'<span class="mini err">'+v.weak+' כרטיסים חלשים</span>':'')+(v.slow?'<span class="mini slow">'+v.slow+' איטי</span>':'')+'</div></div>';
+ }).join(""):'<p class="muted">עוד אין מספיק נתונים. התחל סשן.</p>';
+}
+function beginSession(){
+ sessionSnapshot={startedAt:Date.now(),right:state.right||0,wrong:state.wrong||0,fast:state.timing.fast||0,normal:state.timing.normal||0,slow:state.timing.slow||0};
+}
+function finishSession(){
+ stopClock();sessionStarted=false;
+ const snap=sessionSnapshot||{startedAt:Date.now(),right:state.right||0,wrong:state.wrong||0,fast:state.timing.fast||0,normal:state.timing.normal||0,slow:state.timing.slow||0};
+ const rec={startedAt:snap.startedAt,endedAt:Date.now(),right:(state.right||0)-snap.right,wrong:(state.wrong||0)-snap.wrong,fast:(state.timing.fast||0)-snap.fast,normal:(state.timing.normal||0)-snap.normal,slow:(state.timing.slow||0)-snap.slow};
+ state.sessions.push(rec);if(state.sessions.length>100)state.sessions=state.sessions.slice(-100);save();renderStats();
+ $("sessionSummaryBody").innerHTML='<div class="summary-grid"><div class="summary-box"><b>'+rec.right+'</b><span>נכונות</span></div><div class="summary-box"><b>'+rec.wrong+'</b><span>טעויות</span></div><div class="summary-box"><b>'+rec.slow+'</b><span>איטיות</span></div><div class="summary-box"><b>'+Math.round((rec.endedAt-rec.startedAt)/60000)+'</b><span>דקות</span></div></div><p class="summary-weak">כל שאלה שטעית בה נשארת מסומנת כחלשה גם לאחר שתיקנת אותה.</p>';
+ $("sessionSummary").classList.remove("hidden");$("warmupView").classList.add("hidden");$("chainCard").classList.add("hidden");$("startGate").classList.remove("hidden");sessionSnapshot=null;
+}
+function exportProgress(){
+ const blob=new Blob([JSON.stringify({version:3,exportedAt:new Date().toISOString(),state},null,2)],{type:"application/json"});
+ const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="exam-recall-progress.json";a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500);
+}
+function importProgress(file){
+ const reader=new FileReader();reader.onload=()=>{try{const data=JSON.parse(reader.result);const incoming=data.state||data;if(!incoming.items||!incoming.timing)throw new Error();state=incoming;state.sessions??=[];for(const v of Object.values(state.items||{})){if(v.everWeak===undefined)v.everWeak=(v.wrong||0)>0;}save();renderStats();alert("ההתקדמות יובאה בהצלחה.");}catch(e){alert("קובץ התקדמות לא תקין.");}};reader.readAsText(file);
+}
+
 function rebuildTopics(){
  const c=$("course").value; const src=appMode==="exam"?CHAINS:allEasy();
  const topics=[...new Set(src.filter(q=>c==="all"||q.course===c).map(q=>q.topic))].sort();
@@ -94,10 +133,10 @@ function answerWarm(btn,opt,opts){
  const timing=recordTiming(current.id,current.course,current.topic,current.type,false);
  if(timing){$("wSpeed").className="speed "+timing.cls;$("wSpeed").textContent=speedLabel(timing.cls)+" · "+timing.seconds.toFixed(1)+" שנ׳";}
  if(!opt.correct){
-   state.wrong++;state.streak=0;state.items[current.id]??={right:0,wrong:0};state.items[current.id].wrong++;save();renderStats();
+   state.wrong++;state.streak=0;state.items[current.id]??={right:0,wrong:0,everWeak:false};state.items[current.id].wrong++;state.items[current.id].everWeak=true;save();renderStats();
    btn.classList.add("wrong");btn.disabled=true;$("wFeedback").className="feedback bad";$("wFeedbackTitle").textContent="✗ נסה שוב";$("wFeedbackText").textContent=opt.why||"בדוק שוב את ההבדל בין האפשרויות.";return;
  }
- locked=true;stopClock();state.right++;state.streak++;state.items[current.id]??={right:0,wrong:0};state.items[current.id].right++;save();renderStats();
+ locked=true;stopClock();state.right++;state.streak++;state.items[current.id]??={right:0,wrong:0,everWeak:false};state.items[current.id].right++;save();renderStats();
  [...$("wOptions").children].forEach(b=>b.disabled=true);btn.classList.add("correct");$("wFeedback").className="feedback good";$("wFeedbackTitle").textContent="✓ נכון";$("wFeedbackText").textContent=current.why||"יפה — הזיהוי נכון.";$("wNext").classList.remove("hidden");
 }
 function chainPool(){const c=$("course").value,t=$("topic").value;return CHAINS.filter(q=>(c==="all"||q.course===c)&&(t==="all"||q.topic===t))}
@@ -107,6 +146,7 @@ function renderChainPicker(){
  if(!p.length){$("examEmpty").textContent=$("course").value==="systems"?"כרגע אין שרשראות מבוא שיכולתי לאמת מטקסט PDF נגיש ב-Notion. לא המצאתי stems. ה-Warm-up של מבוא פעיל ומלא בנושאי דף הנוסחאות.":"אין שרשראות במסנן הזה כרגע."}
 }
 function startChain(){
+ if(!sessionSnapshot)beginSession();
  chain=CHAINS.find(c=>c.chain_id===$("chainSelect").value);if(!chain)return;chainStep=0;chainMistakes=0;$("chainCard").classList.remove("hidden");$("chainDone").classList.add("hidden");renderChainStep();
 }
 function renderChainStep(){
@@ -135,7 +175,8 @@ function setMode(m){
 }
 document.querySelectorAll(".mode").forEach(b=>b.onclick=()=>setMode(b.dataset.mode));
 $("course").onchange=()=>{rebuildTopics();appMode==="exam"?renderChainPicker():renderWarm()};$("topic").onchange=()=>appMode==="exam"?renderChainPicker():renderWarm();$("kind").onchange=renderWarm;
-$("startSessionBtn").onclick=()=>{sessionStarted=true;$("startGate").classList.add("hidden");renderWarm()};
-$("wNext").onclick=renderWarm;$("startChain").onclick=startChain;$("chainNext").onclick=nextChainStep;$("anotherChain").onclick=renderChainPicker;
-$("resetBtn").onclick=()=>{if(confirm("לאפס את כל ההתקדמות באתר?")){state={right:0,wrong:0,streak:0,items:{},chains:{},timing:{fast:0,normal:0,slow:0,samples:[]}};save();renderStats();sessionStarted=false;stopClock();$("startGate").classList.remove("hidden");$("warmupView").classList.add("hidden");appMode==="exam"?renderChainPicker():null}};
+$("startSessionBtn").onclick=()=>{sessionStarted=true;beginSession();$("startGate").classList.add("hidden");renderWarm()};
+$("wNext").onclick=renderWarm;$("finishWarmBtn").onclick=finishSession;$("finishExamBtn").onclick=finishSession;$("startChain").onclick=startChain;$("chainNext").onclick=nextChainStep;$("anotherChain").onclick=renderChainPicker;
+$("exportBtn").onclick=exportProgress;$("importInput").onchange=e=>{if(e.target.files&&e.target.files[0])importProgress(e.target.files[0]);e.target.value=""};$("closeSummaryBtn").onclick=()=>{$("sessionSummary").classList.add("hidden");};
+$("resetBtn").onclick=()=>{if(confirm("לאפס את כל ההתקדמות באתר?")){state={right:0,wrong:0,streak:0,items:{},chains:{},timing:{fast:0,normal:0,slow:0,samples:[]},sessions:[]};save();renderStats();sessionStarted=false;stopClock();$("startGate").classList.remove("hidden");$("warmupView").classList.add("hidden");appMode==="exam"?renderChainPicker():null}};
 renderStats();rebuildTopics();$("warmupView").classList.add("hidden");
