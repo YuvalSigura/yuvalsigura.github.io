@@ -1,82 +1,57 @@
 <!doctype html>
 <html lang="he" dir="rtl">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Exam Recall — התאמת מושגים</title>
-<meta name="description" content="משחק אמריקאי אינטראקטיבי לזכירת הגדרות למבחנים.">
-<meta name="theme-color" content="#0b1020">
-<link rel="stylesheet" href="styles.css">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Exam Recall — Warm-up + Exam Chains</title>
+<meta name="description" content="חימום אמריקאי, חלשים בלבד ושרשראות מבחן אמיתיות לבדידה 2 ולמבוא למערכות מחשב.">
+<meta name="theme-color" content="#090d18"><link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<header class="top">
-  <div class="wrap top-row">
-    <div>
-      <span class="eyebrow">EXAM RECALL · EASY MODE</span>
-      <h1>איזו הגדרה מתאימה?</h1>
-      <p>לא צריך לזכור בעל־פה עדיין. קודם לומדים לזהות נכון שוב ושוב.</p>
-    </div>
-    <button id="resetBtn" class="link-btn">איפוס</button>
-  </div>
-</header>
+<header class="top"><div class="wrap top-row">
+<div><span class="eyebrow">EXAM RECALL</span><h1>לזכור. לזהות. לפתור.</h1><p>חימום קל → תיקון חולשות → שרשראות ממבחני עבר.</p></div>
+<button id="resetBtn" class="ghost">איפוס התקדמות</button>
+</div></header>
 
 <main class="wrap">
-  <section class="scorebar">
-    <div><b id="score">0</b><span>נכון</span></div>
-    <div><b id="wrong">0</b><span>טעויות</span></div>
-    <div><b id="streak">0</b><span>רצף</span></div>
-    <div><b id="mastered">0</b><span>כבר מוכרים</span></div>
-  </section>
+<nav class="modes" aria-label="מצב תרגול">
+<button class="mode active" data-mode="warmup">🔥 Warm-up</button>
+<button class="mode" data-mode="weak">🎯 חלשים בלבד</button>
+<button class="mode" data-mode="exam">🧪 Exam-chain</button>
+</nav>
 
-  <section class="panel filters">
-    <label>מקצוע
-      <select id="course">
-        <option value="discrete">בדידה 2</option>
-        <option value="systems">מבוא למערכות מחשב</option>
-        <option value="all">שני המקצועות</option>
-      </select>
-    </label>
-    <label>נושא
-      <select id="topic"><option value="all">🎲 ערבוב — כל הנושאים</option></select>
-    </label>
-    <label>מצב
-      <select id="mode">
-        <option value="all">כל ההגדרות</option>
-        <option value="weak">רק מה שאני טועה בו</option>
-        <option value="unseen">עוד לא נשאלתי</option>
-      </select>
-    </label>
-  </section>
+<section class="stats">
+<div><b id="rightStat">0</b><span>נכונות</span></div><div><b id="wrongStat">0</b><span>טעויות</span></div>
+<div><b id="streakStat">0</b><span>רצף</span></div><div><b id="weakStat">0</b><span>חלשים</span></div>
+</section>
 
-  <section class="quiz panel">
-    <div class="quiz-head">
-      <div class="badges">
-        <span id="courseBadge" class="badge"></span>
-        <span id="topicBadge" class="badge soft"></span>
-      </div>
-      <span id="progressText" class="muted"></span>
-    </div>
+<section class="panel filters">
+<label>מקצוע<select id="course"><option value="discrete">בדידה 2</option><option value="systems">מבוא למערכות מחשב</option><option value="all">שני המקצועות</option></select></label>
+<label>נושא<select id="topic"><option value="all">🎲 ערבוב — כל הנושאים</option></select></label>
+<label id="kindWrap">סוג<select id="kind"><option value="all">הכול</option><option value="definition">הגדרות</option><option value="classification">סיווג</option><option value="recognition">זיהוי</option><option value="formula">נוסחאות</option><option value="first_step">צעד ראשון</option><option value="concept">מושגים</option></select></label>
+</section>
 
-    <p class="prompt">בחר את ההגדרה הנכונה למושג:</p>
-    <h2 id="term">טוען…</h2>
+<section id="warmupView" class="panel quiz">
+<div class="quiz-head"><div class="badges"><span id="wCourse" class="badge"></span><span id="wTopic" class="badge soft"></span><span id="wType" class="badge soft"></span></div><span id="wCount" class="muted"></span></div>
+<p class="prompt">בחר תשובה. מתקדמים רק אחרי תשובה נכונה.</p><h2 id="wPrompt">טוען…</h2>
+<div id="wOptions" class="options"></div>
+<div id="wFeedback" class="feedback hidden"><strong id="wFeedbackTitle"></strong><p id="wFeedbackText"></p></div>
+<button id="wNext" class="next hidden">המשך ←</button>
+</section>
 
-    <div id="options" class="options"></div>
+<section id="examView" class="hidden">
+<section class="panel chain-picker"><div><span class="eyebrow">EXAM CHAIN</span><h3>בחר שרשרת מבחן</h3></div><select id="chainSelect"></select><button id="startChain" class="primary">התחל שרשרת</button></section>
+<section id="chainCard" class="panel quiz hidden">
+<div class="chain-progress"><span id="chainTitle"></span><b id="chainProgress"></b></div>
+<div class="stem"><small>גזע מבחן אמיתי</small><p id="chainStem"></p></div>
+<h2 id="chainPrompt"></h2><div id="chainOptions" class="options"></div>
+<div id="chainFeedback" class="feedback hidden"><strong id="chainFeedbackTitle"></strong><p id="chainFeedbackText"></p></div>
+<button id="chainNext" class="next hidden">לשלב הבא ←</button>
+<div id="chainDone" class="done hidden"><h3>✓ השרשרת הושלמה</h3><p id="chainSummary"></p><button id="anotherChain" class="primary">שרשרת נוספת</button></div>
+</section>
+<section id="examEmpty" class="panel notice hidden"></section>
+</section>
 
-    <div id="feedback" class="feedback hidden">
-      <strong id="feedbackTitle"></strong>
-      <p id="feedbackText"></p>
-    </div>
-
-    <button id="nextBtn" class="next hidden">השאלה הבאה ←</button>
-  </section>
-
-  <section class="panel explainer">
-    <h3>איך ללמוד כאן</h3>
-    <p>אל תנסה לשנן בכוח. תבחר. אם טעית — תסתכל על ההבדל בין ההגדרות. אותו מושג יחזור שוב בהמשך, ובמצב “רק מה שאני טועה בו” האתר ירכז לך את החולשות.</p>
-  </section>
+<section class="panel memory"><h3>עיקרון האתר</h3><p>טעות לא מקדמת. אתה מקבל משוב קצר, מנסה שוב, והפספוס נכנס ל״חלשים בלבד״. ב-Warm-up השאלות גנריות וקצרות; ב-Exam-chain הגזע מגיע ממבחן אמיתי בלבד.</p></section>
 </main>
-
-<footer class="wrap footer">ההתקדמות נשמרת בדפדפן שלך בלבד.</footer>
-<script src="script.js"></script>
-</body>
-</html>
+<footer class="wrap footer">התקדמות נשמרת מקומית בדפדפן · Exam Recall</footer>
+<script src="script.js"></script></body></html>
