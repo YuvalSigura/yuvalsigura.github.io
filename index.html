@@ -9,7 +9,11 @@
 <body>
 <header class="top"><div class="wrap top-row">
 <div><span class="eyebrow">EXAM RECALL</span><h1>לזכור. לזהות. לפתור.</h1><p>חימום קל → תיקון חולשות → שרשראות ממבחני עבר.</p></div>
+<div class="top-actions">
+<button id="exportBtn" class="ghost">ייצוא התקדמות</button>
+<label class="ghost import-label">ייבוא התקדמות<input id="importInput" type="file" accept="application/json,.json" hidden></label>
 <button id="resetBtn" class="ghost">איפוס התקדמות</button>
+</div>
 </div></header>
 
 <main class="wrap">
@@ -44,7 +48,7 @@
 <p class="prompt">בחר תשובה. מתקדמים רק אחרי תשובה נכונה.</p><h2 id="wPrompt">טוען…</h2>
 <div id="wOptions" class="options"></div>
 <div id="wFeedback" class="feedback hidden"><strong id="wFeedbackTitle"></strong><p id="wFeedbackText"></p></div>
-<button id="wNext" class="next hidden">המשך ←</button>
+<div class="session-actions"><button id="finishWarmBtn" class="finish">סיים ושמור</button><button id="wNext" class="next hidden">המשך ←</button></div>
 </section>
 
 <section id="examView" class="hidden">
@@ -56,12 +60,20 @@
 <div class="stem"><small>גזע מבחן אמיתי</small><p id="chainStem"></p></div>
 <h2 id="chainPrompt"></h2><div id="chainOptions" class="options"></div>
 <div id="chainFeedback" class="feedback hidden"><strong id="chainFeedbackTitle"></strong><p id="chainFeedbackText"></p></div>
-<button id="chainNext" class="next hidden">לשלב הבא ←</button>
+<div class="session-actions"><button id="finishExamBtn" class="finish">סיים ושמור</button><button id="chainNext" class="next hidden">לשלב הבא ←</button></div>
 <div id="chainDone" class="done hidden"><h3>✓ השרשרת הושלמה</h3><p id="chainSummary"></p><button id="anotherChain" class="primary">שרשרת נוספת</button></div>
 </section>
 <section id="examEmpty" class="panel notice hidden"></section>
 </section>
 
+<section id="statsDetail" class="panel">
+<div class="diag-head"><div><span class="eyebrow">STATISTICS</span><h3>סטטיסטיקה מצטברת</h3></div><span class="muted">נשמרת בדפדפן וניתנת לייצוא</span></div>
+<div id="statsByTopic" class="diag-list"></div>
+</section>
+<section id="sessionSummary" class="panel session-summary hidden">
+<span class="eyebrow">SESSION SAVED</span><h3>סיכום הסשן</h3><div id="sessionSummaryBody"></div>
+<button id="closeSummaryBtn" class="primary">חזרה להתחלה</button>
+</section>
 <section class="panel diagnostics">
 <div class="diag-head"><div><span class="eyebrow">DIAGNOSIS</span><h3>מה חלש / איטי כרגע</h3></div><span class="muted">מבוסס על טעויות + זמני תגובה</span></div>
 <div id="diagnosticList" class="diag-list"></div>
