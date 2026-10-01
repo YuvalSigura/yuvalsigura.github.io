@@ -6,12 +6,40 @@ const CHAINS=[{"chain_id":"disc-2024b-adj","course":"discrete","topic":"צמיד
 
 const names={discrete:"בדידה 2",systems:"מבוא למערכות מחשב"};
 const $=id=>document.getElementById(id), shuffle=a=>[...a].sort(()=>Math.random()-.5);
-let state=JSON.parse(localStorage.getItem("examRecallV2")||'{"right":0,"wrong":0,"streak":0,"items":{},"chains":{}}');
+let state=JSON.parse(localStorage.getItem("examRecallV2")||'{"right":0,"wrong":0,"streak":0,"items":{},"chains":{},"timing":{"fast":0,"normal":0,"slow":0,"samples":[]}}');
+state.timing??={fast:0,normal:0,slow:0,samples:[]};
 let appMode="warmup",current=null,locked=false,chain=null,chainStep=0,chainMistakes=0;
+let sessionStarted=false,questionStartedAt=0,firstAttemptRecorded=false,timerHandle=null;
 
 function save(){localStorage.setItem("examRecallV2",JSON.stringify(state))}
 function stat(id){return state.items[id]||{right:0,wrong:0}}
 function weakness(id){const s=stat(id);return s.wrong-s.right}
+const TIME_LIMITS={
+ definition:{fast:8,normal:20},classification:{fast:8,normal:20},recognition:{fast:10,normal:25},
+ formula:{fast:12,normal:30},first_step:{fast:12,normal:30},concept:{fast:15,normal:35},
+ exam:{fast:25,normal:60}
+};
+function elapsed(){return questionStartedAt?Math.max(0,(performance.now()-questionStartedAt)/1000):0}
+function fmt(sec){sec=Math.floor(sec);return String(Math.floor(sec/60)).padStart(2,"0")+":"+String(sec%60).padStart(2,"0")}
+function timingClass(type,seconds,isExam=false){
+ const lim=isExam?TIME_LIMITS.exam:(TIME_LIMITS[type]||TIME_LIMITS.concept);
+ return seconds<=lim.fast?"fast":seconds<=lim.normal?"normal":"slow";
+}
+function speedLabel(c){return c==="fast"?"⚡ מהיר":c==="normal"?"✓ נורמלי":"🐢 איטי"}
+function startClock(timerId,speedId){
+ clearInterval(timerHandle);questionStartedAt=performance.now();firstAttemptRecorded=false;
+ $(timerId).textContent="00:00";$(speedId).className="speed neutral";$(speedId).textContent="ממתין לתשובה";
+ timerHandle=setInterval(()=>{$(timerId).textContent=fmt(elapsed())},250);
+}
+function stopClock(){clearInterval(timerHandle);timerHandle=null}
+function recordTiming(key,course,topic,type,isExam=false){
+ if(firstAttemptRecorded)return null;firstAttemptRecorded=true;
+ const seconds=elapsed(), cls=timingClass(type,seconds,isExam);
+ state.timing[cls]=(state.timing[cls]||0)+1;
+ state.timing.samples.push({key,course,topic,type,seconds:Math.round(seconds*10)/10,cls,at:Date.now()});
+ if(state.timing.samples.length>500)state.timing.samples=state.timing.samples.slice(-500);
+ save();return {seconds,cls};
+}
 function makeDefItem(q){
  let same=DEF_BANK.filter(x=>x.id!==q.id&&x.course===q.course&&x.topic===q.topic);
  if(same.length<3)same=same.concat(DEF_BANK.filter(x=>x.id!==q.id&&x.course===q.course&&!same.some(y=>y.id===x.id)));
@@ -22,6 +50,22 @@ function allEasy(){return [...DEF_BANK.map(makeDefItem),...EASY_EXTRA]}
 function renderStats(){
  $("rightStat").textContent=state.right||0;$("wrongStat").textContent=state.wrong||0;$("streakStat").textContent=state.streak||0;
  $("weakStat").textContent=allEasy().filter(q=>weakness(q.id)>0).length;
+ $("fastStat").textContent=state.timing.fast||0;$("normalStat").textContent=state.timing.normal||0;$("slowStat").textContent=state.timing.slow||0;
+ const sm=state.timing.samples||[];$("avgStat").textContent=sm.length?(sm.reduce((a,x)=>a+x.seconds,0)/sm.length).toFixed(1):"—";
+ renderDiagnostics();
+}
+function renderDiagnostics(){
+ const map={};
+ for(const q of allEasy()){
+   const s=stat(q.id); if(!map[q.topic])map[q.topic]={course:q.course,errors:0,slow:0,samples:0,total:0};
+   map[q.topic].errors+=s.wrong||0;
+ }
+ for(const x of state.timing.samples||[]){
+   if(!map[x.topic])map[x.topic]={course:x.course,errors:0,slow:0,samples:0,total:0};
+   map[x.topic].samples++;map[x.topic].total+=x.seconds;if(x.cls==="slow")map[x.topic].slow++;
+ }
+ const rows=Object.entries(map).filter(([,v])=>v.errors>0||v.slow>0).sort((a,b)=>(b[1].errors*3+b[1].slow)-(a[1].errors*3+a[1].slow)).slice(0,8);
+ $("diagnosticList").innerHTML=rows.length?rows.map(([topic,v])=>'<div class="diag-item"><div><b>'+topic+'</b><small>'+names[v.course]+' · '+(v.samples?("ממוצע "+(v.total/v.samples).toFixed(1)+" שנ׳"):"אין עדיין מדידת זמן")+'</small></div><div class="diag-badges">'+(v.errors?'<span class="mini err">'+v.errors+' טעויות</span>':'')+(v.slow?'<span class="mini slow">'+v.slow+' איטי</span>':'')+'</div></div>').join(""):'<p class="muted">עדיין אין חולשות מאובחנות. לחץ התחל וענה על כמה שאלות.</p>';
 }
 function rebuildTopics(){
  const c=$("course").value; const src=appMode==="exam"?CHAINS:allEasy();
@@ -34,6 +78,8 @@ function easyPool(){
  return allEasy().filter(q=>(c==="all"||q.course===c)&&(t==="all"||q.topic===t)&&(k==="all"||q.type===k)&&(appMode!=="weak"||weakness(q.id)>0));
 }
 function renderWarm(){
+ if(!sessionStarted){$("warmupView").classList.add("hidden");return}
+ $("warmupView").classList.remove("hidden");
  locked=false;$("wFeedback").className="feedback hidden";$("wNext").classList.add("hidden");
  const p=easyPool(); if(!p.length){$("wPrompt").textContent="אין כרגע שאלות במסנן הזה. נסה ערבוב או מצב Warm-up.";$("wOptions").innerHTML="";return}
  current=p[Math.floor(Math.random()*p.length)];
@@ -41,14 +87,17 @@ function renderWarm(){
  const opts=shuffle([{text:current.answer,correct:true,why:null},...(current.wrong||[]).map(x=>typeof x==="string"?{text:x,correct:false,why:"זו אפשרות שמתאימה למבנה אחר."}:{text:x.text,correct:false,why:x.why})]).slice(0,4);
  $("wOptions").innerHTML=opts.map((o,i)=>'<button class="option" data-i="'+i+'">'+o.text+'</button>').join("");
  [...$("wOptions").children].forEach((b,i)=>b.onclick=()=>answerWarm(b,opts[i],opts));
+ startClock("wTimer","wSpeed");
 }
 function answerWarm(btn,opt,opts){
  if(locked)return;
+ const timing=recordTiming(current.id,current.course,current.topic,current.type,false);
+ if(timing){$("wSpeed").className="speed "+timing.cls;$("wSpeed").textContent=speedLabel(timing.cls)+" · "+timing.seconds.toFixed(1)+" שנ׳";}
  if(!opt.correct){
    state.wrong++;state.streak=0;state.items[current.id]??={right:0,wrong:0};state.items[current.id].wrong++;save();renderStats();
    btn.classList.add("wrong");btn.disabled=true;$("wFeedback").className="feedback bad";$("wFeedbackTitle").textContent="✗ נסה שוב";$("wFeedbackText").textContent=opt.why||"בדוק שוב את ההבדל בין האפשרויות.";return;
  }
- locked=true;state.right++;state.streak++;state.items[current.id]??={right:0,wrong:0};state.items[current.id].right++;save();renderStats();
+ locked=true;stopClock();state.right++;state.streak++;state.items[current.id]??={right:0,wrong:0};state.items[current.id].right++;save();renderStats();
  [...$("wOptions").children].forEach(b=>b.disabled=true);btn.classList.add("correct");$("wFeedback").className="feedback good";$("wFeedbackTitle").textContent="✓ נכון";$("wFeedbackText").textContent=current.why||"יפה — הזיהוי נכון.";$("wNext").classList.remove("hidden");
 }
 function chainPool(){const c=$("course").value,t=$("topic").value;return CHAINS.filter(q=>(c==="all"||q.course===c)&&(t==="all"||q.topic===t))}
@@ -66,23 +115,27 @@ function renderChainStep(){
  const opts=shuffle([{text:s.answer,correct:true},...s.wrong.map(x=>({text:x,correct:false}))]);
  $("chainOptions").innerHTML=opts.map((o,i)=>'<button class="option" data-i="'+i+'">'+o.text+'</button>').join("");
  [...$("chainOptions").children].forEach((b,i)=>b.onclick=()=>answerChain(b,opts[i],s));
+ startClock("chainTimer","chainSpeed");
 }
 function answerChain(btn,opt,s){
  if(locked)return;
+ const timing=recordTiming(chain.chain_id+"#"+chainStep,chain.course,chain.topic,"exam",true);
+ if(timing){$("chainSpeed").className="speed "+timing.cls;$("chainSpeed").textContent=speedLabel(timing.cls)+" · "+timing.seconds.toFixed(1)+" שנ׳";}
  if(!opt.correct){chainMistakes++;state.wrong++;state.streak=0;state.chains[chain.chain_id]??={right:0,wrong:0};state.chains[chain.chain_id].wrong++;save();renderStats();btn.classList.add("wrong");btn.disabled=true;$("chainFeedback").className="feedback bad";$("chainFeedbackTitle").textContent="✗ עדיין לא";$("chainFeedbackText").textContent=s.hint;return}
- locked=true;state.right++;state.streak++;state.chains[chain.chain_id]??={right:0,wrong:0};state.chains[chain.chain_id].right++;save();renderStats();[...$("chainOptions").children].forEach(b=>b.disabled=true);btn.classList.add("correct");$("chainFeedback").className="feedback good";$("chainFeedbackTitle").textContent="✓ נכון";$("chainFeedbackText").textContent=s.explain;$("chainNext").classList.remove("hidden");
+ locked=true;stopClock();state.right++;state.streak++;state.chains[chain.chain_id]??={right:0,wrong:0};state.chains[chain.chain_id].right++;save();renderStats();[...$("chainOptions").children].forEach(b=>b.disabled=true);btn.classList.add("correct");$("chainFeedback").className="feedback good";$("chainFeedbackTitle").textContent="✓ נכון";$("chainFeedbackText").textContent=s.explain;$("chainNext").classList.remove("hidden");
 }
 function nextChainStep(){
  if(chainStep<chain.steps.length-1){chainStep++;renderChainStep();return}
  $("chainNext").classList.add("hidden");$("chainOptions").innerHTML="";$("chainPrompt").textContent="";$("chainFeedback").classList.add("hidden");$("chainDone").classList.remove("hidden");$("chainSummary").textContent=chain.summary+" טעויות בדרך: "+chainMistakes+".";
 }
 function setMode(m){
- appMode=m;document.querySelectorAll(".mode").forEach(b=>b.classList.toggle("active",b.dataset.mode===m));
+ stopClock();appMode=m;document.querySelectorAll(".mode").forEach(b=>b.classList.toggle("active",b.dataset.mode===m));
  $("warmupView").classList.toggle("hidden",m==="exam");$("examView").classList.toggle("hidden",m!=="exam");$("kindWrap").classList.toggle("hidden",m==="exam");
- rebuildTopics(); if(m==="exam")renderChainPicker();else renderWarm();
+ rebuildTopics(); if(m==="exam"){sessionStarted=true;$("startGate").classList.add("hidden");renderChainPicker();}else{sessionStarted=false;$("startGate").classList.remove("hidden");$("warmupView").classList.add("hidden");}
 }
 document.querySelectorAll(".mode").forEach(b=>b.onclick=()=>setMode(b.dataset.mode));
 $("course").onchange=()=>{rebuildTopics();appMode==="exam"?renderChainPicker():renderWarm()};$("topic").onchange=()=>appMode==="exam"?renderChainPicker():renderWarm();$("kind").onchange=renderWarm;
+$("startSessionBtn").onclick=()=>{sessionStarted=true;$("startGate").classList.add("hidden");renderWarm()};
 $("wNext").onclick=renderWarm;$("startChain").onclick=startChain;$("chainNext").onclick=nextChainStep;$("anotherChain").onclick=renderChainPicker;
-$("resetBtn").onclick=()=>{if(confirm("לאפס את כל ההתקדמות באתר?")){state={right:0,wrong:0,streak:0,items:{},chains:{}};save();renderStats();appMode==="exam"?renderChainPicker():renderWarm()}};
-renderStats();rebuildTopics();renderWarm();
+$("resetBtn").onclick=()=>{if(confirm("לאפס את כל ההתקדמות באתר?")){state={right:0,wrong:0,streak:0,items:{},chains:{},timing:{fast:0,normal:0,slow:0,samples:[]}};save();renderStats();sessionStarted=false;stopClock();$("startGate").classList.remove("hidden");$("warmupView").classList.add("hidden");appMode==="exam"?renderChainPicker():null}};
+renderStats();rebuildTopics();$("warmupView").classList.add("hidden");
