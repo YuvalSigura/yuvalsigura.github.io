@@ -9,12 +9,13 @@ const $=id=>document.getElementById(id), shuffle=a=>[...a].sort(()=>Math.random(
 let state=JSON.parse(localStorage.getItem("examRecallV2")||'{"right":0,"wrong":0,"streak":0,"items":{},"chains":{},"timing":{"fast":0,"normal":0,"slow":0,"samples":[]}}');
 state.timing??={fast:0,normal:0,slow:0,samples:[]};
 state.sessions??=[];
+state.updatedAt??=Date.now();
 for(const v of Object.values(state.items||{})){if(v.everWeak===undefined)v.everWeak=(v.wrong||0)>0;}
 let appMode="warmup",current=null,locked=false,chain=null,chainStep=0,chainMistakes=0;
 let sessionStarted=false,questionStartedAt=0,firstAttemptRecorded=false,timerHandle=null;
 let sessionSnapshot=null;
 
-function save(){localStorage.setItem("examRecallV2",JSON.stringify(state))}
+function save(){state.updatedAt=Date.now();localStorage.setItem("examRecallV2",JSON.stringify(state))}
 function stat(id){return state.items[id]||{right:0,wrong:0,everWeak:false}}
 function weakness(id){return !!stat(id).everWeak}
 const TIME_LIMITS={
@@ -71,6 +72,60 @@ function renderDiagnostics(){
  $("diagnosticList").innerHTML=rows.length?rows.map(([topic,v])=>'<div class="diag-item"><div><b>'+topic+'</b><small>'+names[v.course]+' · '+(v.samples?("ממוצע "+(v.total/v.samples).toFixed(1)+" שנ׳"):"אין עדיין מדידת זמן")+'</small></div><div class="diag-badges">'+(v.errors?'<span class="mini err">'+v.errors+' טעויות</span>':'')+(v.slow?'<span class="mini slow">'+v.slow+' איטי</span>':'')+'</div></div>').join(""):'<p class="muted">עדיין אין חולשות מאובחנות. לחץ התחל וענה על כמה שאלות.</p>';
 }
 
+
+const GH_OWNER="YuvalSigura",GH_REPO="yuvalsigura.github.io",GH_BRANCH="main",GH_PROGRESS_PATH="progress/progress.json",GH_TOKEN_KEY="examRecallGithubToken";
+function ghToken(){return localStorage.getItem(GH_TOKEN_KEY)||""}
+function setCloudStatus(text,kind=""){
+ const box=$("githubSync");if(!box)return;box.classList.remove("synced","error");if(kind)box.classList.add(kind);$("cloudStatus").textContent=text;
+}
+function b64encodeUnicode(str){return btoa(unescape(encodeURIComponent(str)))}
+function b64decodeUnicode(str){return decodeURIComponent(escape(atob(str.replace(/\n/g,""))))}
+async function ghRequest(url,opts={}){
+ const token=ghToken();if(!token)throw new Error("NO_TOKEN");
+ const headers={Accept:"application/vnd.github+json","X-GitHub-Api-Version":"2022-11-28",Authorization:"Bearer "+token,...(opts.headers||{})};
+ const res=await fetch(url,{...opts,headers});
+ if(!res.ok){const body=await res.text();const err=new Error("GitHub "+res.status);err.status=res.status;err.body=body;throw err}
+ return res.status===204?null:res.json();
+}
+function progressUrl(){return "https://api.github.com/repos/"+GH_OWNER+"/"+GH_REPO+"/contents/"+GH_PROGRESS_PATH+"?ref="+GH_BRANCH}
+async function getRemoteProgress(){
+ try{
+  const f=await ghRequest(progressUrl());
+  const parsed=JSON.parse(b64decodeUnicode(f.content));
+  return {state:parsed.state||parsed,sha:f.sha};
+ }catch(e){if(e.status===404)return {state:null,sha:null};throw e}
+}
+async function pushRemoteProgress(existingSha=null){
+ const body={message:"Update Exam Recall progress",content:b64encodeUnicode(JSON.stringify({version:4,savedAt:new Date().toISOString(),state},null,2)),branch:GH_BRANCH};
+ if(existingSha)body.sha=existingSha;
+ await ghRequest("https://api.github.com/repos/"+GH_OWNER+"/"+GH_REPO+"/contents/"+GH_PROGRESS_PATH,{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});
+ setCloudStatus("מסונכרן לריפו · "+new Date().toLocaleTimeString("he-IL"),"synced");
+}
+async function syncCloud(preferNewest=true){
+ if(!ghToken()){setCloudStatus("אין טוקן שמור במכשיר הזה");return false}
+ setCloudStatus("מסנכרן…");
+ try{
+  const remote=await getRemoteProgress();
+  if(remote.state&&preferNewest&&(remote.state.updatedAt||0)>(state.updatedAt||0)){
+   state=remote.state;state.sessions??=[];state.updatedAt??=Date.now();
+   for(const v of Object.values(state.items||{})){if(v.everWeak===undefined)v.everWeak=(v.wrong||0)>0;}
+   localStorage.setItem("examRecallV2",JSON.stringify(state));renderStats();
+   setCloudStatus("נטענה התקדמות חדשה יותר מהריפו","synced");return true;
+  }
+  await pushRemoteProgress(remote.sha);return true;
+ }catch(e){
+  setCloudStatus(e.status===401||e.status===403?"הטוקן לא תקין או חסרה הרשאת Contents: Read and write":"שגיאת סנכרון עם GitHub","error");
+  return false;
+ }
+}
+async function connectGithubToken(){
+ const token=$("githubTokenInput").value.trim();if(!token){setCloudStatus("הדבק טוקן בשדה קודם","error");return}
+ localStorage.setItem(GH_TOKEN_KEY,token);$("githubTokenInput").value="";
+ setCloudStatus("הטוקן נשמר רק בדפדפן הזה. בודק חיבור…");
+ await syncCloud(true);
+}
+function forgetGithubToken(){localStorage.removeItem(GH_TOKEN_KEY);$("githubTokenInput").value="";setCloudStatus("הטוקן נשכח מהמכשיר. הנתונים המקומיים לא נמחקו.")}
+
 function renderTopicStats(){
  const map={};
  for(const q of allEasy()){
@@ -94,7 +149,7 @@ function finishSession(){
  stopClock();sessionStarted=false;
  const snap=sessionSnapshot||{startedAt:Date.now(),right:state.right||0,wrong:state.wrong||0,fast:state.timing.fast||0,normal:state.timing.normal||0,slow:state.timing.slow||0};
  const rec={startedAt:snap.startedAt,endedAt:Date.now(),right:(state.right||0)-snap.right,wrong:(state.wrong||0)-snap.wrong,fast:(state.timing.fast||0)-snap.fast,normal:(state.timing.normal||0)-snap.normal,slow:(state.timing.slow||0)-snap.slow};
- state.sessions.push(rec);if(state.sessions.length>100)state.sessions=state.sessions.slice(-100);save();renderStats();
+ state.sessions.push(rec);if(state.sessions.length>100)state.sessions=state.sessions.slice(-100);save();renderStats();syncCloud(false);
  $("sessionSummaryBody").innerHTML='<div class="summary-grid"><div class="summary-box"><b>'+rec.right+'</b><span>נכונות</span></div><div class="summary-box"><b>'+rec.wrong+'</b><span>טעויות</span></div><div class="summary-box"><b>'+rec.slow+'</b><span>איטיות</span></div><div class="summary-box"><b>'+Math.round((rec.endedAt-rec.startedAt)/60000)+'</b><span>דקות</span></div></div><p class="summary-weak">כל שאלה שטעית בה נשארת מסומנת כחלשה גם לאחר שתיקנת אותה.</p>';
  $("sessionSummary").classList.remove("hidden");$("warmupView").classList.add("hidden");$("chainCard").classList.add("hidden");$("startGate").classList.remove("hidden");sessionSnapshot=null;
 }
@@ -177,6 +232,8 @@ document.querySelectorAll(".mode").forEach(b=>b.onclick=()=>setMode(b.dataset.mo
 $("course").onchange=()=>{rebuildTopics();appMode==="exam"?renderChainPicker():renderWarm()};$("topic").onchange=()=>appMode==="exam"?renderChainPicker():renderWarm();$("kind").onchange=renderWarm;
 $("startSessionBtn").onclick=()=>{sessionStarted=true;beginSession();$("startGate").classList.add("hidden");renderWarm()};
 $("wNext").onclick=renderWarm;$("finishWarmBtn").onclick=finishSession;$("finishExamBtn").onclick=finishSession;$("startChain").onclick=startChain;$("chainNext").onclick=nextChainStep;$("anotherChain").onclick=renderChainPicker;
+$("saveTokenBtn").onclick=connectGithubToken;$("syncNowBtn").onclick=()=>syncCloud(true);$("forgetTokenBtn").onclick=forgetGithubToken;
 $("exportBtn").onclick=exportProgress;$("importInput").onchange=e=>{if(e.target.files&&e.target.files[0])importProgress(e.target.files[0]);e.target.value=""};$("closeSummaryBtn").onclick=()=>{$("sessionSummary").classList.add("hidden");};
 $("resetBtn").onclick=()=>{if(confirm("לאפס את כל ההתקדמות באתר?")){state={right:0,wrong:0,streak:0,items:{},chains:{},timing:{fast:0,normal:0,slow:0,samples:[]},sessions:[]};save();renderStats();sessionStarted=false;stopClock();$("startGate").classList.remove("hidden");$("warmupView").classList.add("hidden");appMode==="exam"?renderChainPicker():null}};
 renderStats();rebuildTopics();$("warmupView").classList.add("hidden");
+if(ghToken()){setCloudStatus("טוקן שמור במכשיר — טוען התקדמות…");syncCloud(true);}else{setCloudStatus("לא מחובר — הדבק Fine-grained token פעם אחת במכשיר הזה");}
