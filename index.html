@@ -1,58 +1,82 @@
 <!doctype html>
 <html lang="he" dir="rtl">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Exam Recall — חזרה חכמה למבחנים</title>
-<meta name="description" content="תרגול אינטראקטיבי לכל מה שצריך לזכור לבדידה 2 ולמבוא למערכות מחשב.">
-<meta name="theme-color" content="#0b1020"><link rel="stylesheet" href="styles.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Exam Recall — התאמת מושגים</title>
+<meta name="description" content="משחק אמריקאי אינטראקטיבי לזכירת הגדרות למבחנים.">
+<meta name="theme-color" content="#0b1020">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<header class="hero"><div class="wrap hero-inner">
-<div><span class="eyebrow">EXAM RECALL</span><h1>מה אני לא זוכר?</h1>
-<p>בנק חזרה אינטראקטיבי: כל החומר, ערבוב מלא, הגדרות בעל־פה ומצב חלשים בלבד.</p></div>
-<button id="resetBtn" class="ghost">איפוס התקדמות</button>
-</div></header>
+<header class="top">
+  <div class="wrap top-row">
+    <div>
+      <span class="eyebrow">EXAM RECALL · EASY MODE</span>
+      <h1>איזו הגדרה מתאימה?</h1>
+      <p>לא צריך לזכור בעל־פה עדיין. קודם לומדים לזהות נכון שוב ושוב.</p>
+    </div>
+    <button id="resetBtn" class="link-btn">איפוס</button>
+  </div>
+</header>
+
 <main class="wrap">
-<section class="dashboard">
-<div class="stat"><b id="seenStat">0</b><span>נענו</span></div>
-<div class="stat"><b id="knownStat">0</b><span>ידעתי</span></div>
-<div class="stat"><b id="missedStat">0</b><span>פספסתי</span></div>
-<div class="stat"><b id="weakStat">0</b><span>חלשים</span></div>
-<div class="stat"><b id="poolStat">0</b><span>במאגר הנוכחי</span></div>
-</section>
+  <section class="scorebar">
+    <div><b id="score">0</b><span>נכון</span></div>
+    <div><b id="wrong">0</b><span>טעויות</span></div>
+    <div><b id="streak">0</b><span>רצף</span></div>
+    <div><b id="mastered">0</b><span>כבר מוכרים</span></div>
+  </section>
 
-<section class="card controls">
-<div class="field"><label>מקצוע</label><select id="courseFilter">
-<option value="discrete">בדידה 2</option><option value="systems">מבוא למערכות מחשב</option><option value="all">שני המקצועות יחד</option>
-</select></div>
-<div class="field"><label>נושא</label><select id="topicFilter"><option value="all">ערבוב — כל הנושאים</option></select></div>
-<div class="field"><label>סוג תרגול</label><select id="typeFilter">
-<option value="all">הכול</option><option value="definition">הגדרות בעל־פה</option><option value="formula">נוסחאות ומשפטים</option><option value="recognition">זיהוי שיטה</option><option value="concept">הבנה ומושגים</option>
-</select></div>
-<div class="field"><label>מצב</label><select id="modeFilter">
-<option value="all">כל השאלות</option><option value="weak">חלשים בלבד</option><option value="unseen">עוד לא נענו</option><option value="priority">עדיפות גבוהה</option>
-</select></div>
-<button id="newQuestionBtn" class="primary">שאלה חדשה</button>
-</section>
+  <section class="panel filters">
+    <label>מקצוע
+      <select id="course">
+        <option value="discrete">בדידה 2</option>
+        <option value="systems">מבוא למערכות מחשב</option>
+        <option value="all">שני המקצועות</option>
+      </select>
+    </label>
+    <label>נושא
+      <select id="topic"><option value="all">🎲 ערבוב — כל הנושאים</option></select>
+    </label>
+    <label>מצב
+      <select id="mode">
+        <option value="all">כל ההגדרות</option>
+        <option value="weak">רק מה שאני טועה בו</option>
+        <option value="unseen">עוד לא נשאלתי</option>
+      </select>
+    </label>
+  </section>
 
-<section class="card question-card">
-<div class="meta-row"><span id="courseBadge" class="badge"></span><span id="topicBadge" class="badge secondary"></span><span id="typeBadge" class="badge secondary"></span><span id="priorityBadge" class="badge alert"></span></div>
-<div id="counter" class="counter"></div>
-<h2 id="questionText">טוען שאלה…</h2>
-<div id="hintBox" class="hint hidden"></div>
-<div class="actions"><button id="hintBtn" class="ghost">רמז קטן</button><button id="answerBtn" class="primary">הצג תשובה</button></div>
-<div id="answerBox" class="answer hidden">
-<div class="answer-label">תשובה</div><div id="answerText"></div><div id="whyText" class="why"></div>
-<div class="grade-row"><button id="missedBtn" class="bad">פספסתי</button><button id="knownBtn" class="good">ידעתי</button></div>
-</div>
-</section>
+  <section class="quiz panel">
+    <div class="quiz-head">
+      <div class="badges">
+        <span id="courseBadge" class="badge"></span>
+        <span id="topicBadge" class="badge soft"></span>
+      </div>
+      <span id="progressText" class="muted"></span>
+    </div>
 
-<section class="grid2">
-<section class="card"><div class="section-head"><div><span class="eyebrow">FOCUS</span><h3>החולשות שלי</h3></div><button id="practiceWeakBtn" class="ghost">תרגל חלשים</button></div><div id="weakList" class="weak-list"></div></section>
-<section class="card"><span class="eyebrow">MEMORY</span><h3>כלל לפני נוסחה</h3><ol>
-<li>מה מבקשים?</li><li>מה כבר קבוע בניסוח?</li><li>מה באמת צריך לבחור או לסדר?</li><li>האם הסדר חשוב?</li><li>האם יש חזרות?</li><li>מה התנאי המיוחד?</li><li>מה הצעד הראשון בלבד?</li>
-</ol></section>
-</section>
+    <p class="prompt">בחר את ההגדרה הנכונה למושג:</p>
+    <h2 id="term">טוען…</h2>
+
+    <div id="options" class="options"></div>
+
+    <div id="feedback" class="feedback hidden">
+      <strong id="feedbackTitle"></strong>
+      <p id="feedbackText"></p>
+    </div>
+
+    <button id="nextBtn" class="next hidden">השאלה הבאה ←</button>
+  </section>
+
+  <section class="panel explainer">
+    <h3>איך ללמוד כאן</h3>
+    <p>אל תנסה לשנן בכוח. תבחר. אם טעית — תסתכל על ההבדל בין ההגדרות. אותו מושג יחזור שוב בהמשך, ובמצב “רק מה שאני טועה בו” האתר ירכז לך את החולשות.</p>
+  </section>
 </main>
-<footer class="wrap footer">ההתקדמות נשמרת רק בדפדפן שלך (localStorage).</footer>
-<script src="script.js"></script></body></html>
+
+<footer class="wrap footer">ההתקדמות נשמרת בדפדפן שלך בלבד.</footer>
+<script src="script.js"></script>
+</body>
+</html>
