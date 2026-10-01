@@ -16,6 +16,19 @@
 </div>
 </div></header>
 
+<section id="githubSync" class="wrap cloud-strip">
+  <div>
+    <b>☁ סנכרון GitHub</b>
+    <span id="cloudStatus">לא מחובר — ההתקדמות נשמרת כרגע רק במכשיר הזה</span>
+  </div>
+  <div class="cloud-actions">
+    <input id="githubTokenInput" type="password" autocomplete="off" placeholder="Fine-grained token">
+    <button id="saveTokenBtn" class="ghost">שמור טוקן במכשיר</button>
+    <button id="syncNowBtn" class="ghost">סנכרן עכשיו</button>
+    <button id="forgetTokenBtn" class="ghost danger">שכח טוקן</button>
+  </div>
+</section>
+
 <main class="wrap">
 <nav class="modes" aria-label="מצב תרגול">
 <button class="mode active" data-mode="warmup">🔥 Warm-up</button>
@@ -80,5 +93,5 @@
 </section>
 <section class="panel memory"><h3>איך האבחון עובד</h3><p>טעות לא מקדמת ונכנסת ל״חלשים בלבד״. תשובה נכונה נמדדת לפי זמן התגובה הראשון: מהיר / נורמלי / איטי. איטיות אינה נחשבת טעות, אבל היא מסומנת לחזרה כדי להפוך שליפה לאוטומטית.</p></section>
 </main>
-<footer class="wrap footer">התקדמות נשמרת מקומית בדפדפן · Exam Recall</footer>
+<footer class="wrap footer">התקדמות נשמרת מקומית ובאפשרותך לסנכרן לריפו · Exam Recall</footer>
 <script src="script.js"></script></body></html>
