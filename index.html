@@ -22,6 +22,14 @@
 <section class="stats">
 <div><b id="rightStat">0</b><span>נכונות</span></div><div><b id="wrongStat">0</b><span>טעויות</span></div>
 <div><b id="streakStat">0</b><span>רצף</span></div><div><b id="weakStat">0</b><span>חלשים</span></div>
+<div><b id="fastStat">0</b><span>מהיר</span></div><div><b id="normalStat">0</b><span>נורמלי</span></div>
+<div><b id="slowStat">0</b><span>איטי</span></div><div><b id="avgStat">—</b><span>ממוצע שנ׳</span></div>
+</section>
+
+<section id="startGate" class="panel start-gate">
+<div><span class="eyebrow">DIAGNOSTIC SESSION</span><h2>מוכן? השאלה תיחשף רק כשתתחיל.</h2>
+<p>הזמן נמדד מרגע חשיפת השאלה עד הבחירה הראשונה. טעות נכנסת מיד למאגר החולשות.</p></div>
+<button id="startSessionBtn" class="primary big-start">התחל ▶</button>
 </section>
 
 <section class="panel filters">
@@ -30,7 +38,8 @@
 <label id="kindWrap">סוג<select id="kind"><option value="all">הכול</option><option value="definition">הגדרות</option><option value="classification">סיווג</option><option value="recognition">זיהוי</option><option value="formula">נוסחאות</option><option value="first_step">צעד ראשון</option><option value="concept">מושגים</option></select></label>
 </section>
 
-<section id="warmupView" class="panel quiz">
+<section id="warmupView" class="panel quiz hidden">
+<div class="timerline"><span id="wTimer" class="timer">00:00</span><span id="wSpeed" class="speed neutral">ממתין לתשובה</span></div>
 <div class="quiz-head"><div class="badges"><span id="wCourse" class="badge"></span><span id="wTopic" class="badge soft"></span><span id="wType" class="badge soft"></span></div><span id="wCount" class="muted"></span></div>
 <p class="prompt">בחר תשובה. מתקדמים רק אחרי תשובה נכונה.</p><h2 id="wPrompt">טוען…</h2>
 <div id="wOptions" class="options"></div>
@@ -39,8 +48,10 @@
 </section>
 
 <section id="examView" class="hidden">
+<div id="examStartNote" class="panel start-note">בחר שרשרת ואז לחץ "התחל שרשרת". המדידה מתחילה כשהשלב הראשון נחשף.</div>
 <section class="panel chain-picker"><div><span class="eyebrow">EXAM CHAIN</span><h3>בחר שרשרת מבחן</h3></div><select id="chainSelect"></select><button id="startChain" class="primary">התחל שרשרת</button></section>
 <section id="chainCard" class="panel quiz hidden">
+<div class="timerline"><span id="chainTimer" class="timer">00:00</span><span id="chainSpeed" class="speed neutral">ממתין לתשובה</span></div>
 <div class="chain-progress"><span id="chainTitle"></span><b id="chainProgress"></b></div>
 <div class="stem"><small>גזע מבחן אמיתי</small><p id="chainStem"></p></div>
 <h2 id="chainPrompt"></h2><div id="chainOptions" class="options"></div>
@@ -51,7 +62,11 @@
 <section id="examEmpty" class="panel notice hidden"></section>
 </section>
 
-<section class="panel memory"><h3>עיקרון האתר</h3><p>טעות לא מקדמת. אתה מקבל משוב קצר, מנסה שוב, והפספוס נכנס ל״חלשים בלבד״. ב-Warm-up השאלות גנריות וקצרות; ב-Exam-chain הגזע מגיע ממבחן אמיתי בלבד.</p></section>
+<section class="panel diagnostics">
+<div class="diag-head"><div><span class="eyebrow">DIAGNOSIS</span><h3>מה חלש / איטי כרגע</h3></div><span class="muted">מבוסס על טעויות + זמני תגובה</span></div>
+<div id="diagnosticList" class="diag-list"></div>
+</section>
+<section class="panel memory"><h3>איך האבחון עובד</h3><p>טעות לא מקדמת ונכנסת ל״חלשים בלבד״. תשובה נכונה נמדדת לפי זמן התגובה הראשון: מהיר / נורמלי / איטי. איטיות אינה נחשבת טעות, אבל היא מסומנת לחזרה כדי להפוך שליפה לאוטומטית.</p></section>
 </main>
 <footer class="wrap footer">התקדמות נשמרת מקומית בדפדפן · Exam Recall</footer>
 <script src="script.js"></script></body></html>
