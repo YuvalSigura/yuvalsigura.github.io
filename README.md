@@ -1,23 +1,13 @@
-# Stir · Slay · Spill
+# Exam Recall
+Interactive Hebrew exam-recall site for Discrete Mathematics 2 and Introduction to Computer Systems.
 
-Creator website for a cooking, makeup and Love Island / reality-TV reaction brand.
+- Topic practice
+- Full-course shuffle per subject
+- Both-subject shuffle
+- Oral-definition mode
+- Formula/theorem mode
+- Recognition mode
+- Weak-only practice
+- Local progress tracking via localStorage
 
-## Live site
-https://yuvalsigura.github.io/
-
-## Pages
-- `index.html` — creator landing page
-- `blog.html` — cooking, makeup and Love Island starter content
-- `reactions.html` — YouTube reaction-channel hub and repeatable show formats
-- `shop.html` — merch concepts ready for a future print-on-demand store
-- `assets/creator.webp` — optimized creator photo
-- `styles.css` / `script.js` — shared responsive styling and navigation
-
-## Still needed for the public launch
-- final creator name / brand approval
-- real YouTube, TikTok and Instagram URLs
-- real contact email if desired
-- print-on-demand/store provider and product links
-- optional custom domain
-
-No fake social, checkout or YouTube links are used in the current build.
+Live: https://yuvalsigura.github.io/

@@ -1,110 +1,58 @@
 <!doctype html>
-<html lang="en">
+<html lang="he" dir="rtl">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Stir · Slay · Spill | Cooking, Makeup & Love Island Reactions</title>
-  <meta name="description" content="A colorful creator hub for cooking, makeup, GRWMs, Love Island reactions, YouTube videos and merch.">
-  <meta name="robots" content="index,follow">
-  <link rel="canonical" href="https://yuvalsigura.github.io/">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Stir · Slay · Spill">
-  <meta property="og:description" content="Cooking, makeup, reality-TV reactions and creator merch.">
-  <meta property="og:url" content="https://yuvalsigura.github.io/">
-  <meta property="og:image" content="https://yuvalsigura.github.io/assets/creator.webp">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="theme-color" content="#ff4fa3">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Stir Slay Spill","url":"https://yuvalsigura.github.io/","description":"Cooking, makeup and reality-TV reaction creator hub."}</script>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Exam Recall — חזרה חכמה למבחנים</title>
+<meta name="description" content="תרגול אינטראקטיבי לכל מה שצריך לזכור לבדידה 2 ולמבוא למערכות מחשב.">
+<meta name="theme-color" content="#0b1020"><link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<header class="site-header">
-  <div class="container nav">
-    <a class="brand" href="index.html"><span class="brand-mark">✦</span><span>Stir · Slay · Spill</span></a>
-    <button class="menu-btn" aria-expanded="false" aria-label="Open navigation">Menu</button>
-    <nav class="nav-links" aria-label="Primary navigation">
-      <a href="index.html" aria-current="page">Home</a>
-      <a href="blog.html">Blog</a>
-      <a href="reactions.html">Watch</a>
-      <a href="shop.html">Shop</a>
-    </nav>
-  </div>
-</header>
-<main>
-  <section class="hero">
-    <div class="container hero-grid">
-      <div>
-        <span class="eyebrow">Cooking ✦ Makeup ✦ Reality TV</span>
-        <h1>Cook it. <em>Slay it.</em> Spill it.</h1>
-        <p class="lede">Easy food, makeup I actually wear, GRWMs, and the Love Island opinions I absolutely could not keep to myself.</p>
-        <div class="topic-row"><span>🍝 recipes</span><span>💄 makeup</span><span>🏝️ Love Island</span><span>🎥 reactions</span><span>🛍️ merch</span></div>
-        <div class="hero-actions"><a class="button button-dark" href="shop.html">Shop the vibe →</a><a class="button button-soft" href="reactions.html">Watch reactions</a><a class="button button-light" href="blog.html">Read the blog</a></div>
-        <p class="mini-note">Real YouTube, social and store links can plug in as soon as the accounts are ready.</p>
-      </div>
-      <div class="portrait-wrap">
-        <div class="scribble" aria-hidden="true"></div>
-        <div class="sticker one">GRWM + gossip 💋</div>
-        <div class="sticker two">snacks before recoupling</div>
-        <figure class="portrait-card"><img src="assets/creator.webp" alt="Creator portrait" loading="eager"></figure>
-      </div>
-    </div>
-  </section>
+<header class="hero"><div class="wrap hero-inner">
+<div><span class="eyebrow">EXAM RECALL</span><h1>מה אני לא זוכר?</h1>
+<p>בנק חזרה אינטראקטיבי: כל החומר, ערבוב מלא, הגדרות בעל־פה ומצב חלשים בלבד.</p></div>
+<button id="resetBtn" class="ghost">איפוס התקדמות</button>
+</div></header>
+<main class="wrap">
+<section class="dashboard">
+<div class="stat"><b id="seenStat">0</b><span>נענו</span></div>
+<div class="stat"><b id="knownStat">0</b><span>ידעתי</span></div>
+<div class="stat"><b id="missedStat">0</b><span>פספסתי</span></div>
+<div class="stat"><b id="weakStat">0</b><span>חלשים</span></div>
+<div class="stat"><b id="poolStat">0</b><span>במאגר הנוכחי</span></div>
+</section>
 
-  <div class="ticker"><div class="container ticker-track"><span>weeknight dinners</span><span>soft glam</span><span>villa chaos</span><span>reaction nights</span><span>merch drops</span><span>GRWM gossip</span></div></div>
+<section class="card controls">
+<div class="field"><label>מקצוע</label><select id="courseFilter">
+<option value="discrete">בדידה 2</option><option value="systems">מבוא למערכות מחשב</option><option value="all">שני המקצועות יחד</option>
+</select></div>
+<div class="field"><label>נושא</label><select id="topicFilter"><option value="all">ערבוב — כל הנושאים</option></select></div>
+<div class="field"><label>סוג תרגול</label><select id="typeFilter">
+<option value="all">הכול</option><option value="definition">הגדרות בעל־פה</option><option value="formula">נוסחאות ומשפטים</option><option value="recognition">זיהוי שיטה</option><option value="concept">הבנה ומושגים</option>
+</select></div>
+<div class="field"><label>מצב</label><select id="modeFilter">
+<option value="all">כל השאלות</option><option value="weak">חלשים בלבד</option><option value="unseen">עוד לא נענו</option><option value="priority">עדיפות גבוהה</option>
+</select></div>
+<button id="newQuestionBtn" class="primary">שאלה חדשה</button>
+</section>
 
-  <section class="segment-zone" aria-label="Explore the creator world">
-    <div class="container">
-      <div class="section-head"><div><div class="kicker">Pick your vibe</div><h2>Four doors. Same personality.</h2></div><p class="section-copy">The site is now split into obvious, colorful segments so visitors can jump straight to what they came for.</p></div>
-      <div class="segment-grid">
-        <a class="segment" href="shop.html"><div class="segment-icon">🛍️</div><div><h3>Shop</h3><p>Tees, mugs, totes, kitchen merch and future drops.</p><div class="segment-go">Enter the store →</div></div></a>
-        <a class="segment" href="reactions.html"><div class="segment-icon">▶️</div><div><h3>Watch</h3><p>Love Island reactions, rankings, predictions and Shorts.</p><div class="segment-go">Go to YouTube hub →</div></div></a>
-        <a class="segment" href="blog.html#beauty"><div class="segment-icon">💄</div><div><h3>Beauty</h3><p>GRWMs, soft glam, product thoughts and getting-ready chat.</p><div class="segment-go">Open beauty →</div></div></a>
-        <a class="segment" href="blog.html#food"><div class="segment-icon">🍝</div><div><h3>Food</h3><p>Comfort food, easy dinners and snacks worth repeating.</p><div class="segment-go">Open recipes →</div></div></a>
-      </div>
-    </div>
-  </section>
+<section class="card question-card">
+<div class="meta-row"><span id="courseBadge" class="badge"></span><span id="topicBadge" class="badge secondary"></span><span id="typeBadge" class="badge secondary"></span><span id="priorityBadge" class="badge alert"></span></div>
+<div id="counter" class="counter"></div>
+<h2 id="questionText">טוען שאלה…</h2>
+<div id="hintBox" class="hint hidden"></div>
+<div class="actions"><button id="hintBtn" class="ghost">רמז קטן</button><button id="answerBtn" class="primary">הצג תשובה</button></div>
+<div id="answerBox" class="answer hidden">
+<div class="answer-label">תשובה</div><div id="answerText"></div><div id="whyText" class="why"></div>
+<div class="grade-row"><button id="missedBtn" class="bad">פספסתי</button><button id="knownBtn" class="good">ידעתי</button></div>
+</div>
+</section>
 
-  <section class="section">
-    <div class="container">
-      <div class="section-head"><div><div class="kicker">The content mix</div><h2>Not one niche. One recognizable world.</h2></div><p class="section-copy">Cooking, makeup and reality TV work together because the recurring hook is her voice, humor and point of view.</p></div>
-      <div class="grid-3">
-        <article class="card color-card peach"><div class="icon-big">🍳</div><div><div class="mini">Kitchen</div><h3>Food I’d make again</h3><p>Simple recipes, comfort food, late-night snacks and cooking without pretending every plate is restaurant perfect.</p><a class="card-link" href="blog.html#food">See food posts →</a></div></article>
-        <article class="card color-card lav"><div class="icon-big">💄</div><div><div class="mini">Beauty</div><h3>Makeup + GRWM</h3><p>Everyday looks, going-out makeup and the getting-ready chat that somehow becomes half the video.</p><a class="card-link" href="blog.html#beauty">See beauty posts →</a></div></article>
-        <article class="card color-card lime"><div class="icon-big">🏝️</div><div><div class="mini">Reality TV</div><h3>Way too much Love Island</h3><p>Recoupling reactions, red-flag rankings, predictions and the commentary normally reserved for the group chat.</p><a class="card-link" href="reactions.html">Go to reactions →</a></div></article>
-      </div>
-    </div>
-  </section>
-
-  <section class="section-tight">
-    <div class="container feature">
-      <div class="feature-copy"><div class="kicker">Watch</div><h2>The villa is basically a weekly appointment.</h2><p>Episode reactions, quick post-episode takes, contestant rankings, prediction videos and Shorts all have a home here. When the real YouTube channel is connected, this area can show the latest uploads automatically.</p><div class="hero-actions"><a class="button button-light" href="reactions.html">Enter the reaction hub</a></div></div>
-      <div class="tv-card"><div class="tv-screen">▶</div><div class="tv-meta"><span>next format</span><strong>Recoupling reaction</strong></div></div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container quote"><p>“Okayy so like i love cooking and doing my makeup ngl… but also i watch way too much Love Island lol.”</p><small>That is the whole creative direction.</small></div>
-  </section>
-
-  <section class="section-tight" id="store-preview">
-    <div class="container">
-      <div class="section-head"><div><div class="kicker">Store preview</div><h2>Merch made from the inside jokes.</h2></div><a class="button button-soft" href="shop.html">Shop all concepts →</a></div>
-      <div class="shop-strip">
-        <article class="card product"><div class="product-art">☕</div><div class="product-body"><span class="badge">Kitchen drop</span><h3>Spill The Tea Mug</h3><p>For coffee, tea and aggressively judging the recoupling.</p><div class="price-row"><strong>Coming soon</strong><span>☕</span></div></div></article>
-        <article class="card product"><div class="product-art">👕</div><div class="product-body"><span class="badge">Villa drop</span><h3>Text Me After The Recoupling</h3><p>An oversized tee with the line that explains tonight’s schedule.</p><div class="price-row"><strong>Coming soon</strong><span>🏝️</span></div></div></article>
-        <article class="card product"><div class="product-art">👜</div><div class="product-body"><span class="badge">Beauty drop</span><h3>GRWM & Gossip Tote</h3><p>Makeup, snacks, charger, lip gloss, opinions. Done.</p><div class="price-row"><strong>Coming soon</strong><span>💄</span></div></div></article>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container newsletter"><div><div class="kicker">Stay in the group chat</div><h2>New recipes, looks, reactions & drops.</h2><p>The signup is a visual placeholder until a real email service is connected.</p></div><form class="newsletter-form" data-newsletter><input type="email" placeholder="you@example.com" aria-label="Email address" required><button type="submit">Join ✦</button></form></div>
-  </section>
+<section class="grid2">
+<section class="card"><div class="section-head"><div><span class="eyebrow">FOCUS</span><h3>החולשות שלי</h3></div><button id="practiceWeakBtn" class="ghost">תרגל חלשים</button></div><div id="weakList" class="weak-list"></div></section>
+<section class="card"><span class="eyebrow">MEMORY</span><h3>כלל לפני נוסחה</h3><ol>
+<li>מה מבקשים?</li><li>מה כבר קבוע בניסוח?</li><li>מה באמת צריך לבחור או לסדר?</li><li>האם הסדר חשוב?</li><li>האם יש חזרות?</li><li>מה התנאי המיוחד?</li><li>מה הצעד הראשון בלבד?</li>
+</ol></section>
+</section>
 </main>
-<footer class="site-footer"><div class="container footer-grid"><div><a class="brand" href="index.html"><span class="brand-mark">✦</span><span>Stir · Slay · Spill</span></a><div class="footer-note">Cooking, makeup, Love Island reactions and future merch. Unofficial fan commentary; not affiliated with Love Island.</div></div><nav class="footer-nav"><a href="blog.html">Blog</a><a href="reactions.html">Watch</a><a href="shop.html">Shop</a></nav></div></footer>
-<script src="script.js"></script>
-</body>
-</html>
+<footer class="wrap footer">ההתקדמות נשמרת רק בדפדפן שלך (localStorage).</footer>
+<script src="script.js"></script></body></html>
