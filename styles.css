@@ -38,3 +38,11 @@ button,select{font:inherit}button{cursor:pointer}.ghost,.mode{border:1px solid v
 .math-option{direction:ltr!important;text-align:center!important;unicode-bidi:isolate;font-size:1.05rem}
 .math-option sup,.math-block sup{font-size:.7em}
 .math-option sub,.math-block sub{font-size:.7em}
+
+.option-text{display:block;unicode-bidi:plaintext}
+.math-rich{direction:ltr;unicode-bidi:isolate;white-space:normal}
+.option.math-option{font-size:1.05rem}
+.option.math-option .option-text{text-align:center;direction:ltr;unicode-bidi:isolate}
+#deepOptions .option,#wOptions .option,#chainOptions .option{line-height:1.8}
+#deepFeedbackText .math-inline,#wFeedbackText .math-inline,#chainFeedbackText .math-inline{margin:0 .12em}
+.feedback p{unicode-bidi:plaintext}
