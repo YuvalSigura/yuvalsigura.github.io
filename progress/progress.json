@@ -1,6 +1,6 @@
 {
   "version": 4,
-  "savedAt": "2026-10-02T09:50:39.035Z",
+  "savedAt": "2026-10-02T09:51:09.596Z",
   "state": {
     "right": 0,
     "wrong": 0,
@@ -13,7 +13,17 @@
       "slow": 0,
       "samples": []
     },
-    "sessions": [],
-    "updatedAt": 1790934619802
+    "sessions": [
+      {
+        "startedAt": 1790934652709,
+        "endedAt": 1790934669219,
+        "right": 0,
+        "wrong": 0,
+        "fast": 0,
+        "normal": 0,
+        "slow": 0
+      }
+    ],
+    "updatedAt": 1790934669220
   }
 }
