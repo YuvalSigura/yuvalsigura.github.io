@@ -13,7 +13,7 @@ const $=id=>document.getElementById(id), shuffle=a=>[...a].sort(()=>Math.random(
 let state=JSON.parse(localStorage.getItem("examRecallV2")||'{"right":0,"wrong":0,"streak":0,"items":{},"chains":{},"timing":{"fast":0,"normal":0,"slow":0,"samples":[]}}');
 state.timing??={fast:0,normal:0,slow:0,samples:[]};
 state.sessions??=[];
-state.updatedAt??=Date.now();
+state.updatedAt??=0;
 for(const v of Object.values(state.items||{})){if(v.everWeak===undefined)v.everWeak=(v.wrong||0)>0;}
 let appMode="warmup",current=null,locked=false,chain=null,chainStep=0,chainMistakes=0;
 let sessionStarted=false,questionStartedAt=0,firstAttemptRecorded=false,timerHandle=null;
@@ -107,16 +107,24 @@ async function pushRemoteProgress(existingSha=null){
  await ghRequest("https://api.github.com/repos/"+GH_OWNER+"/"+GH_REPO+"/contents/"+GH_PROGRESS_PATH,{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});
  setCloudStatus("מסונכרן לריפו · "+new Date().toLocaleTimeString("he-IL"),"synced");
 }
+function stateHasProgress(s){
+ return !!s&&(((s.right||0)+(s.wrong||0)>0)||Object.keys(s.items||{}).length>0||Object.keys(s.chains||{}).length>0||(s.sessions||[]).length>0);
+}
 async function syncCloud(preferNewest=true){
  if(!ghToken()){setCloudStatus("אין טוקן שמור במכשיר הזה");return false}
  setCloudStatus("מסנכרן…");
  try{
   const remote=await getRemoteProgress();
-  if(remote.state&&preferNewest&&(remote.state.updatedAt||0)>(state.updatedAt||0)){
-   state=remote.state;state.sessions??=[];state.updatedAt??=Date.now();
+  const localHas=stateHasProgress(state),remoteHas=stateHasProgress(remote.state);
+  const remoteNewer=remote.state&&(remote.state.updatedAt||0)>(state.updatedAt||0);
+  if(remote.state&&((!localHas&&remoteHas)||(preferNewest&&remoteNewer))){
+   state=remote.state;state.sessions??=[];state.updatedAt??=0;
    for(const v of Object.values(state.items||{})){if(v.everWeak===undefined)v.everWeak=(v.wrong||0)>0;}
    localStorage.setItem("examRecallV2",JSON.stringify(state));renderStats();
-   setCloudStatus("נטענה התקדמות חדשה יותר מהריפו","synced");return true;
+   setCloudStatus("נטענה התקדמות מהריפו","synced");return true;
+  }
+  if(!localHas&&remoteHas){
+   setCloudStatus("ההתקדמות בריפו נשמרה — לא דורסים אותה בנתונים ריקים","synced");return true;
   }
   await pushRemoteProgress(remote.sha);return true;
  }catch(e){
