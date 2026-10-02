@@ -443,11 +443,19 @@ function answerDeep(btn,opt,q){
   $("deepFeedbackText").innerHTML=richMixedText(q.explain);$("deepNext").classList.remove("hidden");
 }
 function deepSelf(status){
-  if(locked)return; const q=DEEP_BANK[deepIndex]; const timing=recordTiming("deep#"+q.id,"discrete",q.topic,"deep",true,false);
-  captureDeep(q,status,null,timing);deepFirstAnswered=true;locked=true;stopClock();
+  if(locked)return;
+  const q=DEEP_BANK[deepIndex];
+  if(deepFirstAnswered){
+    const existing=[...deepResults].reverse().find(r=>r.id===q.id);
+    if(existing){existing.status=status;existing.correct=false;existing.selfReport=status;}
+  }else{
+    const timing=recordTiming("deep#"+q.id,"discrete",q.topic,"deep",true,false);
+    captureDeep(q,status,null,timing);deepFirstAnswered=true;
+  }
+  locked=true;stopClock();
   [...$("deepOptions").children].forEach(b=>b.disabled=true);$("deepForgot").disabled=true;$("deepNever").disabled=true;
   $("deepFeedback").className="feedback bad";$("deepFeedbackTitle").textContent=status==="forgot"?"נרשם: למדתי אבל לא זוכר":"נרשם: לא למדתי";
-  $("deepFeedbackText").textContent="המצב הזה יופיע בנפרד בדוח ולא ייספר כטעות רגילה.";$("deepNext").classList.remove("hidden");
+  $("deepFeedbackText").textContent="המצב הזה יופיע בנפרד בדוח ולא ייספר פעמיים.";$("deepNext").classList.remove("hidden");
 }
 function deepTopicStatus(rows){
   if(rows.some(r=>r.status==="never"))return {label:"לא למדתי",cls:"never"};
