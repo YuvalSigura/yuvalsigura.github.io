@@ -1,86 +1,226 @@
 {
   "version": 4,
-  "savedAt": "2026-10-02T10:10:16.350Z",
+  "savedAt": "2026-10-02T10:28:59.585Z",
   "state": {
-    "right": 16,
-    "wrong": 6,
-    "streak": 6,
+    "right": 147,
+    "wrong": 20,
+    "streak": 24,
     "items": {
       "e1": {
-        "right": 1,
+        "right": 2,
         "wrong": 3,
         "everWeak": true
       },
       "def26": {
-        "right": 2,
+        "right": 8,
         "wrong": 0,
         "everWeak": false
       },
       "e12": {
-        "right": 1,
+        "right": 4,
         "wrong": 0,
         "everWeak": false
       },
       "def5": {
-        "right": 1,
-        "wrong": 0,
-        "everWeak": false
+        "right": 5,
+        "wrong": 2,
+        "everWeak": true
       },
       "def17": {
-        "right": 1,
+        "right": 6,
         "wrong": 0,
         "everWeak": false
       },
       "def8": {
-        "right": 1,
+        "right": 3,
         "wrong": 0,
         "everWeak": false
       },
       "def6": {
-        "right": 1,
+        "right": 3,
         "wrong": 1,
         "everWeak": true
       },
       "e10": {
-        "right": 1,
-        "wrong": 0,
-        "everWeak": false
-      },
-      "def3": {
-        "right": 1,
-        "wrong": 1,
-        "everWeak": true
-      },
-      "def1": {
-        "right": 1,
-        "wrong": 0,
-        "everWeak": false
-      },
-      "def23": {
-        "right": 1,
-        "wrong": 1,
-        "everWeak": true
-      },
-      "def11": {
         "right": 2,
         "wrong": 0,
         "everWeak": false
       },
+      "def3": {
+        "right": 7,
+        "wrong": 3,
+        "everWeak": true
+      },
+      "def1": {
+        "right": 3,
+        "wrong": 0,
+        "everWeak": false
+      },
+      "def23": {
+        "right": 5,
+        "wrong": 1,
+        "everWeak": true
+      },
+      "def11": {
+        "right": 4,
+        "wrong": 1,
+        "everWeak": true
+      },
       "def29": {
-        "right": 1,
+        "right": 4,
         "wrong": 0,
         "everWeak": false
       },
       "def4": {
+        "right": 2,
+        "wrong": 0,
+        "everWeak": false
+      },
+      "def15": {
+        "right": 3,
+        "wrong": 0,
+        "everWeak": false
+      },
+      "e11": {
         "right": 1,
+        "wrong": 0,
+        "everWeak": false
+      },
+      "e7": {
+        "right": 3,
+        "wrong": 0,
+        "everWeak": false
+      },
+      "e2": {
+        "right": 3,
+        "wrong": 0,
+        "everWeak": false
+      },
+      "e9": {
+        "right": 2,
+        "wrong": 0,
+        "everWeak": false
+      },
+      "def19": {
+        "right": 3,
+        "wrong": 1,
+        "everWeak": true
+      },
+      "def33": {
+        "right": 3,
+        "wrong": 0,
+        "everWeak": false
+      },
+      "e5": {
+        "right": 3,
+        "wrong": 0,
+        "everWeak": false
+      },
+      "def28": {
+        "right": 2,
+        "wrong": 0,
+        "everWeak": false
+      },
+      "def18": {
+        "right": 6,
+        "wrong": 1,
+        "everWeak": true
+      },
+      "def7": {
+        "right": 3,
+        "wrong": 1,
+        "everWeak": true
+      },
+      "def13": {
+        "right": 5,
+        "wrong": 1,
+        "everWeak": true
+      },
+      "def2": {
+        "right": 2,
+        "wrong": 0,
+        "everWeak": false
+      },
+      "def12": {
+        "right": 5,
+        "wrong": 4,
+        "everWeak": true
+      },
+      "def22": {
+        "right": 1,
+        "wrong": 0,
+        "everWeak": false
+      },
+      "def16": {
+        "right": 4,
+        "wrong": 0,
+        "everWeak": false
+      },
+      "def24": {
+        "right": 3,
+        "wrong": 0,
+        "everWeak": false
+      },
+      "def10": {
+        "right": 5,
+        "wrong": 0,
+        "everWeak": false
+      },
+      "def31": {
+        "right": 2,
+        "wrong": 0,
+        "everWeak": false
+      },
+      "e6": {
+        "right": 4,
+        "wrong": 0,
+        "everWeak": false
+      },
+      "def30": {
+        "right": 4,
+        "wrong": 0,
+        "everWeak": false
+      },
+      "def20": {
+        "right": 2,
+        "wrong": 0,
+        "everWeak": false
+      },
+      "def32": {
+        "right": 3,
+        "wrong": 0,
+        "everWeak": false
+      },
+      "e4": {
+        "right": 3,
+        "wrong": 1,
+        "everWeak": true
+      },
+      "def9": {
+        "right": 6,
+        "wrong": 0,
+        "everWeak": false
+      },
+      "def27": {
+        "right": 5,
+        "wrong": 0,
+        "everWeak": false
+      },
+      "e8": {
+        "right": 1,
+        "wrong": 0,
+        "everWeak": false
+      },
+      "def21": {
+        "right": 2,
         "wrong": 0,
         "everWeak": false
       }
     },
     "chains": {},
     "timing": {
-      "fast": 8,
-      "normal": 6,
+      "fast": 107,
+      "normal": 38,
       "slow": 2,
       "samples": [
         {
@@ -226,6 +366,1185 @@
           "seconds": 6.9,
           "cls": "fast",
           "at": 1790935794348
+        },
+        {
+          "key": "e1",
+          "course": "discrete",
+          "topic": "קומבינטוריקה",
+          "type": "classification",
+          "seconds": 5,
+          "cls": "fast",
+          "at": 1790935888432
+        },
+        {
+          "key": "def15",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 14.7,
+          "cls": "normal",
+          "at": 1790935905091
+        },
+        {
+          "key": "def3",
+          "course": "discrete",
+          "topic": "קומבינטוריקה",
+          "type": "definition",
+          "seconds": 4.8,
+          "cls": "fast",
+          "at": 1790935911411
+        },
+        {
+          "key": "e11",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "formula",
+          "seconds": 3.8,
+          "cls": "fast",
+          "at": 1790935925157
+        },
+        {
+          "key": "e7",
+          "course": "discrete",
+          "topic": "שובך היונים",
+          "type": "recognition",
+          "seconds": 5.9,
+          "cls": "fast",
+          "at": 1790935931838
+        },
+        {
+          "key": "e12",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "recognition",
+          "seconds": 7.6,
+          "cls": "fast",
+          "at": 1790935941007
+        },
+        {
+          "key": "e7",
+          "course": "discrete",
+          "topic": "שובך היונים",
+          "type": "recognition",
+          "seconds": 3.1,
+          "cls": "fast",
+          "at": 1790935946335
+        },
+        {
+          "key": "e2",
+          "course": "discrete",
+          "topic": "קומבינטוריקה",
+          "type": "classification",
+          "seconds": 15.7,
+          "cls": "normal",
+          "at": 1790935962802
+        },
+        {
+          "key": "def17",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 5.9,
+          "cls": "fast",
+          "at": 1790935976444
+        },
+        {
+          "key": "def5",
+          "course": "discrete",
+          "topic": "קומבינטוריקה",
+          "type": "definition",
+          "seconds": 10.3,
+          "cls": "normal",
+          "at": 1790935987437
+        },
+        {
+          "key": "e9",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "formula",
+          "seconds": 11.6,
+          "cls": "fast",
+          "at": 1790936002159
+        },
+        {
+          "key": "def3",
+          "course": "discrete",
+          "topic": "קומבינטוריקה",
+          "type": "definition",
+          "seconds": 14.8,
+          "cls": "normal",
+          "at": 1790936018305
+        },
+        {
+          "key": "def19",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 6.4,
+          "cls": "fast",
+          "at": 1790936027522
+        },
+        {
+          "key": "def11",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 9.7,
+          "cls": "normal",
+          "at": 1790936042036
+        },
+        {
+          "key": "e10",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "recognition",
+          "seconds": 4.1,
+          "cls": "fast",
+          "at": 1790936050597
+        },
+        {
+          "key": "def33",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 7.9,
+          "cls": "fast",
+          "at": 1790936059374
+        },
+        {
+          "key": "e5",
+          "course": "discrete",
+          "topic": "הכלה והדחה",
+          "type": "recognition",
+          "seconds": 10.5,
+          "cls": "normal",
+          "at": 1790936070792
+        },
+        {
+          "key": "def28",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 13.7,
+          "cls": "normal",
+          "at": 1790936085697
+        },
+        {
+          "key": "def15",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 3.5,
+          "cls": "fast",
+          "at": 1790936089906
+        },
+        {
+          "key": "def18",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 12.9,
+          "cls": "normal",
+          "at": 1790936104437
+        },
+        {
+          "key": "def29",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 9.5,
+          "cls": "normal",
+          "at": 1790936115326
+        },
+        {
+          "key": "def7",
+          "course": "discrete",
+          "topic": "קומבינטוריקה",
+          "type": "definition",
+          "seconds": 11.2,
+          "cls": "normal",
+          "at": 1790936127999
+        },
+        {
+          "key": "def13",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 8.7,
+          "cls": "normal",
+          "at": 1790936140760
+        },
+        {
+          "key": "def2",
+          "course": "discrete",
+          "topic": "עקרונות ספירה",
+          "type": "definition",
+          "seconds": 5.5,
+          "cls": "fast",
+          "at": 1790936147169
+        },
+        {
+          "key": "def12",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 18.2,
+          "cls": "normal",
+          "at": 1790936167092
+        },
+        {
+          "key": "def13",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 7.7,
+          "cls": "fast",
+          "at": 1790936197232
+        },
+        {
+          "key": "def22",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 7.4,
+          "cls": "fast",
+          "at": 1790936205393
+        },
+        {
+          "key": "def16",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 5.3,
+          "cls": "fast",
+          "at": 1790936211890
+        },
+        {
+          "key": "def17",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 2.2,
+          "cls": "fast",
+          "at": 1790936217130
+        },
+        {
+          "key": "def24",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 3.6,
+          "cls": "fast",
+          "at": 1790936221403
+        },
+        {
+          "key": "def3",
+          "course": "discrete",
+          "topic": "קומבינטוריקה",
+          "type": "definition",
+          "seconds": 9.8,
+          "cls": "normal",
+          "at": 1790936231932
+        },
+        {
+          "key": "def4",
+          "course": "discrete",
+          "topic": "קומבינטוריקה",
+          "type": "definition",
+          "seconds": 5.8,
+          "cls": "fast",
+          "at": 1790936239053
+        },
+        {
+          "key": "def12",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 12.6,
+          "cls": "normal",
+          "at": 1790936252398
+        },
+        {
+          "key": "def2",
+          "course": "discrete",
+          "topic": "עקרונות ספירה",
+          "type": "definition",
+          "seconds": 3.2,
+          "cls": "fast",
+          "at": 1790936256607
+        },
+        {
+          "key": "def1",
+          "course": "discrete",
+          "topic": "עקרונות ספירה",
+          "type": "definition",
+          "seconds": 2.4,
+          "cls": "fast",
+          "at": 1790936261016
+        },
+        {
+          "key": "def13",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 3.5,
+          "cls": "fast",
+          "at": 1790936265240
+        },
+        {
+          "key": "def10",
+          "course": "discrete",
+          "topic": "שובך היונים",
+          "type": "definition",
+          "seconds": 3.5,
+          "cls": "fast",
+          "at": 1790936269506
+        },
+        {
+          "key": "def5",
+          "course": "discrete",
+          "topic": "קומבינטוריקה",
+          "type": "definition",
+          "seconds": 2.6,
+          "cls": "fast",
+          "at": 1790936275138
+        },
+        {
+          "key": "def31",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 7.1,
+          "cls": "fast",
+          "at": 1790936286572
+        },
+        {
+          "key": "e9",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "formula",
+          "seconds": 4.3,
+          "cls": "fast",
+          "at": 1790936291740
+        },
+        {
+          "key": "def3",
+          "course": "discrete",
+          "topic": "קומבינטוריקה",
+          "type": "definition",
+          "seconds": 3.1,
+          "cls": "fast",
+          "at": 1790936295908
+        },
+        {
+          "key": "e6",
+          "course": "discrete",
+          "topic": "Stars and Bars",
+          "type": "first_step",
+          "seconds": 9.6,
+          "cls": "fast",
+          "at": 1790936306334
+        },
+        {
+          "key": "def7",
+          "course": "discrete",
+          "topic": "קומבינטוריקה",
+          "type": "definition",
+          "seconds": 4.5,
+          "cls": "fast",
+          "at": 1790936312222
+        },
+        {
+          "key": "def30",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 14.5,
+          "cls": "normal",
+          "at": 1790936336698
+        },
+        {
+          "key": "def16",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 7.8,
+          "cls": "fast",
+          "at": 1790936345723
+        },
+        {
+          "key": "def3",
+          "course": "discrete",
+          "topic": "קומבינטוריקה",
+          "type": "definition",
+          "seconds": 4.2,
+          "cls": "fast",
+          "at": 1790936350700
+        },
+        {
+          "key": "def12",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 6.9,
+          "cls": "fast",
+          "at": 1790936358500
+        },
+        {
+          "key": "e2",
+          "course": "discrete",
+          "topic": "קומבינטוריקה",
+          "type": "classification",
+          "seconds": 5.7,
+          "cls": "fast",
+          "at": 1790936365333
+        },
+        {
+          "key": "def20",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 6.6,
+          "cls": "fast",
+          "at": 1790936373222
+        },
+        {
+          "key": "def6",
+          "course": "discrete",
+          "topic": "קומבינטוריקה",
+          "type": "definition",
+          "seconds": 9.3,
+          "cls": "normal",
+          "at": 1790936383399
+        },
+        {
+          "key": "def32",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 3.5,
+          "cls": "fast",
+          "at": 1790936388896
+        },
+        {
+          "key": "def18",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 14.6,
+          "cls": "normal",
+          "at": 1790936404274
+        },
+        {
+          "key": "def13",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 4.8,
+          "cls": "fast",
+          "at": 1790936414556
+        },
+        {
+          "key": "e4",
+          "course": "discrete",
+          "topic": "קומבינטוריקה",
+          "type": "classification",
+          "seconds": 5.5,
+          "cls": "fast",
+          "at": 1790936420948
+        },
+        {
+          "key": "e4",
+          "course": "discrete",
+          "topic": "קומבינטוריקה",
+          "type": "classification",
+          "seconds": 5.1,
+          "cls": "fast",
+          "at": 1790936444703
+        },
+        {
+          "key": "def17",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 2.7,
+          "cls": "fast",
+          "at": 1790936448409
+        },
+        {
+          "key": "def18",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 5.6,
+          "cls": "fast",
+          "at": 1790936454656
+        },
+        {
+          "key": "e5",
+          "course": "discrete",
+          "topic": "הכלה והדחה",
+          "type": "recognition",
+          "seconds": 8.4,
+          "cls": "fast",
+          "at": 1790936463731
+        },
+        {
+          "key": "def9",
+          "course": "discrete",
+          "topic": "פונקציות",
+          "type": "definition",
+          "seconds": 10.7,
+          "cls": "normal",
+          "at": 1790936476579
+        },
+        {
+          "key": "def27",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 8.9,
+          "cls": "normal",
+          "at": 1790936486142
+        },
+        {
+          "key": "def32",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 7.7,
+          "cls": "fast",
+          "at": 1790936494470
+        },
+        {
+          "key": "def28",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 4.3,
+          "cls": "fast",
+          "at": 1790936499550
+        },
+        {
+          "key": "def33",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 3.8,
+          "cls": "fast",
+          "at": 1790936503911
+        },
+        {
+          "key": "def9",
+          "course": "discrete",
+          "topic": "פונקציות",
+          "type": "definition",
+          "seconds": 5,
+          "cls": "fast",
+          "at": 1790936509927
+        },
+        {
+          "key": "def26",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 1.5,
+          "cls": "fast",
+          "at": 1790936512121
+        },
+        {
+          "key": "def18",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 8.3,
+          "cls": "normal",
+          "at": 1790936521201
+        },
+        {
+          "key": "def33",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 3.6,
+          "cls": "fast",
+          "at": 1790936525410
+        },
+        {
+          "key": "e7",
+          "course": "discrete",
+          "topic": "שובך היונים",
+          "type": "recognition",
+          "seconds": 7.3,
+          "cls": "fast",
+          "at": 1790936533722
+        },
+        {
+          "key": "def30",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 10.3,
+          "cls": "normal",
+          "at": 1790936544869
+        },
+        {
+          "key": "def10",
+          "course": "discrete",
+          "topic": "שובך היונים",
+          "type": "definition",
+          "seconds": 7.2,
+          "cls": "fast",
+          "at": 1790936552629
+        },
+        {
+          "key": "e8",
+          "course": "discrete",
+          "topic": "שובך היונים",
+          "type": "first_step",
+          "seconds": 3.8,
+          "cls": "fast",
+          "at": 1790936557694
+        },
+        {
+          "key": "e6",
+          "course": "discrete",
+          "topic": "Stars and Bars",
+          "type": "first_step",
+          "seconds": 3,
+          "cls": "fast",
+          "at": 1790936562574
+        },
+        {
+          "key": "def27",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 3.8,
+          "cls": "fast",
+          "at": 1790936567239
+        },
+        {
+          "key": "def19",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 2.9,
+          "cls": "fast",
+          "at": 1790936570671
+        },
+        {
+          "key": "def26",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 1.9,
+          "cls": "fast",
+          "at": 1790936573353
+        },
+        {
+          "key": "def27",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 2.9,
+          "cls": "fast",
+          "at": 1790936576888
+        },
+        {
+          "key": "def26",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 1.4,
+          "cls": "fast",
+          "at": 1790936578904
+        },
+        {
+          "key": "def19",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 1.2,
+          "cls": "fast",
+          "at": 1790936580536
+        },
+        {
+          "key": "def23",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 4.6,
+          "cls": "fast",
+          "at": 1790936585609
+        },
+        {
+          "key": "def21",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 6.8,
+          "cls": "fast",
+          "at": 1790936593002
+        },
+        {
+          "key": "e12",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "recognition",
+          "seconds": 8.7,
+          "cls": "fast",
+          "at": 1790936602557
+        },
+        {
+          "key": "def23",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 11.8,
+          "cls": "normal",
+          "at": 1790936615253
+        },
+        {
+          "key": "def5",
+          "course": "discrete",
+          "topic": "קומבינטוריקה",
+          "type": "definition",
+          "seconds": 3.1,
+          "cls": "fast",
+          "at": 1790936618958
+        },
+        {
+          "key": "def10",
+          "course": "discrete",
+          "topic": "שובך היונים",
+          "type": "definition",
+          "seconds": 4,
+          "cls": "fast",
+          "at": 1790936623638
+        },
+        {
+          "key": "def12",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 7.4,
+          "cls": "fast",
+          "at": 1790936631727
+        },
+        {
+          "key": "def23",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 7.5,
+          "cls": "fast",
+          "at": 1790936645009
+        },
+        {
+          "key": "def18",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 3.7,
+          "cls": "fast",
+          "at": 1790936649322
+        },
+        {
+          "key": "def9",
+          "course": "discrete",
+          "topic": "פונקציות",
+          "type": "definition",
+          "seconds": 2.3,
+          "cls": "fast",
+          "at": 1790936652339
+        },
+        {
+          "key": "def27",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 2.6,
+          "cls": "fast",
+          "at": 1790936655610
+        },
+        {
+          "key": "def9",
+          "course": "discrete",
+          "topic": "פונקציות",
+          "type": "definition",
+          "seconds": 5,
+          "cls": "fast",
+          "at": 1790936661203
+        },
+        {
+          "key": "def9",
+          "course": "discrete",
+          "topic": "פונקציות",
+          "type": "definition",
+          "seconds": 2.2,
+          "cls": "fast",
+          "at": 1790936664036
+        },
+        {
+          "key": "def8",
+          "course": "discrete",
+          "topic": "פונקציות",
+          "type": "definition",
+          "seconds": 4.4,
+          "cls": "fast",
+          "at": 1790936669028
+        },
+        {
+          "key": "def29",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 6.6,
+          "cls": "fast",
+          "at": 1790936676269
+        },
+        {
+          "key": "e2",
+          "course": "discrete",
+          "topic": "קומבינטוריקה",
+          "type": "classification",
+          "seconds": 16.8,
+          "cls": "normal",
+          "at": 1790936693623
+        },
+        {
+          "key": "def18",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 6.2,
+          "cls": "fast",
+          "at": 1790936701040
+        },
+        {
+          "key": "def9",
+          "course": "discrete",
+          "topic": "פונקציות",
+          "type": "definition",
+          "seconds": 2.6,
+          "cls": "fast",
+          "at": 1790936706233
+        },
+        {
+          "key": "def16",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 2.1,
+          "cls": "fast",
+          "at": 1790936708881
+        },
+        {
+          "key": "def13",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 3.6,
+          "cls": "fast",
+          "at": 1790936713065
+        },
+        {
+          "key": "def29",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 3.3,
+          "cls": "fast",
+          "at": 1790936726284
+        },
+        {
+          "key": "def10",
+          "course": "discrete",
+          "topic": "שובך היונים",
+          "type": "definition",
+          "seconds": 3.4,
+          "cls": "fast",
+          "at": 1790936730444
+        },
+        {
+          "key": "def31",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 8.2,
+          "cls": "normal",
+          "at": 1790936739181
+        },
+        {
+          "key": "def7",
+          "course": "discrete",
+          "topic": "קומבינטוריקה",
+          "type": "definition",
+          "seconds": 16,
+          "cls": "normal",
+          "at": 1790936756311
+        },
+        {
+          "key": "def24",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 4.2,
+          "cls": "fast",
+          "at": 1790936761216
+        },
+        {
+          "key": "def6",
+          "course": "discrete",
+          "topic": "קומבינטוריקה",
+          "type": "definition",
+          "seconds": 11.1,
+          "cls": "normal",
+          "at": 1790936772873
+        },
+        {
+          "key": "e4",
+          "course": "discrete",
+          "topic": "קומבינטוריקה",
+          "type": "classification",
+          "seconds": 4.5,
+          "cls": "fast",
+          "at": 1790936778107
+        },
+        {
+          "key": "def32",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 3.8,
+          "cls": "fast",
+          "at": 1790936782756
+        },
+        {
+          "key": "def23",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 2.1,
+          "cls": "fast",
+          "at": 1790936786004
+        },
+        {
+          "key": "def12",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 8.4,
+          "cls": "normal",
+          "at": 1790936794893
+        },
+        {
+          "key": "def10",
+          "course": "discrete",
+          "topic": "שובך היונים",
+          "type": "definition",
+          "seconds": 2.1,
+          "cls": "fast",
+          "at": 1790936800510
+        },
+        {
+          "key": "def24",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 11,
+          "cls": "normal",
+          "at": 1790936811990
+        },
+        {
+          "key": "def16",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 5.7,
+          "cls": "fast",
+          "at": 1790936818343
+        },
+        {
+          "key": "def1",
+          "course": "discrete",
+          "topic": "עקרונות ספירה",
+          "type": "definition",
+          "seconds": 2.3,
+          "cls": "fast",
+          "at": 1790936821487
+        },
+        {
+          "key": "def30",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 4.3,
+          "cls": "fast",
+          "at": 1790936826504
+        },
+        {
+          "key": "def20",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 12.1,
+          "cls": "normal",
+          "at": 1790936839385
+        },
+        {
+          "key": "def27",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 4,
+          "cls": "fast",
+          "at": 1790936846060
+        },
+        {
+          "key": "e12",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "recognition",
+          "seconds": 11.9,
+          "cls": "normal",
+          "at": 1790936858596
+        },
+        {
+          "key": "def11",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 7.8,
+          "cls": "fast",
+          "at": 1790936867301
+        },
+        {
+          "key": "def21",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 7.1,
+          "cls": "fast",
+          "at": 1790936874984
+        },
+        {
+          "key": "def17",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 2.5,
+          "cls": "fast",
+          "at": 1790936878375
+        },
+        {
+          "key": "def17",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 3.6,
+          "cls": "fast",
+          "at": 1790936882647
+        },
+        {
+          "key": "def30",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 5,
+          "cls": "fast",
+          "at": 1790936888145
+        },
+        {
+          "key": "e5",
+          "course": "discrete",
+          "topic": "הכלה והדחה",
+          "type": "recognition",
+          "seconds": 2.4,
+          "cls": "fast",
+          "at": 1790936891129
+        },
+        {
+          "key": "def5",
+          "course": "discrete",
+          "topic": "קומבינטוריקה",
+          "type": "definition",
+          "seconds": 2.2,
+          "cls": "fast",
+          "at": 1790936894201
+        },
+        {
+          "key": "def26",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 1.3,
+          "cls": "fast",
+          "at": 1790936896123
+        },
+        {
+          "key": "def26",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 1.3,
+          "cls": "fast",
+          "at": 1790936897890
+        },
+        {
+          "key": "def3",
+          "course": "discrete",
+          "topic": "קומבינטוריקה",
+          "type": "definition",
+          "seconds": 3.5,
+          "cls": "fast",
+          "at": 1790936902019
+        },
+        {
+          "key": "def15",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 10.3,
+          "cls": "normal",
+          "at": 1790936913171
+        },
+        {
+          "key": "e6",
+          "course": "discrete",
+          "topic": "Stars and Bars",
+          "type": "first_step",
+          "seconds": 2.6,
+          "cls": "fast",
+          "at": 1790936916476
+        },
+        {
+          "key": "def26",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 6.4,
+          "cls": "fast",
+          "at": 1790936923542
+        },
+        {
+          "key": "e6",
+          "course": "discrete",
+          "topic": "Stars and Bars",
+          "type": "first_step",
+          "seconds": 2.5,
+          "cls": "fast",
+          "at": 1790936926581
+        },
+        {
+          "key": "def8",
+          "course": "discrete",
+          "topic": "פונקציות",
+          "type": "definition",
+          "seconds": 10.5,
+          "cls": "normal",
+          "at": 1790936937799
         }
       ]
     },
@@ -238,8 +1557,17 @@
         "fast": 8,
         "normal": 6,
         "slow": 2
+      },
+      {
+        "startedAt": 1790935883400,
+        "endedAt": 1790936939256,
+        "right": 131,
+        "wrong": 14,
+        "fast": 99,
+        "normal": 32,
+        "slow": 0
       }
     ],
-    "updatedAt": 1790935815935
+    "updatedAt": 1790936939256
   }
 }
