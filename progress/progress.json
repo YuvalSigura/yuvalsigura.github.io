@@ -1,10 +1,10 @@
 {
   "version": 4,
-  "savedAt": "2026-10-02T15:20:36.335Z",
+  "savedAt": "2026-10-02T15:25:04.689Z",
   "state": {
-    "right": 165,
-    "wrong": 24,
-    "streak": 7,
+    "right": 171,
+    "wrong": 27,
+    "streak": 3,
     "items": {
       "e1": {
         "right": 2,
@@ -237,11 +237,16 @@
         "everWeak": false
       }
     },
-    "chains": {},
+    "chains": {
+      "disc-2023b-q1a-nonperm": {
+        "right": 6,
+        "wrong": 3
+      }
+    },
     "timing": {
-      "fast": 113,
+      "fast": 118,
       "normal": 49,
-      "slow": 3,
+      "slow": 4,
       "samples": [
         {
           "key": "e1",
@@ -1727,6 +1732,60 @@
           "seconds": 5.6,
           "cls": "fast",
           "at": 1790954432369
+        },
+        {
+          "key": "disc-2023b-q1a-nonperm#0",
+          "course": "discrete",
+          "topic": "תמורות",
+          "type": "exam",
+          "seconds": 23.2,
+          "cls": "fast",
+          "at": 1790954491061
+        },
+        {
+          "key": "disc-2023b-q1a-nonperm#1",
+          "course": "discrete",
+          "topic": "תמורות",
+          "type": "exam",
+          "seconds": 23.9,
+          "cls": "fast",
+          "at": 1790954525094
+        },
+        {
+          "key": "disc-2023b-q1a-nonperm#2",
+          "course": "discrete",
+          "topic": "תמורות",
+          "type": "exam",
+          "seconds": 16.3,
+          "cls": "fast",
+          "at": 1790954543397
+        },
+        {
+          "key": "disc-2023b-q1a-nonperm#3",
+          "course": "discrete",
+          "topic": "תמורות",
+          "type": "exam",
+          "seconds": 22.2,
+          "cls": "fast",
+          "at": 1790954568712
+        },
+        {
+          "key": "disc-2023b-q1a-nonperm#4",
+          "course": "discrete",
+          "topic": "תמורות",
+          "type": "exam",
+          "seconds": 8.8,
+          "cls": "fast",
+          "at": 1790954587379
+        },
+        {
+          "key": "disc-2023b-q1a-nonperm#5",
+          "course": "discrete",
+          "topic": "תמורות",
+          "type": "exam",
+          "seconds": 108.3,
+          "cls": "slow",
+          "at": 1790954697609
         }
       ]
     },
@@ -1766,8 +1825,17 @@
         "fast": 3,
         "normal": 3,
         "slow": 0
+      },
+      {
+        "startedAt": 1790954467813,
+        "endedAt": 1790954703065,
+        "right": 6,
+        "wrong": 3,
+        "fast": 5,
+        "normal": 0,
+        "slow": 1
       }
     ],
-    "updatedAt": 1790954435202
+    "updatedAt": 1790954703065
   }
 }
