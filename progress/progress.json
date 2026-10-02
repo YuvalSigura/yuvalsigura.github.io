@@ -1,10 +1,10 @@
 {
   "version": 4,
-  "savedAt": "2026-10-02T14:20:12.365Z",
+  "savedAt": "2026-10-02T15:18:49.983Z",
   "state": {
-    "right": 147,
-    "wrong": 20,
-    "streak": 24,
+    "right": 159,
+    "wrong": 24,
+    "streak": 1,
     "items": {
       "e1": {
         "right": 2,
@@ -17,12 +17,12 @@
         "everWeak": false
       },
       "e12": {
-        "right": 4,
+        "right": 5,
         "wrong": 0,
         "everWeak": false
       },
       "def5": {
-        "right": 5,
+        "right": 6,
         "wrong": 2,
         "everWeak": true
       },
@@ -97,7 +97,7 @@
         "everWeak": false
       },
       "e9": {
-        "right": 2,
+        "right": 3,
         "wrong": 0,
         "everWeak": false
       },
@@ -127,7 +127,7 @@
         "everWeak": true
       },
       "def7": {
-        "right": 3,
+        "right": 4,
         "wrong": 1,
         "everWeak": true
       },
@@ -142,7 +142,7 @@
         "everWeak": false
       },
       "def12": {
-        "right": 5,
+        "right": 6,
         "wrong": 4,
         "everWeak": true
       },
@@ -167,7 +167,7 @@
         "everWeak": false
       },
       "def31": {
-        "right": 2,
+        "right": 3,
         "wrong": 0,
         "everWeak": false
       },
@@ -187,12 +187,12 @@
         "everWeak": false
       },
       "def32": {
-        "right": 3,
-        "wrong": 0,
-        "everWeak": false
+        "right": 5,
+        "wrong": 1,
+        "everWeak": true
       },
       "e4": {
-        "right": 3,
+        "right": 4,
         "wrong": 1,
         "everWeak": true
       },
@@ -212,16 +212,26 @@
         "everWeak": false
       },
       "def21": {
-        "right": 2,
+        "right": 3,
         "wrong": 0,
         "everWeak": false
+      },
+      "mx003": {
+        "right": 1,
+        "wrong": 0,
+        "everWeak": false
+      },
+      "mx032": {
+        "right": 1,
+        "wrong": 3,
+        "everWeak": true
       }
     },
     "chains": {},
     "timing": {
-      "fast": 107,
-      "normal": 38,
-      "slow": 2,
+      "fast": 110,
+      "normal": 46,
+      "slow": 3,
       "samples": [
         {
           "key": "e1",
@@ -1545,6 +1555,114 @@
           "seconds": 10.5,
           "cls": "normal",
           "at": 1790936937799
+        },
+        {
+          "key": "def21",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 14.3,
+          "cls": "normal",
+          "at": 1790951056172
+        },
+        {
+          "key": "e12",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "recognition",
+          "seconds": 9.6,
+          "cls": "fast",
+          "at": 1790951070786
+        },
+        {
+          "key": "mx003",
+          "course": "discrete",
+          "topic": "קומבינטוריקה",
+          "type": "classification",
+          "seconds": 12.8,
+          "cls": "normal",
+          "at": 1790951088856
+        },
+        {
+          "key": "def5",
+          "course": "discrete",
+          "topic": "קומבינטוריקה",
+          "type": "definition",
+          "seconds": 14.2,
+          "cls": "normal",
+          "at": 1790951105637
+        },
+        {
+          "key": "def32",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 6.1,
+          "cls": "fast",
+          "at": 1790951115404
+        },
+        {
+          "key": "def12",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 10,
+          "cls": "normal",
+          "at": 1790951131634
+        },
+        {
+          "key": "e9",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "formula",
+          "seconds": 3.8,
+          "cls": "fast",
+          "at": 1790951140838
+        },
+        {
+          "key": "def32",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 12.8,
+          "cls": "normal",
+          "at": 1790951156186
+        },
+        {
+          "key": "def31",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 15.9,
+          "cls": "normal",
+          "at": 1790951174745
+        },
+        {
+          "key": "e4",
+          "course": "discrete",
+          "topic": "קומבינטוריקה",
+          "type": "classification",
+          "seconds": 26.1,
+          "cls": "slow",
+          "at": 1790951202441
+        },
+        {
+          "key": "def7",
+          "course": "discrete",
+          "topic": "קומבינטוריקה",
+          "type": "definition",
+          "seconds": 17.3,
+          "cls": "normal",
+          "at": 1790951221519
+        },
+        {
+          "key": "mx032",
+          "course": "discrete",
+          "topic": "Euler/Hamilton",
+          "type": "recognition",
+          "seconds": 19.8,
+          "cls": "normal",
+          "at": 1790951242813
         }
       ]
     },
@@ -1566,8 +1684,17 @@
         "fast": 99,
         "normal": 32,
         "slow": 0
+      },
+      {
+        "startedAt": 1790951041910,
+        "endedAt": 1790954327746,
+        "right": 12,
+        "wrong": 4,
+        "fast": 3,
+        "normal": 8,
+        "slow": 1
       }
     ],
-    "updatedAt": 1790936939256
+    "updatedAt": 1790954327746
   }
 }
