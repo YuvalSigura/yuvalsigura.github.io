@@ -301,10 +301,117 @@ function nextChainStep(){
  if(chainStep<chain.steps.length-1){chainStep++;renderChainStep();return}
  $("chainNext").classList.add("hidden");$("chainOptions").innerHTML="";$("chainPrompt").textContent="";$("chainFeedback").classList.add("hidden");$("chainDone").classList.remove("hidden");$("chainSummary").textContent=chain.summary+" טעויות בדרך: "+chainMistakes+".";
 }
+
+const DEEP_BANK=[
+{id:"d01",topic:"בינום→מחלקים",skill:"זיהוי בינום",layer:"זיהוי",prompt:"בלי לחשב איבר־איבר: מה שווה  Σ(k=0..n) C(n,k)·3^k·2^(n-k) ?",answer:"5^n",wrong:[{text:"6^n",why:"חיברת גם את n או ערבבת בין בסיס לחזקה.",tag:"binomial_pattern"},{text:"3^n+2^n",why:"סכום בינומי אינו סכום שתי חזקות נפרדות.",tag:"binomial_pattern"},{text:"C(n,2)·5^n",why:"המקדם הבינומי כבר נמצא בתוך הסכום.",tag:"binomial_pattern"}],explain:"זה בדיוק פיתוח של (3+2)^n."},
+{id:"d02",topic:"בינום→מחלקים",skill:"זהות חצי סכום",layer:"שליפה",prompt:"מהו סכום המקדמים הבינומיים עם k זוגי, עבור n≥1?",answer:"2^(n-1)",wrong:[{text:"2^n",why:"זה סכום כל המקדמים, לא רק הזוגיים.",tag:"even_binomial"},{text:"n·2^(n-1)",why:"זו זהות שקשורה לסכום k·C(n,k).",tag:"even_binomial"},{text:"C(n,n/2)",why:"זה מקדם יחיד, לא סכום.",tag:"even_binomial"}],explain:"הסכום הזוגי והאי־זוגי שווים, וכל המקדמים מסתכמים ל־2^n."},
+{id:"d03",topic:"בינום→מחלקים",skill:"ספירת מחלקים",layer:"ביצוע",prompt:"אם m=2^4·3^2·7, כמה מחלקים חיוביים זוגיים יש ל־m?",answer:"24",wrong:[{text:"30",why:"30 הוא מספר כל המחלקים: (4+1)(2+1)(1+1).",tag:"divisor_constraint"},{text:"16",why:"לא סופרים רק את חזקות 2.",tag:"divisor_constraint"},{text:"12",why:"חסרה בחירה אפשרית באחד המעריכים.",tag:"divisor_constraint"}],explain:"למחלק זוגי מעריך 2 הוא 1..4: ארבע אפשרויות; ל־3 שלוש; ל־7 שתיים. 4·3·2=24."},
+{id:"d04",topic:"בינום→מחלקים",skill:"שרשרת מלאה",layer:"העברה",prompt:"אם m=(Σ C(n,k))·(Σ C(n,k)·2^k), מה הפירוק הנכון של m?",answer:"2^n·3^n=6^n",wrong:[{text:"4^n",why:"הסכום השני הוא 3^n, לא 2^n.",tag:"binomial_chain"},{text:"2^(2n)",why:"שני הסכומים אינם שניהם 2^n.",tag:"binomial_chain"},{text:"5^n",why:"צריך לחשב כל סכום בנפרד ואז לכפול.",tag:"binomial_chain"}],explain:"הסכום הראשון 2^n; השני (1+2)^n=3^n; לכן m=6^n."},
+
+{id:"d05",topic:"רקורסיות",skill:"משוואה אופיינית",layer:"זיהוי",prompt:"עבור a_n=5a_(n-1)-6a_(n-2), איזו משוואה אופיינית מתקבלת?",answer:"r²-5r+6=0",wrong:[{text:"r²+5r-6=0",why:"בהעברת האיברים לאגף אחד הסימנים נקבעים לפי הנסיגה.",tag:"rec_characteristic"},{text:"r-5-6=0",why:"סדר הנסיגה הוא 2 ולכן צריך r².",tag:"rec_characteristic"},{text:"r²=30",why:"לא מכפילים את המקדמים.",tag:"rec_characteristic"}],explain:"מניחים a_n=r^n ומחלקים ב־r^(n-2)."},
+{id:"d06",topic:"רקורסיות",skill:"שורש כפול",layer:"שליפה",prompt:"אם למשוואה האופיינית יש שורש כפול r=2, מה צורת הפתרון ההומוגני?",answer:"(C1+C2·n)·2^n",wrong:[{text:"C1·2^n+C2·2^n",why:"שתי החזקות זהות ולכן צריך גורם n.",tag:"rec_repeat_root"},{text:"(C1+C2)·n·2^n",why:"רק האיבר השני מוכפל ב־n.",tag:"rec_repeat_root"},{text:"C1·2^n+C2·n²",why:"ה־n צריך להכפיל את אותה חזקה.",tag:"rec_repeat_root"}],explain:"שורש כפול נותן בסיס 2^n כפול פולינום מדרגה 1 ב־n."},
+{id:"d07",topic:"רקורסיות",skill:"פתרון פרטי",layer:"הצבה",prompt:"בנסיגה אי־הומוגנית אגף ימין הוא 7·3^n, ו־3 אינו שורש של האופיינית. מה ננסה כפתרון פרטי?",answer:"A·3^n",wrong:[{text:"A·n·3^n",why:"מכפילים ב־n רק אם 3 הוא שורש של האופיינית.",tag:"rec_particular"},{text:"A·7^n",why:"הבסיס נלקח מה־3^n, לא מהמקדם 7.",tag:"rec_particular"},{text:"A·n",why:"הצורה חייבת להתאים לאגף ימין האקספוננציאלי.",tag:"rec_particular"}],explain:"אין התנגשות, לכן שומרים את צורת 3^n."},
+{id:"d08",topic:"רקורסיות",skill:"התנגשות בפרטי",layer:"העברה",prompt:"אגף ימין הוא 4·2^n, ו־2 הוא שורש כפול של האופיינית. מה צורת הניחוש הפרטי?",answer:"A·n²·2^n",wrong:[{text:"A·2^n",why:"זו צורה שכבר נמצאת בהומוגני.",tag:"rec_resonance"},{text:"A·n·2^n",why:"שורש כפול דורש כפל ב־n².",tag:"rec_resonance"},{text:"A·n²",why:"צריך לשמור גם את 2^n.",tag:"rec_resonance"}],explain:"ריבוי 2 של השורש ⇒ מכפילים ב־n²."},
+{id:"d09",topic:"רקורסיות",skill:"Big-O מהפתרון",layer:"הבנה",prompt:"אם a_n=4·3^n-2n+7, איזה חסם נכון ופשוט?",answer:"a_n=O(3^n)",wrong:[{text:"a_n=O(n)",why:"האיבר 3^n גדל מהר יותר מהאיבר הליניארי.",tag:"rec_big_o"},{text:"a_n=O(2^n)",why:"3^n אינו חסום מלמעלה על ידי קבוע כפול 2^n.",tag:"rec_big_o"},{text:"a_n=O(1)",why:"הסדרה אינה חסומה.",tag:"rec_big_o"}],explain:"האיבר הדומיננטי הוא 3^n."},
+
+{id:"d10",topic:"Θ וקצב גידול",skill:"הגדרת Θ",layer:"שליפה",prompt:"מה צריך להיות נכון כדי ש־f(n)=Θ(g(n))?",answer:"קיימים c1,c2>0 ו־n0 כך שלכל n≥n0: c1g(n)≤f(n)≤c2g(n)",wrong:[{text:"קיים c>0 כך ש־f(n)≤cg(n)",why:"זה רק O(g(n)), לא Θ.",tag:"theta_definition"},{text:"lim f(n)=lim g(n)",why:"שוויון גבולות אינו ההגדרה של Θ.",tag:"theta_definition"},{text:"f(n)=g(n) לכל n",why:"Θ מתאר אותו סדר גידול, לא שוויון פונקציות.",tag:"theta_definition"}],explain:"Θ הוא גם חסם עליון וגם חסם תחתון אסימפטוטי."},
+{id:"d11",topic:"Θ וקצב גידול",skill:"איבר דומיננטי",layer:"זיהוי",prompt:"מהו סדר הגידול של 7n²+3n·log n+100?",answer:"Θ(n²)",wrong:[{text:"Θ(n·log n)",why:"n² דומיננטי על n log n.",tag:"growth_dominant"},{text:"Θ(n³)",why:"אין כאן איבר מסדר n³.",tag:"growth_dominant"},{text:"Θ(log n)",why:"האיבר הפולינומי דומיננטי.",tag:"growth_dominant"}],explain:"n² שולט בכל שאר האיברים."},
+{id:"d12",topic:"Θ וקצב גידול",skill:"השוואת גידול",layer:"העברה",prompt:"איזה סדר נכון עבור n→∞?",answer:"log n ≪ n² ≪ 2^n ≪ n!",wrong:[{text:"n² ≪ log n ≪ 2^n ≪ n!",why:"לוגריתם גדל לאט מכל חזקה חיובית של n.",tag:"growth_order"},{text:"log n ≪ 2^n ≪ n² ≪ n!",why:"אקספוננט גדל מהר מפולינום.",tag:"growth_order"},{text:"log n ≪ n² ≪ n! ≪ 2^n",why:"n! גדל מהר יותר מ־c^n עבור c קבוע.",tag:"growth_order"}],explain:"לוגריתמי < פולינומי < אקספוננציאלי < פקטוריאלי."},
+
+{id:"d13",topic:"פונקציות על",skill:"אפשרות onto",layer:"זיהוי",prompt:"מתי יכולה להתקיים פונקציה על f:A→B בקבוצות סופיות?",answer:"רק אם |A|≥|B|",wrong:[{text:"רק אם |A|≤|B|",why:"זה התנאי הטבעי לחח״ע, לא לעל.",tag:"onto_feasibility"},{text:"רק אם |A|=|B|",why:"שוויון אינו הכרחי לעל.",tag:"onto_feasibility"},{text:"תמיד",why:"אם התחום קטן מהטווח, אי אפשר לפגוע בכל ערכי הטווח.",tag:"onto_feasibility"}],explain:"כל ערך בטווח צריך לפחות מקור אחד."},
+{id:"d14",topic:"פונקציות על",skill:"ספירת onto",layer:"ביצוע",prompt:"כמה פונקציות על יש מ־{1,2,3} אל {a,b}?",answer:"6",wrong:[{text:"8",why:"8 הוא מספר כל הפונקציות 2^3.",tag:"onto_ie"},{text:"4",why:"חסרת פונקציות שפוגעות בשני הערכים.",tag:"onto_ie"},{text:"2",why:"אלה דווקא שתי הפונקציות הקבועות שאינן על.",tag:"onto_ie"}],explain:"כל הפונקציות: 8. מחסירים 2 קבועות ⇒ 6."},
+{id:"d15",topic:"פונקציות על",skill:"תמונה של תת־קבוצה",layer:"מלכודת",prompt:"מה אומר f(S)⊆T ?",answer:"כל תמונה של איבר ב־S נמצאת בתוך T; לא חייבים לפגוע בכל T",wrong:[{text:"f(S)=T",why:"⊆ אינו מחייב לכסות את כל T.",tag:"image_subset"},{text:"f היא על T",why:"הטענה היא רק על תמונת S.",tag:"image_subset"},{text:"f חד־חד־ערכית על S",why:"אין כאן תנאי על ייחוד תמונות.",tag:"image_subset"}],explain:"זו מלכודת שכיחה: הכלה אינה שוויון."},
+
+{id:"d16",topic:"Euler φ",skill:"חישוב φ",layer:"ביצוע",prompt:"כמה הוא φ(45)?",answer:"24",wrong:[{text:"30",why:"צריך להחסיר כפולות של 3 ושל 5 לפי נוסחת המכפלה.",tag:"phi_compute"},{text:"20",why:"בדוק את שני הגורמים הראשוניים 3 ו־5.",tag:"phi_compute"},{text:"44",why:"φ(p)=p-1 נכון רק כאשר p ראשוני.",tag:"phi_compute"}],explain:"45(1-1/3)(1-1/5)=45·2/3·4/5=24."},
+{id:"d17",topic:"Euler φ",skill:"כפליות",layer:"שליפה",prompt:"מתי מותר להשתמש ב־φ(ab)=φ(a)φ(b)?",answer:"כאשר gcd(a,b)=1",wrong:[{text:"תמיד",why:"φ כפלית רק על גורמים זרים.",tag:"phi_multiplicative"},{text:"רק כאשר a,b ראשוניים",why:"הם לא חייבים להיות ראשוניים, רק זרים.",tag:"phi_multiplicative"},{text:"כאשר a=b",why:"זה דווקא בדרך כלל לא מצב של זרות.",tag:"phi_multiplicative"}],explain:"פונקציית Euler היא כפלית על מספרים זרים."},
+{id:"d18",topic:"Euler φ",skill:"הרכבה",layer:"העברה",prompt:"מהו φ(φ(15))?",answer:"4",wrong:[{text:"8",why:"φ(15)=8, אבל צריך להפעיל φ פעם נוספת.",tag:"phi_comp"},{text:"6",why:"בדוק φ(8).",tag:"phi_comp"},{text:"14",why:"φ(n)=n-1 רק ל־n ראשוני.",tag:"phi_comp"}],explain:"φ(15)=8 ואז φ(8)=4."},
+
+{id:"d19",topic:"Stars and Bars",skill:"קיזוז מינימום",layer:"זיהוי",prompt:"x1+x2+x3=14, עם x1≥2,x2≥3,x3≥1. אחרי קיזוז מינימום, מה הסכום החדש?",answer:"y1+y2+y3=8",wrong:[{text:"=14",why:"צריך להפחית את המינימום הכולל 2+3+1.",tag:"stars_shift"},{text:"=6",why:"הפחתת את מספר המשתנים במקום את סכום המינימום.",tag:"stars_shift"},{text:"=9",why:"סכום המינימום הוא 6.",tag:"stars_shift"}],explain:"14-(2+3+1)=8."},
+{id:"d20",topic:"Stars and Bars",skill:"ספירה",layer:"ביצוע",prompt:"כמה פתרונות אי־שליליים יש ל־y1+y2+y3=8?",answer:"C(10,2)",wrong:[{text:"C(8,3)",why:"Stars and Bars נותן C(n+k-1,k-1).",tag:"stars_formula"},{text:"3^8",why:"העצמים זהים; לא מקצים כל אחד באופן מובחן.",tag:"stars_formula"},{text:"P(8,3)",why:"אין כאן סידור של איברים שונים.",tag:"stars_formula"}],explain:"C(8+3-1,3-1)=C(10,2)."},
+
+{id:"d21",topic:"הכלה והדחה",skill:"זיהוי PIE",layer:"זיהוי",prompt:"מבקשים כמה מספרים בין 1 ל־300 אינם מתחלקים לא ב־4 ולא ב־6. מה הצעד המבני הנכון?",answer:"לחשב את האיחוד של המתחלקים ב־4 או 6 בעזרת הכלה־הדחה, ואז להחסיר מהיקום",wrong:[{text:"לחבר ⌊300/4⌋+⌊300/6⌋ ולהחסיר",why:"כך סופרים את המתחלקים בשניהם פעמיים.",tag:"pie_overlap"},{text:"להשתמש ב־Stars and Bars",why:"זו לא חלוקת עצמים זהים לתאים.",tag:"pie_recognition"},{text:"להשתמש בשובך היונים",why:"אין כאן טענת הכרח; זו שאלת ספירה.",tag:"pie_recognition"}],explain:"צריך לתקן את החפיפה דרך lcm(4,6)."},
+{id:"d22",topic:"Derangement",skill:"זיהוי אי־סדר",layer:"זיהוי",prompt:"6 אנשים מחזירים 6 כובעים, ואף אחד לא מקבל את הכובע שלו. איזה מבנה מתאים?",answer:"D6",wrong:[{text:"6!",why:"6! כולל גם תמורות עם נקודות קבועות.",tag:"derangement_recognition"},{text:"C(6,2)",why:"זו אינה בחירת זוג.",tag:"derangement_recognition"},{text:"6^6",why:"לא מאפשרים חזרות; זו תמורה.",tag:"derangement_recognition"}],explain:"זו בדיוק תמורת אי־סדר מלא."},
+
+{id:"d23",topic:"גרפים בסיסיים",skill:"Euler מול Hamilton",layer:"זיהוי",prompt:"צריך לעבור בכל קשת בדיוק פעם אחת. מה המושג הרלוונטי?",answer:"Euler",wrong:[{text:"Hamilton",why:"Hamilton עוסק במעבר בצמתים.",tag:"euler_hamilton"},{text:"עץ פורש",why:"עץ פורש אינו מסלול שעובר בכל קשת.",tag:"euler_hamilton"},{text:"איזומורפיזם",why:"אין כאן השוואה בין גרפים.",tag:"euler_hamilton"}],explain:"Euler = קשתות; Hamilton = צמתים."},
+{id:"d24",topic:"גרפים בסיסיים",skill:"תנאי Euler",layer:"שליפה",prompt:"גרף לא־מכוון קשיר. מתי יש בו מעגל Euler?",answer:"כאשר כל דרגות הצמתים זוגיות",wrong:[{text:"כאשר בדיוק שני צמתים אי־זוגיים",why:"זה התנאי למסלול Euler פתוח.",tag:"euler_condition"},{text:"כאשר כל דרגה לפחות 2",why:"זה לא מספיק למעגל Euler.",tag:"euler_condition"},{text:"כאשר מספר הקשתות זוגי",why:"זוגיות מספר הקשתות אינה התנאי.",tag:"euler_condition"}],explain:"קשירות + כל הדרגות זוגיות."},
+{id:"d25",topic:"עצים ומשלים",skill:"עץ",layer:"העברה",prompt:"גרף קשיר עם n צמתים ו־n−1 קשתות. מה אפשר להסיק?",answer:"הגרף הוא עץ",wrong:[{text:"הגרף בהכרח Euler",why:"אין מידע על זוגיות הדרגות.",tag:"tree_characterization"},{text:"הגרף בהכרח Hamilton",why:"עץ אינו בהכרח מכיל מעגל Hamilton.",tag:"tree_characterization"},{text:"אי אפשר להסיק",why:"קשירות יחד עם n−1 קשתות היא אפיון של עץ.",tag:"tree_characterization"}],explain:"אחת השקילויות לעץ: קשיר ו־|E|=|V|-1."}
+];
+
+let deepIndex=0,deepResults=[],deepFirstAnswered=false,deepCurrentOpts=[];
+function deepLayerLabel(x){return ({זיהוי:"זיהוי כלי",שליפה:"שליפה",הצבה:"בחירת צורה",ביצוע:"ביצוע",העברה:"העברה",הבנה:"הבנה",מלכודת:"מלכודת"})[x]||x}
+function startDeep(){
+  beginSession();deepIndex=0;deepResults=[];deepFirstAnswered=false;
+  $("deepIntro").classList.add("hidden");$("deepReport").classList.add("hidden");$("deepCard").classList.remove("hidden");renderDeepStep();
+}
+function renderDeepStep(){
+  if(deepIndex>=DEEP_BANK.length){finishDeep();return}
+  const q=DEEP_BANK[deepIndex];deepFirstAnswered=false;locked=false;
+  $("deepFeedback").className="feedback hidden";$("deepNext").classList.add("hidden");
+  $("deepProgress").textContent=(deepIndex+1)+" מתוך "+DEEP_BANK.length;
+  $("deepLayer").textContent=deepLayerLabel(q.layer);
+  $("deepPrompt").textContent=q.prompt;
+  deepCurrentOpts=shuffle([{text:q.answer,correct:true,why:null,tag:null},...q.wrong.map(x=>({text:x.text,correct:false,why:x.why,tag:x.tag}))]);
+  $("deepOptions").innerHTML=deepCurrentOpts.map((o,i)=>'<button class="option" data-i="'+i+'">'+o.text+'</button>').join("");
+  [...$("deepOptions").children].forEach((b,i)=>b.onclick=()=>answerDeep(b,deepCurrentOpts[i],q));
+  $("deepForgot").disabled=false;$("deepNever").disabled=false;
+  startClock("deepTimer","deepSpeed");
+}
+function captureDeep(q,status,opt,timing){
+  deepResults.push({id:q.id,topic:q.topic,skill:q.skill,layer:q.layer,status,correct:status==="correct",tag:opt&&opt.tag||null,seconds:timing?timing.seconds:null});
+}
+function answerDeep(btn,opt,q){
+  if(locked)return;
+  const timing=recordTiming("deep#"+q.id,"discrete",q.topic,"deep",true,opt.correct);
+  if(timing){$("deepSpeed").className="speed "+timing.cls;$("deepSpeed").textContent=speedLabel(timing.cls)+" · "+timing.seconds.toFixed(1)+" שנ׳";}
+  if(!deepFirstAnswered){captureDeep(q,opt.correct?"correct":"wrong",opt,timing);deepFirstAnswered=true;}
+  if(!opt.correct){
+    state.wrong++;state.streak=0;save();renderStats();btn.classList.add("wrong");btn.disabled=true;
+    $("deepFeedback").className="feedback bad";$("deepFeedbackTitle").textContent="✗ נרשם באבחון";
+    $("deepFeedbackText").textContent=opt.why+" אפשר לנסות שוב; בדוח נשמר הניסיון הראשון.";return;
+  }
+  locked=true;stopClock();state.right++;state.streak++;save();renderStats();
+  [...$("deepOptions").children].forEach(b=>b.disabled=true);$("deepForgot").disabled=true;$("deepNever").disabled=true;btn.classList.add("correct");
+  $("deepFeedback").className="feedback good";$("deepFeedbackTitle").textContent="✓ נכון";
+  $("deepFeedbackText").textContent=q.explain;$("deepNext").classList.remove("hidden");
+}
+function deepSelf(status){
+  if(locked)return; const q=DEEP_BANK[deepIndex]; const timing=recordTiming("deep#"+q.id,"discrete",q.topic,"deep",true,false);
+  captureDeep(q,status,null,timing);deepFirstAnswered=true;locked=true;stopClock();
+  [...$("deepOptions").children].forEach(b=>b.disabled=true);$("deepForgot").disabled=true;$("deepNever").disabled=true;
+  $("deepFeedback").className="feedback bad";$("deepFeedbackTitle").textContent=status==="forgot"?"נרשם: למדתי אבל לא זוכר":"נרשם: לא למדתי";
+  $("deepFeedbackText").textContent="המצב הזה יופיע בנפרד בדוח ולא ייספר כטעות רגילה.";$("deepNext").classList.remove("hidden");
+}
+function deepTopicStatus(rows){
+  if(rows.some(r=>r.status==="never"))return {label:"לא למדתי",cls:"never"};
+  if(rows.some(r=>r.status==="forgot"))return {label:"למדתי אבל לא זוכר",cls:"forgot"};
+  const c=rows.filter(r=>r.correct).length,acc=c/rows.length;
+  if(acc>=.8 && !rows.some(r=>r.layer==="העברה"&&!r.correct))return {label:"יודע",cls:"know"};
+  return {label:"דורש חיזוק",cls:"strengthen"};
+}
+function finishDeep(){
+  stopClock();$("deepCard").classList.add("hidden");$("deepReport").classList.remove("hidden");
+  const grouped={};for(const r of deepResults)(grouped[r.topic]??=[]).push(r);
+  const statuses=Object.entries(grouped).map(([topic,rows])=>({topic,rows,status:deepTopicStatus(rows)}));
+  const counts={know:0,strengthen:0,forgot:0,never:0};statuses.forEach(x=>counts[x.status.cls]++);
+  $("deepReportSummary").innerHTML='<div class="summary-grid"><div class="summary-box"><b>'+counts.know+'</b><span>יודע</span></div><div class="summary-box"><b>'+counts.strengthen+'</b><span>דורש חיזוק</span></div><div class="summary-box"><b>'+counts.forgot+'</b><span>למדתי אבל לא זוכר</span></div><div class="summary-box"><b>'+counts.never+'</b><span>לא למדתי</span></div></div>';
+  $("deepReportTopics").innerHTML=statuses.map(x=>{
+    const first=x.rows.filter(r=>r.correct).length+"/"+x.rows.length;
+    const misses=x.rows.filter(r=>!r.correct&&r.status==="wrong").map(r=>r.skill+(r.tag?" — "+r.tag:""));
+    const explicit=x.rows.filter(r=>r.status==="forgot"||r.status==="never").map(r=>r.skill+" — "+(r.status==="forgot"?"למדתי אבל לא זוכר":"לא למדתי"));
+    const detail=[...misses,...explicit].join(" · ")||"אין פער שנחשף בשרשרת הזו";
+    return '<div class="diag-item deep-result '+x.status.cls+'"><div><b>'+x.topic+'</b><small>'+detail+'</small></div><div class="diag-badges"><span class="mini">'+first+' ניסיון ראשון</span><span class="mini">'+x.status.label+'</span></div></div>';
+  }).join("");
+  state.deepDiagnostics??=[];state.deepDiagnostics.unshift({at:new Date().toISOString(),results:deepResults});state.deepDiagnostics=state.deepDiagnostics.slice(0,12);save();
+}
+function resetDeepView(){
+  $("deepReport").classList.add("hidden");$("deepCard").classList.add("hidden");$("deepIntro").classList.remove("hidden");
+}
+
 function setMode(m){
  stopClock();appMode=m;document.querySelectorAll(".mode").forEach(b=>b.classList.toggle("active",b.dataset.mode===m));
- $("warmupView").classList.toggle("hidden",m==="exam");$("examView").classList.toggle("hidden",m!=="exam");$("kindWrap").classList.toggle("hidden",m==="exam");
- rebuildTopics(); if(m==="exam"){sessionStarted=true;$("startGate").classList.add("hidden");renderChainPicker();}else{sessionStarted=false;$("startGate").classList.remove("hidden");$("warmupView").classList.add("hidden");}
+ $("warmupView").classList.add("hidden");$("examView").classList.toggle("hidden",m!=="exam");$("deepView").classList.toggle("hidden",m!=="deep");$("kindWrap").classList.toggle("hidden",m==="exam"||m==="deep");
+ if(m==="deep"){sessionStarted=true;$("startGate").classList.add("hidden");resetDeepView();return}
+ rebuildTopics(); if(m==="exam"){sessionStarted=true;$("startGate").classList.add("hidden");renderChainPicker();}else{sessionStarted=false;$("startGate").classList.remove("hidden");}
 }
 document.querySelectorAll(".mode").forEach(b=>b.onclick=()=>setMode(b.dataset.mode));
 $("course").onchange=()=>{rebuildTopics();appMode==="exam"?renderChainPicker():renderWarm()};$("topic").onchange=()=>appMode==="exam"?renderChainPicker():renderWarm();$("kind").onchange=renderWarm;
@@ -312,6 +419,7 @@ $("startSessionBtn").onclick=()=>{sessionStarted=true;beginSession();$("startGat
 $("wNext").onclick=renderWarm;$("finishWarmBtn").onclick=finishSession;$("finishExamBtn").onclick=finishSession;$("startChain").onclick=startChain;$("chainNext").onclick=nextChainStep;$("anotherChain").onclick=renderChainPicker;
 $("saveTokenBtn").onclick=connectGithubToken;$("syncNowBtn").onclick=()=>syncCloud(true);$("forgetTokenBtn").onclick=forgetGithubToken;
 $("exportBtn").onclick=exportProgress;$("importInput").onchange=e=>{if(e.target.files&&e.target.files[0])importProgress(e.target.files[0]);e.target.value=""};$("closeSummaryBtn").onclick=()=>{$("sessionSummary").classList.add("hidden");};
+$("startDeepBtn").onclick=startDeep;$("deepForgot").onclick=()=>deepSelf("forgot");$("deepNever").onclick=()=>deepSelf("never");$("deepNext").onclick=()=>{deepIndex++;renderDeepStep()};$("finishDeepBtn").onclick=finishDeep;$("deepRestart").onclick=resetDeepView;
 $("resetBtn").onclick=()=>{if(confirm("לאפס את כל ההתקדמות באתר?")){state={right:0,wrong:0,streak:0,items:{},chains:{},timing:{fast:0,normal:0,slow:0,samples:[]},sessions:[]};save();renderStats();sessionStarted=false;stopClock();$("startGate").classList.remove("hidden");$("warmupView").classList.add("hidden");appMode==="exam"?renderChainPicker():null}};
 renderStats();rebuildTopics();$("warmupView").classList.add("hidden");
 if(ghToken()){setCloudStatus("טוקן שמור במכשיר — טוען התקדמות…");syncCloud(true);}else{setCloudStatus("לא מחובר — הדבק Fine-grained token פעם אחת במכשיר הזה");}
