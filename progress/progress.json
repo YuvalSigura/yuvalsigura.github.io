@@ -1,29 +1,245 @@
 {
   "version": 4,
-  "savedAt": "2026-10-02T09:51:09.596Z",
+  "savedAt": "2026-10-02T10:10:16.350Z",
   "state": {
-    "right": 0,
-    "wrong": 0,
-    "streak": 0,
-    "items": {},
+    "right": 16,
+    "wrong": 6,
+    "streak": 6,
+    "items": {
+      "e1": {
+        "right": 1,
+        "wrong": 3,
+        "everWeak": true
+      },
+      "def26": {
+        "right": 2,
+        "wrong": 0,
+        "everWeak": false
+      },
+      "e12": {
+        "right": 1,
+        "wrong": 0,
+        "everWeak": false
+      },
+      "def5": {
+        "right": 1,
+        "wrong": 0,
+        "everWeak": false
+      },
+      "def17": {
+        "right": 1,
+        "wrong": 0,
+        "everWeak": false
+      },
+      "def8": {
+        "right": 1,
+        "wrong": 0,
+        "everWeak": false
+      },
+      "def6": {
+        "right": 1,
+        "wrong": 1,
+        "everWeak": true
+      },
+      "e10": {
+        "right": 1,
+        "wrong": 0,
+        "everWeak": false
+      },
+      "def3": {
+        "right": 1,
+        "wrong": 1,
+        "everWeak": true
+      },
+      "def1": {
+        "right": 1,
+        "wrong": 0,
+        "everWeak": false
+      },
+      "def23": {
+        "right": 1,
+        "wrong": 1,
+        "everWeak": true
+      },
+      "def11": {
+        "right": 2,
+        "wrong": 0,
+        "everWeak": false
+      },
+      "def29": {
+        "right": 1,
+        "wrong": 0,
+        "everWeak": false
+      },
+      "def4": {
+        "right": 1,
+        "wrong": 0,
+        "everWeak": false
+      }
+    },
     "chains": {},
     "timing": {
-      "fast": 0,
-      "normal": 0,
-      "slow": 0,
-      "samples": []
+      "fast": 8,
+      "normal": 6,
+      "slow": 2,
+      "samples": [
+        {
+          "key": "e1",
+          "course": "discrete",
+          "topic": "קומבינטוריקה",
+          "type": "classification",
+          "seconds": 16.9,
+          "cls": "normal",
+          "at": 1790935581898
+        },
+        {
+          "key": "def26",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 4,
+          "cls": "fast",
+          "at": 1790935598899
+        },
+        {
+          "key": "e12",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "recognition",
+          "seconds": 28.4,
+          "cls": "slow",
+          "at": 1790935628416
+        },
+        {
+          "key": "def5",
+          "course": "discrete",
+          "topic": "קומבינטוריקה",
+          "type": "definition",
+          "seconds": 6.1,
+          "cls": "fast",
+          "at": 1790935635904
+        },
+        {
+          "key": "def17",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 5,
+          "cls": "fast",
+          "at": 1790935641658
+        },
+        {
+          "key": "def8",
+          "course": "discrete",
+          "topic": "פונקציות",
+          "type": "definition",
+          "seconds": 10,
+          "cls": "normal",
+          "at": 1790935652786
+        },
+        {
+          "key": "def6",
+          "course": "discrete",
+          "topic": "קומבינטוריקה",
+          "type": "definition",
+          "seconds": 9.3,
+          "cls": "normal",
+          "at": 1790935662875
+        },
+        {
+          "key": "e10",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "recognition",
+          "seconds": 5.3,
+          "cls": "fast",
+          "at": 1790935681206
+        },
+        {
+          "key": "def3",
+          "course": "discrete",
+          "topic": "קומבינטוריקה",
+          "type": "definition",
+          "seconds": 4.3,
+          "cls": "fast",
+          "at": 1790935686254
+        },
+        {
+          "key": "def1",
+          "course": "discrete",
+          "topic": "עקרונות ספירה",
+          "type": "definition",
+          "seconds": 9,
+          "cls": "normal",
+          "at": 1790935699936
+        },
+        {
+          "key": "def23",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 22.1,
+          "cls": "slow",
+          "at": 1790935741821
+        },
+        {
+          "key": "def11",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 15.1,
+          "cls": "normal",
+          "at": 1790935763056
+        },
+        {
+          "key": "def29",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 5.6,
+          "cls": "fast",
+          "at": 1790935770513
+        },
+        {
+          "key": "def26",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 1.5,
+          "cls": "fast",
+          "at": 1790935772777
+        },
+        {
+          "key": "def11",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "definition",
+          "seconds": 13.2,
+          "cls": "normal",
+          "at": 1790935786571
+        },
+        {
+          "key": "def4",
+          "course": "discrete",
+          "topic": "קומבינטוריקה",
+          "type": "definition",
+          "seconds": 6.9,
+          "cls": "fast",
+          "at": 1790935794348
+        }
+      ]
     },
     "sessions": [
       {
-        "startedAt": 1790934652709,
-        "endedAt": 1790934669219,
-        "right": 0,
-        "wrong": 0,
-        "fast": 0,
-        "normal": 0,
-        "slow": 0
+        "startedAt": 1790935565040,
+        "endedAt": 1790935815935,
+        "right": 16,
+        "wrong": 6,
+        "fast": 8,
+        "normal": 6,
+        "slow": 2
       }
     ],
-    "updatedAt": 1790934669220
+    "updatedAt": 1790935815935
   }
 }
