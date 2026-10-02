@@ -1,10 +1,10 @@
 {
   "version": 4,
-  "savedAt": "2026-10-02T17:15:24.333Z",
+  "savedAt": "2026-10-02T17:20:12.229Z",
   "state": {
-    "right": 171,
-    "wrong": 27,
-    "streak": 3,
+    "right": 174,
+    "wrong": 30,
+    "streak": 1,
     "items": {
       "e1": {
         "right": 2,
@@ -245,7 +245,7 @@
     },
     "timing": {
       "fast": 118,
-      "normal": 49,
+      "normal": 52,
       "slow": 4,
       "samples": [
         {
@@ -1786,6 +1786,33 @@
           "seconds": 108.3,
           "cls": "slow",
           "at": 1790954697609
+        },
+        {
+          "key": "deep#d01",
+          "course": "discrete",
+          "topic": "בינום→מחלקים",
+          "type": "deep",
+          "seconds": 27.1,
+          "cls": "normal",
+          "at": 1790961368780
+        },
+        {
+          "key": "deep#d02",
+          "course": "discrete",
+          "topic": "בינום→מחלקים",
+          "type": "deep",
+          "seconds": 25.5,
+          "cls": "normal",
+          "at": 1790961400056
+        },
+        {
+          "key": "deep#d03",
+          "course": "discrete",
+          "topic": "בינום→מחלקים",
+          "type": "deep",
+          "seconds": 28.9,
+          "cls": "normal",
+          "at": 1790961443453
         }
       ]
     },
@@ -1836,6 +1863,47 @@
         "slow": 1
       }
     ],
-    "updatedAt": 1790954703065
+    "updatedAt": 1790961609937,
+    "deepDiagnostics": [
+      {
+        "at": "2026-10-02T17:20:09.937Z",
+        "results": []
+      },
+      {
+        "at": "2026-10-02T17:19:52.456Z",
+        "results": [
+          {
+            "id": "d01",
+            "topic": "בינום→מחלקים",
+            "skill": "זיהוי בינום",
+            "layer": "זיהוי",
+            "status": "wrong",
+            "correct": false,
+            "tag": "binomial_pattern",
+            "seconds": 27.05880000001192
+          },
+          {
+            "id": "d02",
+            "topic": "בינום→מחלקים",
+            "skill": "זהות חצי סכום",
+            "layer": "שליפה",
+            "status": "wrong",
+            "correct": false,
+            "tag": "even_binomial",
+            "seconds": 25.490699999988077
+          },
+          {
+            "id": "d03",
+            "topic": "בינום→מחלקים",
+            "skill": "ספירת מחלקים",
+            "layer": "ביצוע",
+            "status": "wrong",
+            "correct": false,
+            "tag": "divisor_constraint",
+            "seconds": 28.93089999997616
+          }
+        ]
+      }
+    ]
   }
 }
