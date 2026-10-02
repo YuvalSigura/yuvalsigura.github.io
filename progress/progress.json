@@ -1,10 +1,10 @@
 {
   "version": 4,
-  "savedAt": "2026-10-02T15:18:49.983Z",
+  "savedAt": "2026-10-02T15:20:36.335Z",
   "state": {
-    "right": 159,
+    "right": 165,
     "wrong": 24,
-    "streak": 1,
+    "streak": 7,
     "items": {
       "e1": {
         "right": 2,
@@ -17,7 +17,7 @@
         "everWeak": false
       },
       "e12": {
-        "right": 5,
+        "right": 7,
         "wrong": 0,
         "everWeak": false
       },
@@ -225,12 +225,22 @@
         "right": 1,
         "wrong": 3,
         "everWeak": true
+      },
+      "mx018": {
+        "right": 3,
+        "wrong": 0,
+        "everWeak": false
+      },
+      "mx015": {
+        "right": 1,
+        "wrong": 0,
+        "everWeak": false
       }
     },
     "chains": {},
     "timing": {
-      "fast": 110,
-      "normal": 46,
+      "fast": 113,
+      "normal": 49,
       "slow": 3,
       "samples": [
         {
@@ -1663,6 +1673,60 @@
           "seconds": 19.8,
           "cls": "normal",
           "at": 1790951242813
+        },
+        {
+          "key": "mx018",
+          "course": "discrete",
+          "topic": "פונקציות",
+          "type": "recognition",
+          "seconds": 22.4,
+          "cls": "normal",
+          "at": 1790954365022
+        },
+        {
+          "key": "e12",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "recognition",
+          "seconds": 15,
+          "cls": "normal",
+          "at": 1790954382242
+        },
+        {
+          "key": "mx018",
+          "course": "discrete",
+          "topic": "פונקציות",
+          "type": "recognition",
+          "seconds": 8.5,
+          "cls": "fast",
+          "at": 1790954392360
+        },
+        {
+          "key": "mx015",
+          "course": "discrete",
+          "topic": "תורת המספרים",
+          "type": "recognition",
+          "seconds": 20.4,
+          "cls": "normal",
+          "at": 1790954414013
+        },
+        {
+          "key": "mx018",
+          "course": "discrete",
+          "topic": "פונקציות",
+          "type": "recognition",
+          "seconds": 6.9,
+          "cls": "fast",
+          "at": 1790954422863
+        },
+        {
+          "key": "e12",
+          "course": "discrete",
+          "topic": "גרפים",
+          "type": "recognition",
+          "seconds": 5.6,
+          "cls": "fast",
+          "at": 1790954432369
         }
       ]
     },
@@ -1693,8 +1757,17 @@
         "fast": 3,
         "normal": 8,
         "slow": 1
+      },
+      {
+        "startedAt": 1790954342617,
+        "endedAt": 1790954435202,
+        "right": 6,
+        "wrong": 0,
+        "fast": 3,
+        "normal": 3,
+        "slow": 0
       }
     ],
-    "updatedAt": 1790954327746
+    "updatedAt": 1790954435202
   }
 }
