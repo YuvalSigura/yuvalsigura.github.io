@@ -337,6 +337,42 @@ const DEEP_BANK=[
 {id:"d25",topic:"עצים ומשלים",skill:"עץ",layer:"העברה",prompt:"גרף קשיר עם n צמתים ו־n−1 קשתות. מה אפשר להסיק?",answer:"הגרף הוא עץ",wrong:[{text:"הגרף בהכרח Euler",why:"אין מידע על זוגיות הדרגות.",tag:"tree_characterization"},{text:"הגרף בהכרח Hamilton",why:"עץ אינו בהכרח מכיל מעגל Hamilton.",tag:"tree_characterization"},{text:"אי אפשר להסיק",why:"קשירות יחד עם n−1 קשתות היא אפיון של עץ.",tag:"tree_characterization"}],explain:"אחת השקילויות לעץ: קשיר ו־|E|=|V|-1."}
 ];
 
+
+const DEEP_PROMPT_HTML={
+ d01:'<div>בלי לחשב איבר־איבר, חשב את הסכום:</div><div class="math-block">∑<sub>k=0</sub><sup>n</sup> C(n,k) · 3<sup>k</sup> · 2<sup>n−k</sup></div>',
+ d02:'<div>עבור <span class="math-inline">n ≥ 1</span>, מהו סכום המקדמים הבינומיים שבהם <span class="math-inline">k</span> זוגי?</div><div class="math-block">∑<sub>k even</sub> C(n,k)</div>',
+ d03:'<div>נתון הפירוק הראשוני:</div><div class="math-block">m = 2<sup>4</sup> · 3<sup>2</sup> · 7</div><div>כמה <b>מחלקים חיוביים זוגיים</b> יש ל־<span class="math-inline">m</span>?</div>',
+ d04:'<div>נתון:</div><div class="math-block">m = (∑<sub>k=0</sub><sup>n</sup> C(n,k)) · (∑<sub>k=0</sub><sup>n</sup> C(n,k) · 2<sup>k</sup>)</div><div>מהו הפירוק הנכון של <span class="math-inline">m</span>?</div>',
+ d05:'<div>נתונה הנסיגה ההומוגנית:</div><div class="math-block">a<sub>n</sub> = 5a<sub>n−1</sub> − 6a<sub>n−2</sub></div><div>איזו משוואה אופיינית מתקבלת?</div>',
+ d06:'<div>למשוואה האופיינית יש שורש כפול:</div><div class="math-block">r = 2</div><div>מה צורת הפתרון ההומוגני?</div>',
+ d07:'<div>בנסיגה אי־הומוגנית אגף ימין הוא:</div><div class="math-block">7 · 3<sup>n</sup></div><div>והמספר <span class="math-inline">3</span> <b>אינו</b> שורש של המשוואה האופיינית. מה ננסה כפתרון פרטי?</div>',
+ d08:'<div>אגף ימין הוא:</div><div class="math-block">4 · 2<sup>n</sup></div><div>והמספר <span class="math-inline">2</span> הוא <b>שורש כפול</b> של המשוואה האופיינית. מה צורת הניחוש הפרטי?</div>',
+ d09:'<div>נתון הפתרון:</div><div class="math-block">a<sub>n</sub> = 4 · 3<sup>n</sup> − 2n + 7</div><div>איזה חסם אסימפטוטי פשוט נכון?</div>',
+ d10:'<div>מה צריך להתקיים כדי ש־</div><div class="math-block">f(n) = Θ(g(n))</div>',
+ d11:'<div>מהו סדר הגידול של:</div><div class="math-block">7n<sup>2</sup> + 3n log n + 100</div>',
+ d12:'<div>איזה סדר גידול נכון כאשר <span class="math-inline">n → ∞</span>?</div>',
+ d13:'<div>עבור פונקציה בין קבוצות סופיות:</div><div class="math-block">f : A → B</div><div>מתי בכלל יכולה להתקיים פונקציה <b>על</b>?</div>',
+ d14:'<div>כמה פונקציות <b>על</b> יש מן הקבוצה:</div><div class="math-block">{1,2,3} → {a,b}</div>',
+ d15:'<div>מה בדיוק אומר התנאי:</div><div class="math-block">f(S) ⊆ T</div>',
+ d16:'<div>חשב:</div><div class="math-block">φ(45)</div>',
+ d17:'<div>מתי מותר להשתמש בזהות:</div><div class="math-block">φ(ab) = φ(a)φ(b)</div>',
+ d18:'<div>חשב:</div><div class="math-block">φ(φ(15))</div>',
+ d19:'<div>נתונה המשוואה:</div><div class="math-block">x₁ + x₂ + x₃ = 14</div><div>עם:</div><div class="math-block">x₁ ≥ 2,&nbsp; x₂ ≥ 3,&nbsp; x₃ ≥ 1</div><div>אחרי קיזוז המינימום, מהי המשוואה החדשה?</div>',
+ d20:'<div>כמה פתרונות שלמים אי־שליליים יש למשוואה:</div><div class="math-block">y₁ + y₂ + y₃ = 8</div>',
+ d21:'<div>מבקשים כמה מספרים בין <span class="math-inline">1</span> ל־<span class="math-inline">300</span> <b>אינם מתחלקים</b> לא ב־4 ולא ב־6. מה הצעד המבני הנכון?</div>',
+ d22:'<div>6 אנשים מחזירים 6 כובעים, ואף אדם אינו מקבל את הכובע שלו. איזה מבנה קומבינטורי מתאים?</div>',
+ d23:'<div>צריך לעבור בכל <b>קשת</b> בגרף בדיוק פעם אחת. איזה מושג רלוונטי?</div>',
+ d24:'<div>נתון גרף לא־מכוון <b>קשיר</b>. מהו התנאי לכך שיהיה בו <b>מעגל Euler</b>?</div>',
+ d25:'<div>נתון גרף קשיר עם:</div><div class="math-block">|V| = n,&nbsp;&nbsp; |E| = n − 1</div><div>מה אפשר להסיק?</div>'
+};
+function renderDeepPrompt(q){
+  $("deepPrompt").innerHTML=DEEP_PROMPT_HTML[q.id]||q.prompt;
+}
+function deepOptionHtml(o,i){
+  const pureMath=!/[א-ת]/.test(o.text);
+  return '<button class="option'+(pureMath?' math-option':'')+'" '+(pureMath?'dir="ltr"':'dir="rtl"')+' data-i="'+i+'">'+o.text+'</button>';
+}
+
 let deepIndex=0,deepResults=[],deepFirstAnswered=false,deepCurrentOpts=[];
 function deepLayerLabel(x){return ({זיהוי:"זיהוי כלי",שליפה:"שליפה",הצבה:"בחירת צורה",ביצוע:"ביצוע",העברה:"העברה",הבנה:"הבנה",מלכודת:"מלכודת"})[x]||x}
 function startDeep(){
@@ -349,9 +385,9 @@ function renderDeepStep(){
   $("deepFeedback").className="feedback hidden";$("deepNext").classList.add("hidden");
   $("deepProgress").textContent=(deepIndex+1)+" מתוך "+DEEP_BANK.length;
   $("deepLayer").textContent=deepLayerLabel(q.layer);
-  $("deepPrompt").textContent=q.prompt;
+  renderDeepPrompt(q);
   deepCurrentOpts=shuffle([{text:q.answer,correct:true,why:null,tag:null},...q.wrong.map(x=>({text:x.text,correct:false,why:x.why,tag:x.tag}))]);
-  $("deepOptions").innerHTML=deepCurrentOpts.map((o,i)=>'<button class="option" data-i="'+i+'">'+o.text+'</button>').join("");
+  $("deepOptions").innerHTML=deepCurrentOpts.map((o,i)=>deepOptionHtml(o,i)).join("");
   [...$("deepOptions").children].forEach((b,i)=>b.onclick=()=>answerDeep(b,deepCurrentOpts[i],q));
   $("deepForgot").disabled=false;$("deepNever").disabled=false;
   startClock("deepTimer","deepSpeed");
