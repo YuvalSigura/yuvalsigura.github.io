@@ -247,7 +247,7 @@ function renderWarm(){
  locked=false;$("wFeedback").className="feedback hidden";$("wNext").classList.add("hidden");
  const p=easyPool(); if(!p.length){$("wPrompt").textContent="אין כרגע שאלות במסנן הזה. נסה ערבוב או מצב Warm-up.";$("wOptions").innerHTML="";return}
  current=p[Math.floor(Math.random()*p.length)];
- $("wCourse").textContent=names[current.course];$("wTopic").textContent=current.topic;$("wType").textContent=current.type;$("wCount").textContent=p.length+" כרטיסים זמינים";$("wPrompt").textContent=current.prompt;
+ $("wCourse").textContent=names[current.course];$("wTopic").textContent=current.topic;$("wType").textContent=current.type;$("wCount").textContent=p.length+" כרטיסים זמינים";setRichText("wPrompt",current.prompt);
  const opts=shuffle([{text:current.answer,correct:true,why:null},...(current.wrong||[]).map(x=>typeof x==="string"?{text:x,correct:false,why:"זו אפשרות שמתאימה למבנה אחר."}:{text:x.text,correct:false,why:x.why})]).slice(0,4);
  $("wOptions").innerHTML=opts.map((o,i)=>'<button class="option" data-i="'+i+'">'+o.text+'</button>').join("");
  [...$("wOptions").children].forEach((b,i)=>b.onclick=()=>answerWarm(b,opts[i],opts));
@@ -259,10 +259,10 @@ function answerWarm(btn,opt,opts){
  if(timing){$("wSpeed").className="speed "+timing.cls;$("wSpeed").textContent=speedLabel(timing.cls)+" · "+timing.seconds.toFixed(1)+" שנ׳";}
  if(!opt.correct){
    state.wrong++;state.streak=0;state.items[current.id]??={right:0,wrong:0,everWeak:false};state.items[current.id].wrong++;state.items[current.id].everWeak=true;save();renderStats();
-   btn.classList.add("wrong");btn.disabled=true;$("wFeedback").className="feedback bad";$("wFeedbackTitle").textContent="✗ נסה שוב";$("wFeedbackText").textContent=opt.why||"בדוק שוב את ההבדל בין האפשרויות.";return;
+   btn.classList.add("wrong");btn.disabled=true;$("wFeedback").className="feedback bad";$("wFeedbackTitle").textContent="✗ נסה שוב";$("wFeedbackText").innerHTML=richMixedText(opt.why||"בדוק שוב את ההבדל בין האפשרויות.");return;
  }
  locked=true;stopClock();state.right++;state.streak++;state.items[current.id]??={right:0,wrong:0,everWeak:false};state.items[current.id].right++;save();renderStats();
- [...$("wOptions").children].forEach(b=>b.disabled=true);btn.classList.add("correct");$("wFeedback").className="feedback good";$("wFeedbackTitle").textContent="✓ נכון";$("wFeedbackText").textContent=current.why||"יפה — הזיהוי נכון.";$("wNext").classList.remove("hidden");
+ [...$("wOptions").children].forEach(b=>b.disabled=true);btn.classList.add("correct");$("wFeedback").className="feedback good";$("wFeedbackTitle").textContent="✓ נכון";$("wFeedbackText").innerHTML=richMixedText(current.why||"יפה — הזיהוי נכון.");$("wNext").classList.remove("hidden");
 }
 function chainPool(){const c=$("course").value,t=$("topic").value;return CHAINS.filter(q=>(c==="all"||q.course===c)&&(t==="all"||q.topic===t))}
 function renderChainPicker(){
@@ -284,7 +284,7 @@ function chainOptionsForStep(s){
 }
 function renderChainStep(){
  locked=false;$("chainFeedback").className="feedback hidden";$("chainNext").classList.add("hidden");
- const s=chain.steps[chainStep];$("chainTitle").textContent=chain.title;$("chainProgress").textContent=(chainStep+1)+" מתוך "+chain.steps.length;$("chainStem").textContent=chain.stem;$("chainPrompt").textContent=s.prompt;
+ const s=chain.steps[chainStep];$("chainTitle").textContent=chain.title;$("chainProgress").textContent=(chainStep+1)+" מתוך "+chain.steps.length;setRichText("chainStem",chain.stem);setRichText("chainPrompt",s.prompt);
  const opts=chainOptionsForStep(s);$("chainOptions").className=opts.length>8?"options bank-options":"options";
  $("chainOptions").innerHTML=opts.map((o,i)=>'<button class="option" data-i="'+i+'">'+o.text+'</button>').join("");
  [...$("chainOptions").children].forEach((b,i)=>b.onclick=()=>answerChain(b,opts[i],s));
@@ -294,8 +294,8 @@ function answerChain(btn,opt,s){
  if(locked)return;
  const timing=recordTiming(chain.chain_id+"#"+chainStep,chain.course,chain.topic,"exam",true,opt.correct);
  if(timing){$("chainSpeed").className="speed "+timing.cls;$("chainSpeed").textContent=speedLabel(timing.cls)+" · "+timing.seconds.toFixed(1)+" שנ׳";}
- if(!opt.correct){chainMistakes++;state.wrong++;state.streak=0;state.chains[chain.chain_id]??={right:0,wrong:0};state.chains[chain.chain_id].wrong++;save();renderStats();btn.classList.add("wrong");btn.disabled=true;$("chainFeedback").className="feedback bad";$("chainFeedbackTitle").textContent="✗ עדיין לא";$("chainFeedbackText").textContent=s.hint;return}
- locked=true;stopClock();state.right++;state.streak++;state.chains[chain.chain_id]??={right:0,wrong:0};state.chains[chain.chain_id].right++;save();renderStats();[...$("chainOptions").children].forEach(b=>b.disabled=true);btn.classList.add("correct");$("chainFeedback").className="feedback good";$("chainFeedbackTitle").textContent="✓ נכון";$("chainFeedbackText").textContent=s.explain;$("chainNext").classList.remove("hidden");
+ if(!opt.correct){chainMistakes++;state.wrong++;state.streak=0;state.chains[chain.chain_id]??={right:0,wrong:0};state.chains[chain.chain_id].wrong++;save();renderStats();btn.classList.add("wrong");btn.disabled=true;$("chainFeedback").className="feedback bad";$("chainFeedbackTitle").textContent="✗ עדיין לא";$("chainFeedbackText").innerHTML=richMixedText(s.hint);return}
+ locked=true;stopClock();state.right++;state.streak++;state.chains[chain.chain_id]??={right:0,wrong:0};state.chains[chain.chain_id].right++;save();renderStats();[...$("chainOptions").children].forEach(b=>b.disabled=true);btn.classList.add("correct");$("chainFeedback").className="feedback good";$("chainFeedbackTitle").textContent="✓ נכון";$("chainFeedbackText").innerHTML=richMixedText(s.explain);$("chainNext").classList.remove("hidden");
 }
 function nextChainStep(){
  if(chainStep<chain.steps.length-1){chainStep++;renderChainStep();return}
@@ -337,6 +337,38 @@ const DEEP_BANK=[
 {id:"d25",topic:"עצים ומשלים",skill:"עץ",layer:"העברה",prompt:"גרף קשיר עם n צמתים ו־n−1 קשתות. מה אפשר להסיק?",answer:"הגרף הוא עץ",wrong:[{text:"הגרף בהכרח Euler",why:"אין מידע על זוגיות הדרגות.",tag:"tree_characterization"},{text:"הגרף בהכרח Hamilton",why:"עץ אינו בהכרח מכיל מעגל Hamilton.",tag:"tree_characterization"},{text:"אי אפשר להסיק",why:"קשירות יחד עם n−1 קשתות היא אפיון של עץ.",tag:"tree_characterization"}],explain:"אחת השקילויות לעץ: קשיר ו־|E|=|V|-1."}
 ];
 
+
+
+function escapeHtml(s){
+  return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+}
+function prettyMath(raw){
+  let s=escapeHtml(raw);
+  s=s.replace(/\bC\(([^,]+),([^)]+)\)/g,'<span class="comb">C($1,$2)</span>');
+  s=s.replace(/([A-Za-zφΦ0-9\)])\^(\([^)]+\)|[A-Za-z0-9+\-−]+)/g,(m,b,e)=>b+'<sup>'+e.replace(/^\(|\)$/g,"")+'</sup>');
+  s=s.replace(/([A-Za-z])_([A-Za-z0-9+\-−]+)/g,'$1<sub>$2</sub>');
+  s=s.replace(/a_\(([^)]+)\)/g,'a<sub>$1</sub>');
+  s=s.replace(/a_([A-Za-z0-9+\-−]+)/g,'a<sub>$1</sub>');
+  s=s.replace(/\bTheta\b/g,'Θ');
+  return s;
+}
+function looksMathish(s){
+  return /[=^∑ΣφΦΘ]|C\(|\bO\(|\bn[!²³]?\b|\ba[_\(]|[0-9]\s*[·×]\s*[0-9A-Za-z]/.test(String(s));
+}
+function richMixedText(raw){
+  const text=String(raw);
+  if(!looksMathish(text)) return escapeHtml(text);
+  if(!/[א-ת]/.test(text)) return '<span class="math-inline math-rich" dir="ltr">'+prettyMath(text)+'</span>';
+  const chunks=text.split(/(\b(?:C\([^)]*\)|[A-Za-zφΦΘ][A-Za-z0-9_()^+\-−·×=]*|[0-9]+(?:\^[A-Za-z0-9()+\-−]+)?(?:[·×][A-Za-z0-9φΦΘ^()_+\-−]+)*|[|][VE][|]|O\([^)]*\)|Θ\([^)]*\))\b)/g);
+  return chunks.map(x=>looksMathish(x)?'<span class="math-inline math-rich" dir="ltr">'+prettyMath(x)+'</span>':escapeHtml(x)).join("");
+}
+function deepOptionHtml(o,i){
+  const cls=looksMathish(o.text)?" math-option":"";
+  return '<button class="option'+cls+'" dir="rtl" data-i="'+i+'"><span class="option-text">'+richMixedText(o.text)+'</span></button>';
+}
+function setRichText(elId,text){
+  const el=$(elId); if(el) el.innerHTML=richMixedText(text);
+}
 
 const DEEP_PROMPT_HTML={
  d01:'<div>בלי לחשב איבר־איבר, חשב את הסכום:</div><div class="math-block">∑<sub>k=0</sub><sup>n</sup> C(n,k) · 3<sup>k</sup> · 2<sup>n−k</sup></div>',
@@ -403,12 +435,12 @@ function answerDeep(btn,opt,q){
   if(!opt.correct){
     state.wrong++;state.streak=0;save();renderStats();btn.classList.add("wrong");btn.disabled=true;
     $("deepFeedback").className="feedback bad";$("deepFeedbackTitle").textContent="✗ נרשם באבחון";
-    $("deepFeedbackText").textContent=opt.why+" אפשר לנסות שוב; בדוח נשמר הניסיון הראשון.";return;
+    $("deepFeedbackText").innerHTML=richMixedText(opt.why+" אפשר לנסות שוב; בדוח נשמר הניסיון הראשון.");return;
   }
   locked=true;stopClock();state.right++;state.streak++;save();renderStats();
   [...$("deepOptions").children].forEach(b=>b.disabled=true);$("deepForgot").disabled=true;$("deepNever").disabled=true;btn.classList.add("correct");
   $("deepFeedback").className="feedback good";$("deepFeedbackTitle").textContent="✓ נכון";
-  $("deepFeedbackText").textContent=q.explain;$("deepNext").classList.remove("hidden");
+  $("deepFeedbackText").innerHTML=richMixedText(q.explain);$("deepNext").classList.remove("hidden");
 }
 function deepSelf(status){
   if(locked)return; const q=DEEP_BANK[deepIndex]; const timing=recordTiming("deep#"+q.id,"discrete",q.topic,"deep",true,false);
