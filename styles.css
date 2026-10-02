@@ -30,3 +30,11 @@ button,select{font:inherit}button{cursor:pointer}.ghost,.mode{border:1px solid v
 .deep-self-report{display:flex;gap:9px;margin-top:14px;flex-wrap:wrap}.deep-self-report .danger{border-color:#7f1d1d;color:#fecaca}
 .deep-result.know{border-right:4px solid var(--green)}.deep-result.strengthen{border-right:4px solid var(--amber)}.deep-result.forgot{border-right:4px solid #8b5cf6}.deep-result.never{border-right:4px solid var(--red)}
 @media(max-width:720px){.deep-self-report{flex-direction:column}.deep-self-report button{width:100%}}
+
+#deepPrompt{font-size:clamp(1.45rem,3.4vw,2.35rem)}
+#deepPrompt>div:not(.math-block){margin:.18em 0}
+.math-block{direction:ltr;unicode-bidi:isolate;text-align:center;font-family:Arial,Helvetica,sans-serif;font-variant-numeric:lining-nums;background:#08111f;border:1px solid #2d4264;border-radius:12px;padding:12px 16px;margin:12px 0;font-size:.88em;line-height:1.65;letter-spacing:.01em}
+.math-inline{direction:ltr;unicode-bidi:isolate;display:inline-block;font-family:Arial,Helvetica,sans-serif}
+.math-option{direction:ltr!important;text-align:center!important;unicode-bidi:isolate;font-size:1.05rem}
+.math-option sup,.math-block sup{font-size:.7em}
+.math-option sub,.math-block sub{font-size:.7em}
