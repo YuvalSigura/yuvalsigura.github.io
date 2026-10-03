@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>מבחני חימום — בדידה 2</title>
+<meta name="description" content="מבחני חימום קצרים מותאמים אישית לבדידה 2 לפני מבחנים מלאים.">
+<link rel="stylesheet" href="styles.css?v=20261004-warmups1">
+<style>
+.wu-wrap{width:min(900px,94vw);margin:24px auto 70px}.wu-top{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}.wu-top a{color:#c4b5fd;text-decoration:none;font-weight:800}
+.sets{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:18px 0}.setbtn{cursor:pointer;text-align:right;padding:16px;border-radius:16px;border:1px solid #2d4264;background:#10192b;color:#f8fafc}.setbtn.active{outline:2px solid #60a5fa;background:#12233c}.setbtn small{display:block;color:#98a6c5;margin-top:6px}
+.wu-card{background:rgba(16,25,43,.96);border:1px solid #273653;border-radius:18px;padding:22px;margin:14px 0}.meta{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;color:#98a6c5}.q{font-size:clamp(1.25rem,3.2vw,1.9rem);line-height:1.65;margin:18px 0}.opts{display:grid;gap:10px}.opt{width:100%;text-align:right;background:#111d33;color:#f8fafc;border:1px solid #354866;border-radius:14px;padding:14px;font-weight:750;line-height:1.55}.opt.correct{border-color:#10b981;background:rgba(16,185,129,.16)}.opt.wrong{border-color:#ef4444;background:rgba(239,68,68,.15)}.feedback{margin-top:14px;padding:13px;border-radius:12px;background:#0a1323;border:1px solid #273653;line-height:1.7}.actions{display:flex;gap:10px;margin-top:14px}.actions button{flex:1}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.box{background:#0a1323;border:1px solid #273653;border-radius:12px;padding:14px;text-align:center}.box b{display:block;font-size:1.5rem}.timer{font-variant-numeric:tabular-nums}.hidden{display:none!important}.note{color:#98a6c5;line-height:1.7}.topicline{margin-top:8px;padding:10px 12px;border-radius:10px;background:#0a1323;border:1px solid #273653}
+@media(max-width:650px){.grid{grid-template-columns:1fr}.actions{flex-direction:column}}
+</style>
+</head>
+<body>
+<main class="wu-wrap">
+  <div class="wu-top">
+    <div><span class="eyebrow">PRE-EXAM WARMUPS</span><h1 style="font-size:clamp(2rem,6vw,3.1rem);margin:.15rem 0">מבחני חימום — 12 שאלות</h1><p>10–20 דקות לפני מבחן מלא. בלי רמזים, בלי ללמוד חומר חדש.</p></div>
+    <a href="./">← חזרה לאתר הראשי</a>
+  </div>
+
+  <section class="wu-card">
+    <b>איך להשתמש:</b>
+    <p class="note">בחר חימום אחד בלבד לפני מבחן מלא. אם קיבלת 9/12 ומעלה — עצור ועבור למבחן. אם פחות, בדוק רק את הטעויות ואז עבור למבחן; לא עושים מרתון חימום.</p>
+  </section>
+
+  <div class="sets">
+    <button class="setbtn active" data-set="a"><b>🔥 חימום A — ליבת ה־60</b><small>רקורסיה, בינום, מחלקים, תתי־קבוצות, Stars & Bars, Euler/גרפים</small></button>
+    <button class="setbtn" data-set="b"><b>🎯 חימום B — מה שפספסנו</b><small>תמונה קבועה, בדיוק/לפחות, אי־שוויון, בלוקים, משלים, דו־צדדי, Hamilton</small></button>
+    <button class="setbtn" data-set="c"><b>🧠 חימום C — ערבוב לפני אמת</b><small>שליפה מעורבת מכל החומר הפעיל בלי כותרות נושא</small></button>
+  </div>
+
+  <section id="intro" class="wu-card">
+    <h2 id="introTitle">חימום A — ליבת ה־60</h2>
+    <p class="note">12 שאלות, יעד 15 דקות. התשובה הראשונה נשמרת לציון. נושא השאלה לא מוצג עד המשוב.</p>
+    <button id="start" class="primary big-start">התחל חימום ▶</button>
+  </section>
+
+  <section id="quiz" class="wu-card hidden">
+    <div class="meta"><span id="progress"></span><span>⏱ <b id="timer" class="timer">00:00</b></span><span id="score"></span></div>
+    <div id="question" class="q"></div>
+    <div id="options" class="opts"></div>
+    <div id="feedback" class="feedback hidden"></div>
+    <div class="actions"><button id="next" class="primary hidden">הבא ←</button></div>
+  </section>
+
+  <section id="summary" class="wu-card hidden">
+    <span class="eyebrow">WARMUP RESULT</span><h2>סיימת את החימום</h2>
+    <div class="grid"><div class="box"><b id="sRight">0</b><span>נכון ראשון</span></div><div class="box"><b id="sWrong">0</b><span>טעויות</span></div><div class="box"><b id="sPct">0%</b><span>דיוק</span></div></div>
+    <div id="missed" style="margin-top:14px"></div>
+    <p id="verdict" class="note"></p>
+    <div class="actions"><button id="retry" class="primary">רק הטעויות</button><button id="restart" class="ghost">אותו חימום מחדש</button><button class="ghost" onclick="location.href='exams.html'">למבחנים המלאים ←</button></div>
+  </section>
+</main>
+<script>
+const SETS={
+a:[
+{id:"a1",t:"רקורסיות",q:"בנסיגה aₙ=5aₙ₋₁−6aₙ₋₂+4ⁿ, והשורשים האופייניים הם 2,3. מה ניחוש הפרטי?",o:["A·4ⁿ","A·n·4ⁿ","A·2ⁿ","A·n²·4ⁿ"],a:0,e:"4 אינו שורש אופייני, לכן אין התנגשות."},
+{id:"a2",t:"רקורסיות",q:"אגף ימין הוא 7·2ⁿ, ו־2 הוא שורש אופייני פשוט. מה ניחוש הפרטי?",o:["A·2ⁿ","A·n·2ⁿ","A·n²·2ⁿ","A·7ⁿ"],a:1,e:"שורש פשוט ⇒ מכפילים פעם אחת ב־n."},
+{id:"a3",t:"בינום",q:"Σ C(n,k)·3^k·2^(n-k) שווה ל־?",o:["5ⁿ","6ⁿ","3ⁿ+2ⁿ","n·5"],a:0,e:"זהו בדיוק הפיתוח של (3+2)ⁿ."},
+{id:"a4",t:"מחלקים",q:"אם m=2⁴·3²·5, כמה מחלקים חיוביים זוגיים יש?",o:["24","30","12","20"],a:0,e:"מעריך 2: 1..4 — 4 אפשרויות; ל־3: 3; ל־5: 2. סה״כ 24."},
+{id:"a5",t:"תתי־קבוצות",q:"לקבוצה בת n איברים יש 1024 תתי־קבוצות בגודל זוגי. מה n?",o:["10","11","12","20"],a:1,e:"מספר תתי־הקבוצות הזוגיות הוא 2^(n-1). לכן 2^(n-1)=1024=2^10."},
+{id:"a6",t:"Stars and Bars",q:"23 כדורים זהים ל־6 תאים שונים, לפחות 2 בכל תא והראשון לפחות 5. כמה נשאר לחלק אחרי המינימום?",o:["8","11","15","5"],a:0,e:"מינימום: 5+5·2=15, לכן נשארו 8."},
+{id:"a7",t:"Euler φ",q:"φ(5^k) שווה ל־?",o:["5^k−1","4·5^(k−1)","k·4","5^(k−1)"],a:1,e:"φ(p^k)=p^(k−1)(p−1)."},
+{id:"a8",t:"Euler",q:"גרף קשיר עם בדיוק שני צמתים מדרגה אי־זוגית — מה קיים?",o:["מעגל Euler","מסלול Euler פתוח","אין Euler","בהכרח Hamilton"],a:1,e:"בדיוק שני אי־זוגיים ⇒ מסלול Euler פתוח."},
+{id:"a9",t:"גרפים",q:"בגרף עם 18 צמתים סכום הדרגות הוא 34 והוא קשיר. מה נכון?",o:["עץ","לא עץ","גרף שלם","אי אפשר לדעת"],a:0,e:"|E|=34/2=17=18−1, וקשיר עם n−1 קשתות הוא עץ."},
+{id:"a10",t:"משלים",q:"G עם 10 צמתים ו־18 קשתות. כמה קשתות במשלים?",o:["27","45","28","22"],a:0,e:"ב־K10 יש 45 קשתות; 45−18=27."},
+{id:"a11",t:"Θ",q:"אם 4n²≤f(n)≤10n² החל מ־n₀, מה המסקנה?",o:["רק O(n²)","Θ(n²)","Ω(n³)","אין מסקנה"],a:1,e:"יש חסם עליון ותחתון בקבועים חיוביים."},
+{id:"a12",t:"פונקציות",q:"כמה פונקציות חד־חד־ערכיות מ־3 איברים ל־5 איברים?",o:["5³","5·4·3","C(5,3)","3!"],a:1,e:"חד־חד־ערכית = חליפה P(5,3)."}
+],
+b:[
+{id:"b1",t:"פונקציות",q:"f:{1,...,5}→{1,...,10} עולה ממש, והתמונה בדיוק {2,4,5,7,9}. כמה פונקציות?",o:["1","5!","C(10,5)","0"],a:0,e:"התמונה קבועה והעלייה הממשית כופה סדר יחיד."},
+{id:"b2",t:"פונקציות",q:"אותה תמונה בדיוק, אך f רק חד־חד־ערכית. כמה פונקציות?",o:["1","5!","5^5","0"],a:1,e:"מסדרים את חמשת ערכי התמונה בכל סדר: 5!."},
+{id:"b3",t:"Stars and Bars",q:"אם x₁=4 בדיוק במשוואת סכום, מה עושים?",o:["נותנים 4 מינימום ומשאירים אותו חופשי","מציבים 4 ומוציאים את x₁ מהמשתנים החופשיים","מוסיפים slack","אין שינוי"],a:1,e:"'בדיוק' קובע את המשתנה."},
+{id:"b4",t:"Stars and Bars",q:"אם x₁≥4, מה עושים?",o:["מציבים x₁=4 ומוחקים אותו","מורידים 4 אבל x₁ נשאר חופשי","מוסיפים שני משתני עזר","סופרים רק x₂,..."],a:1,e:"'לפחות' נותן מינימום, לא ערך קבוע."},
+{id:"b5",t:"Stars and Bars",q:"לסכום של משתנים אי־שליליים עם ≤, מהו הטריק הסטנדרטי?",o:["להוסיף משתנה slack אחד","למחוק משתנה אחד","להוסיף 1 לכל משתנה","להשתמש בהכלה והדחה תמיד"],a:0,e:"slack הופך ≤ לשוויון."},
+{id:"b6",t:"הכלה והדחה",q:"בין 1 ל־300, 220 מתחלקים ב־2 או 3 או 5. כמה לא מתחלקים באף אחד?",o:["80","220","300","10"],a:0,e:"משלים של האיחוד: 300−220."},
+{id:"b7",t:"בלוקים",q:"בתמורות של {1,2,3,4,5}: 1,2 סמוכים או 4,5 סמוכים. כמה?",o:["48","72","96","24"],a:1,e:"48+48−24=72."},
+{id:"b8",t:"משלים/עץ",q:"עץ עם 8 צמתים. כמה קשתות במשלים?",o:["8","21","28","7"],a:1,e:"C(8,2)−7=21."},
+{id:"b9",t:"עץ ומשלים",q:"אם T והמשלים שלו שניהם עצים, n>1. מה n?",o:["3","4","5","6"],a:1,e:"2(n−1)=C(n,2), ולכן n=4."},
+{id:"b10",t:"דו־צדדי",q:"גרף מכיל C₅. האם הוא דו־צדדי?",o:["כן","לא","רק אם קשיר","רק אם אין עלים"],a:1,e:"C₅ הוא מעגל אי־זוגי."},
+{id:"b11",t:"Hamilton",q:"בגרף קשיר יש עלה. האם יכול להיות מעגל Hamilton?",o:["כן","לא","רק אם מספר הצמתים זוגי","רק אם הוא Euler"],a:1,e:"במעגל צריך שתי קשתות incident לצומת; לעלה יש אחת."},
+{id:"b12",t:"Euler",q:"בגרף קשיר כל הדרגות זוגיות. מה מובטח?",o:["מעגל Euler","רק מסלול Euler פתוח","Hamilton","עץ"],a:0,e:"קשיר + כל הדרגות זוגיות ⇔ מעגל Euler."}
+],
+c:[
+{id:"c1",t:"קומבינטוריקה",q:"ועדה של k מתוך n, בלי תפקידים ובלי חזרות. איזו נוסחה?",o:["n^k","P(n,k)","C(n,k)","n!"],a:2,e:"אין סדר ואין חזרות."},
+{id:"c2",t:"קומבינטוריקה",q:"קוד באורך k מתוך n סמלים, חזרות מותרות והסדר חשוב. נוסחה?",o:["n^k","C(n,k)","P(n,k)","C(n+k-1,k)"],a:0,e:"לכל מקום n אפשרויות."},
+{id:"c3",t:"תמורות",q:"בלוק של 3 איברים שחייבים להיות סמוכים בתוך תמורה — מה חייבים לזכור בנוסף לבלוק?",o:["אין שום דבר","סדר פנימי של 3!","לחלק ב־3!","רק C(n,3)"],a:1,e:"הבלוק נחשב אובייקט אחד, אך בתוכו יש 3! סדרים."},
+{id:"c4",t:"רקורסיות",q:"שורש אופייני כפול r נותן פתרון הומוגני:",o:["C₁rⁿ+C₂rⁿ","(C₁+C₂n)rⁿ","C₁rⁿ+C₂n²","(C₁+C₂)nrⁿ"],a:1,e:"שורש כפול מוסיף גורם n לפתרון השני."},
+{id:"c5",t:"בינום",q:"סכום כל המקדמים C(n,0)+...+C(n,n) הוא:",o:["2^n","n!","2^(n-1)","n²"],a:0,e:"מציבים x=y=1 בבינום."},
+{id:"c6",t:"Euler φ",q:"מתי מותר להשתמש במשפט Euler a^φ(n)≡1 (mod n)?",o:["תמיד","רק כש-n ראשוני","כש-gcd(a,n)=1","רק כש-a<n"],a:2,e:"תנאי הזרות הוא הכרחי למשפט."},
+{id:"c7",t:"פונקציות",q:"פונקציה על A→B יכולה להתקיים בקבוצות סופיות רק אם:",o:["|A|≤|B|","|A|≥|B|","|A|=|B| תמיד","אין תנאי"],a:1,e:"צריך מספיק איברי תחום כדי לכסות את כל הטווח."},
+{id:"c8",t:"גרפים",q:"Σ deg(v) שווה ל־?",o:["|E|","2|E|","|V|−1","C(|V|,2)"],a:1,e:"משפט סכום הדרגות."},
+{id:"c9",t:"משלים",q:"לכל צומת v בגרף פשוט על n צמתים:",o:["degG(v)+degḠ(v)=n","=n−1","=2n","=|E|"],a:1,e:"v יכול להיות סמוך לכל אחד מ־n−1 הצמתים האחרים בדיוק באחד משני הגרפים."},
+{id:"c10",t:"עץ",q:"עץ על n צמתים מכיל כמה קשתות?",o:["n","n−1","n+1","2n−2"],a:1,e:"תכונת יסוד של עץ."},
+{id:"c11",t:"דו־צדדי",q:"אפיון שימושי לגרף דו־צדדי:",o:["אין בו שום מעגל","אין בו מעגל אי־זוגי","כל הדרגות זוגיות","הוא חייב להיות עץ"],a:1,e:"דו־צדדי ⇔ אין מעגלים אי־זוגיים."},
+{id:"c12",t:"Hamilton",q:"במעגל Hamilton עוברים:",o:["בכל הקשתות בדיוק פעם אחת","בכל הצמתים בדיוק פעם אחת וחוזרים להתחלה","רק בצמתים מדרגה זוגית","בכל הקשתות וחוזרים להתחלה"],a:1,e:"Hamilton עוסק בצמתים; Euler עוסק בקשתות."}
+]};
+
+let setKey=localStorage.getItem("warmupSet")||"a",bank=[],i=0,first=[],right=0,started=0,timer=null,locked=false;
+const $=id=>document.getElementById(id);
+function setName(k){return k==="a"?"חימום A — ליבת ה־60":k==="b"?"חימום B — מה שפספסנו":"חימום C — ערבוב לפני אמת"}
+function choose(k){setKey=k;localStorage.setItem("warmupSet",k);document.querySelectorAll(".setbtn").forEach(b=>b.classList.toggle("active",b.dataset.set===k));$("introTitle").textContent=setName(k);$("intro").classList.remove("hidden");$("quiz").classList.add("hidden");$("summary").classList.add("hidden");}
+document.querySelectorAll(".setbtn").forEach(b=>b.onclick=()=>choose(b.dataset.set));
+function start(list=SETS[setKey]){bank=list.slice();i=0;first=[];right=0;started=Date.now();clearInterval(timer);timer=setInterval(tick,500);tick();$("intro").classList.add("hidden");$("summary").classList.add("hidden");$("quiz").classList.remove("hidden");render()}
+function tick(){const s=Math.floor((Date.now()-started)/1000);$("timer").textContent=String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0")}
+function render(){if(i>=bank.length)return finish();locked=false;$("feedback").classList.add("hidden");$("next").classList.add("hidden");const q=bank[i];$("progress").textContent=(i+1)+" מתוך "+bank.length;$("score").textContent="נכון ראשון: "+right;$("question").textContent=q.q;$("options").innerHTML=q.o.map((x,k)=>'<button class="opt">'+x+'</button>').join("");[...$("options").children].forEach((b,k)=>b.onclick=()=>answer(b,k,q))}
+function answer(btn,k,q){if(locked)return;const rec=first.find(x=>x.id===q.id);if(!rec){first.push({id:q.id,correct:k===q.a,t:q.t});if(k===q.a)right++}if(k!==q.a){btn.classList.add("wrong");btn.disabled=true;$("feedback").classList.remove("hidden");$("feedback").innerHTML="<b>✗ לא בניסיון הראשון</b><br><b>נושא:</b> "+q.t+"<br>"+q.e;return}locked=true;btn.classList.add("correct");[...$("options").children].forEach(b=>b.disabled=true);$("feedback").classList.remove("hidden");$("feedback").innerHTML="<b>✓ נכון</b><br><b>נושא:</b> "+q.t+"<br>"+q.e;$("next").classList.remove("hidden")}
+function finish(){clearInterval(timer);$("quiz").classList.add("hidden");$("summary").classList.remove("hidden");const wrong=first.filter(x=>!x.correct),pct=Math.round(100*right/first.length);$("sRight").textContent=right;$("sWrong").textContent=wrong.length;$("sPct").textContent=pct+"%";const ids=new Set(wrong.map(x=>x.id));const missed=bank.filter(q=>ids.has(q.id));$("missed").innerHTML=missed.length?"<b>רק אלה דורשים בדיקה:</b>"+missed.map(q=>'<div class="topicline"><b>'+q.t+'</b> — '+q.q+'</div>').join(""):"<b>אין טעויות בניסיון הראשון.</b>";$("verdict").textContent=right>=9?"מספיק. אל תמשיך לחמם — עבור למבחן המלא.":"בדוק את הטעויות פעם אחת בלבד, ואז עבור למבחן המלא.";localStorage.setItem("warmupLast:"+setKey,JSON.stringify({at:new Date().toISOString(),right,total:first.length,wrong:wrong.map(x=>x.id)}));$("retry").disabled=!wrong.length;$("retry").onclick=()=>start(missed)}
+$("start").onclick=()=>start();$("next").onclick=()=>{i++;render()};$("restart").onclick=()=>start(SETS[setKey]);choose(setKey);
+</script>
+</body></html>
