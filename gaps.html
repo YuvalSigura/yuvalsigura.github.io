@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>מבחן השלמת חורים — בדידה 2</title>
+<link rel="stylesheet" href="styles.css?v=20261003-gaps1">
+<style>
+.gap-wrap{width:min(920px,92vw);margin:24px auto 60px}.gap-top{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:16px}
+.gap-top a{color:#c4b5fd;text-decoration:none;font-weight:800}.gap-card{background:rgba(16,25,43,.96);border:1px solid #273653;border-radius:18px;padding:24px;margin:14px 0}
+.gap-meta{display:flex;justify-content:space-between;gap:12px;color:#98a6c5;font-size:.86rem}.gap-q{font-size:clamp(1.35rem,3.2vw,2.05rem);line-height:1.65;margin:18px 0}
+.gap-options{display:grid;gap:10px}.gap-opt{width:100%;text-align:right;background:#111d33;color:#f8fafc;border:1px solid #354866;border-radius:14px;padding:15px;font-weight:750;line-height:1.65}
+.gap-opt.correct{border-color:#10b981;background:rgba(16,185,129,.16)}.gap-opt.wrong{border-color:#ef4444;background:rgba(239,68,68,.15)}
+.gap-feedback{margin-top:14px;padding:14px;border-radius:12px;background:#0a1323;border:1px solid #273653;line-height:1.75}.gap-actions{display:flex;gap:10px;margin-top:14px}.gap-actions button{flex:1}
+.self{display:flex;gap:8px;margin-top:12px}.self button{flex:1}.gap-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.gap-box{background:#0a1323;border:1px solid #273653;border-radius:12px;padding:14px;text-align:center}.gap-box b{display:block;font-size:1.5rem}
+.topic-row{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;background:#0a1323;border:1px solid #273653;border-radius:12px;padding:12px 14px;margin-top:8px}.topic-row small{display:block;color:#98a6c5;margin-top:4px}.pill{border-radius:999px;padding:5px 9px;font-size:.75rem;font-weight:900;background:#1c2941}.note{color:#98a6c5;line-height:1.75}.timer{font-variant-numeric:tabular-nums}
+@media(max-width:700px){.gap-top,.gap-actions,.self{flex-direction:column;align-items:stretch}.gap-grid{grid-template-columns:repeat(2,1fr)}.topic-row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<main class="gap-wrap">
+  <div class="gap-top">
+    <div><span class="eyebrow">GAP CLOSURE</span><h1 style="font-size:clamp(2rem,6vw,3.2rem);margin:.2rem 0">מבחן השלמת חורים</h1></div>
+    <a href="./">← חזרה לאתר הראשי</a>
+  </div>
+
+  <section id="intro" class="gap-card">
+    <h2>מבחן ממוקד לפני המבחן המלא</h2>
+    <p class="note">26 שאלות על הפערים הפעילים בלבד. אין כותרות נושא בזמן השאלות בכוונה. נשמרת התשובה הראשונה, ויש הפרדה בין טעות, “למדתי אבל לא זוכר” ו“לא למדתי”.</p>
+    <p class="note"><b>מה נבדק:</b> פונקציות, בינום→מחלקים, רקורסיות, Θ, Euler ו־φ מתקדם. Ore/Dirac, גרפים מכוונים ומולטינום עמוק נשארו בחוץ בכוונה.</p>
+    <button id="start" class="primary big-start" style="margin-top:18px">התחל מבחן ▶</button>
+  </section>
+
+  <section id="quiz" class="gap-card hidden">
+    <div class="gap-meta"><span id="progress"></span><span>⏱ <b id="timer" class="timer">00:00</b></span><span id="score"></span></div>
+    <p class="note">זהה לבד את הכלי לפני שאתה בוחר תשובה.</p>
+    <div id="question" class="gap-q"></div>
+    <div id="options" class="gap-options"></div>
+    <div class="self"><button id="forgot" class="ghost">למדתי אבל לא זוכר</button><button id="never" class="ghost">לא למדתי</button></div>
+    <div id="feedback" class="gap-feedback hidden"></div>
+    <div class="gap-actions"><button id="next" class="primary hidden">הבא ←</button></div>
+  </section>
+
+  <section id="summary" class="gap-card hidden">
+    <span class="eyebrow">RESULT</span><h2>מפת חורים מעודכנת</h2>
+    <div class="gap-grid">
+      <div class="gap-box"><b id="sRight">0</b><span>נכון בניסיון ראשון</span></div>
+      <div class="gap-box"><b id="sWrong">0</b><span>טעויות</span></div>
+      <div class="gap-box"><b id="sForgot">0</b><span>למדתי ולא זוכר</span></div>
+      <div class="gap-box"><b id="sNever">0</b><span>לא למדתי</span></div>
+    </div>
+    <div id="topics" style="margin-top:16px"></div>
+    <p class="note" style="margin-top:16px">המבחן הזה הוא מבחן סגירת חורים, לא הוכחת רמה 3. אחרי שהפערים כאן מתנקים — עוברים למבחן מלא ולשתי שאלות פתוחות עצמאיות: בינום־מחלקים ורקורסיה.</p>
+    <div class="gap-actions"><button id="retry" class="primary">תרגל רק טעויות/לא זוכר</button><button id="restart" class="ghost">מבחן מחדש</button></div>
+  </section>
+</main>
+<script>
+const Q=[
+{id:"g01",topic:"פונקציות",q:"אם |A|=3 ו-|B|=5, כמה פונקציות רגילות יש מ-A ל-B?",o:["3^5","5^3","5·4·3","5!"],a:1,e:"כל אחד מ-3 איברי A בוחר אחד מתוך 5 יעדים: 5^3."},
+{id:"g02",topic:"פונקציות",q:"אם |A|=4 ו-|B|=3, כמה פונקציות חד־חד־ערכיות קיימות?",o:["3^4","4·3·2","3!","0"],a:3,e:"אי אפשר חח״ע כשיש יותר איברים בתחום מאשר יעדים."},
+{id:"g03",topic:"פונקציות",q:"אם |A|=4 ו-|B|=2, כמה פונקציות על יש?",o:["16","14","12","2"],a:1,e:"סה״כ 2^4=16. שתי פונקציות בלבד אינן על: כולן ליעד הראשון או כולן לשני."},
+{id:"g04",topic:"פונקציות",q:"מה אומר התנאי f(S) ⊆ T?",o:["f(S)=T","כל התמונות של איברי S נמצאות בתוך T","כל איברי A נשלחים ל-T","כל איבר ב-T חייב לקבל תמונה"],a:1,e:"מוכל אינו שוויון: מותר להשתמש רק בחלק מ-T."},
+{id:"g05",topic:"פונקציות",q:"|A|=5, |B|=4, |S|=2, |T|=3. כמה פונקציות רגילות מקיימות f(S)⊆T?",o:["3^2·4^3","4^5","3^5","P(3,2)P(4,3)"],a:0,e:"איברי S: כל אחד בוחר מתוך 3. שלושת האחרים: כל אחד בוחר מתוך 4."},
+
+{id:"g06",topic:"בינום→מחלקים",q:"למה שווה Σ[k=0..n] C(n,k)·4^(n-k)·3^k ?",o:["7^n","12^n","4^n+3^n","n·7"],a:0,e:"זו בדיוק נוסחת הבינום: (4+3)^n."},
+{id:"g07",topic:"בינום→מחלקים",q:"למה שווה C(8,0)+C(8,1)+...+C(8,8)?",o:["2^7","2^8","8!","9"],a:1,e:"סכום כל המקדמים הבינומיים בשורה n הוא 2^n."},
+{id:"g08",topic:"בינום→מחלקים",q:"למה שווה C(8,0)+C(8,2)+C(8,4)+C(8,6)+C(8,8)?",o:["2^8","2^7","8! / 2","5"],a:1,e:"סכום המקדמים עם אינדקסים זוגיים בלבד הוא 2^(n-1)."},
+{id:"g09",topic:"בינום→מחלקים",q:"אם m=2^4·3^2, כמה מחלקים חיוביים יש ל-m?",o:["8","12","15","24"],a:2,e:"(4+1)(2+1)=5·3=15."},
+{id:"g10",topic:"בינום→מחלקים",q:"אם m=2^5·3^4, כמה מחלקים של m מתחלקים ב-18=2·3^2?",o:["15","20","8","9"],a:0,e:"למעריך 2: האפשרויות 1..5 — חמש. למעריך 3: 2..4 — שלוש. 5·3=15."},
+
+{id:"g11",topic:"רקורסיות",q:"לרקורסיה a_n=5a_(n-1)-6a_(n-2)+7·4^n, מה המשוואה האופיינית?",o:["x^2-5x+6=0","x^2+5x-6=0","x^2-7x+4=0","x-5=0"],a:0,e:"במשוואה האופיינית מתעלמים מהאגף הלא־הומוגני 7·4^n."},
+{id:"g12",topic:"רקורסיות",q:"אם השורשים האופייניים הם 2 ו-3, מה הפתרון ההומוגני?",o:["(C1+C2n)2^n","C1·2^n+C2·3^n","C1·5^n","C1·2^n·3^n"],a:1,e:"שני שורשים שונים נותנים שני איברים נפרדים."},
+{id:"g13",topic:"רקורסיות",q:"אם r=3 הוא שורש כפול ובאגף ימין מופיע 5·3^n, מה ניחוש הפתרון הפרטי?",o:["A·3^n","An·3^n","An^2·3^n","A·5^n"],a:2,e:"שורש כפול יוצר התנגשות מסדר 2, ולכן מכפילים ב-n^2."},
+{id:"g14",topic:"רקורסיות",q:"אם r=4 אינו שורש ובאגף ימין מופיע 7·4^n, מה ניחוש הפתרון הפרטי?",o:["A·4^n","An·4^n","An^2·4^n","A·7^n"],a:0,e:"אין התנגשות, לכן שומרים על הצורה A·4^n."},
+{id:"g15",topic:"רקורסיות",q:"אחרי שמצאנו פתרון הומוגני ופתרון פרטי, מה השלב הבא לפני קביעת C1,C2?",o:["מכפילים ביניהם","מחברים אותם ואז מציבים תנאי התחלה","לוקחים לוג","מוחקים את הפרטי"],a:1,e:"הפתרון הכללי הוא h+p; אחר כך תנאי ההתחלה קובעים את הקבועים."},
+
+{id:"g16",topic:"Θ",q:"מה הסדר האסימפטוטי של 7n^3+4·2^n?",o:["Θ(n^3)","Θ(2^n)","Θ(n!)","Θ(log n)"],a:1,e:"מעריכי עם בסיס גדול מ-1 גובר על כל פולינום קבוע."},
+{id:"g17",topic:"Θ",q:"אם 4n^2 ≤ f(n) ≤ 10n^2 לכל n גדול מספיק, מה המסקנה המדויקת ביותר?",o:["רק O(n^2)","Θ(n^2)","Θ(n^3)","אין מסקנה"],a:1,e:"יש גם חסם תחתון וגם עליון בקבועים כפול n^2 — זו בדיוק Θ."},
+{id:"g18",topic:"Θ",q:"איזו שרשרת נכונה עבור n גדול?",o:["n! < 2^n < n^3","log n < n < n log n < n^2 < 2^n < n!","2^n < n^100","n log n < n"],a:1,e:"זו היררכיית הגידול הבסיסית שנדרשת כאן."},
+{id:"g19",topic:"Θ",q:"מה צריך להראות כדי להוכיח f(n)=Θ(g(n))?",o:["רק f(n)≤cg(n)","רק f(n)≥cg(n)","c1g(n)≤f(n)≤c2g(n) החל מ-n0","ש-f(n)=g(n) בדיוק"],a:2,e:"Θ דורשת חסם תחתון ועליון בקבועים חיוביים החל מ-n0."},
+
+{id:"g20",topic:"Euler",q:"בגרף קשיר יש בדיוק שני צמתים מדרגה אי־זוגית. מה קיים?",o:["מעגל Euler","מסלול Euler פתוח","אין מסלול Euler","בהכרח Hamilton"],a:1,e:"שני הצמתים האי־זוגיים הם קצות מסלול Euler הפתוח."},
+{id:"g21",topic:"Euler",q:"בגרף קשיר כל הדרגות זוגיות. מה מובטח?",o:["מעגל Euler","מסלול Euler פתוח בלבד","אין Euler","Hamilton"],a:0,e:"0 צמתים אי־זוגיים בגרף קשיר ⇔ קיים מעגל Euler."},
+{id:"g22",topic:"Euler",q:"בגרף קשיר יש ארבעה צמתים מדרגה אי־זוגית. מה נכון?",o:["קיים מעגל Euler","קיים מסלול Euler פתוח","אין מסלול Euler","בהכרח עץ"],a:2,e:"מסלול Euler אפשרי רק עם 0 או 2 צמתים אי־זוגיים."},
+
+{id:"g23",topic:"φ מתקדם",q:"אם gcd(m,n)=1, איזו זהות נכונה?",o:["φ(mn)=φ(m)+φ(n)","φ(mn)=φ(m)φ(n)","φ(mn)=mn","φ(mn)=1"],a:1,e:"φ כפלית עבור מספרים זרים."},
+{id:"g24",topic:"φ מתקדם",q:"לראשוני p ול-k≥1, מהו φ(p^k)?",o:["p^k-1","p^(k-1)(p-1)","kp","p^(k+1)"],a:1,e:"φ(p^k)=p^k-p^(k-1)=p^(k-1)(p-1)."},
+{id:"g25",topic:"φ מתקדם",q:"כמה הוא φ(15)?",o:["4","6","8","10"],a:2,e:"15=3·5 והם זרים, לכן φ(15)=φ(3)φ(5)=2·4=8."},
+{id:"g26",topic:"φ מתקדם",q:"אם n=2^3·5^2, איזו הצבה נכונה בנוסחת Euler?",o:["n(1-1/2)(1-1/5)","n(1-1/3)(1-1/2)","(3+1)(2+1)","2^2·5"],a:0,e:"בנוסחת φ משתמשים בראשוניים המחלקים את n — כאן 2 ו-5."}
+];
+let bank=Q.slice(),i=0,rows=[],startedAt=0,timerId=null,locked=false;
+const $=id=>document.getElementById(id);
+function start(list=Q){bank=list.slice();i=0;rows=[];$("intro").classList.add("hidden");$("summary").classList.add("hidden");$("quiz").classList.remove("hidden");startedAt=Date.now();clearInterval(timerId);timerId=setInterval(tick,500);tick();render();}
+function tick(){const s=Math.floor((Date.now()-startedAt)/1000);$("timer").textContent=String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");}
+function render(){if(i>=bank.length)return finish();locked=false;$("feedback").classList.add("hidden");$("next").classList.add("hidden");$("forgot").disabled=false;$("never").disabled=false;const q=bank[i];$("progress").textContent=(i+1)+" מתוך "+bank.length;$("score").textContent="נכון ראשון: "+rows.filter(r=>r.status==="correct").length;$("question").textContent=q.q;$("options").innerHTML=q.o.map((x,k)=>'<button class="gap-opt" data-i="'+k+'">'+x+'</button>').join("");[...$("options").children].forEach((b,k)=>b.onclick=()=>answer(b,k,q));}
+function firstRecord(q,status){if(rows.some(r=>r.id===q.id))return;rows.push({id:q.id,topic:q.topic,status});}
+function answer(btn,k,q){if(locked)return;const correct=k===q.a;firstRecord(q,correct?"correct":"wrong");if(!correct){btn.classList.add("wrong");btn.disabled=true;$("feedback").classList.remove("hidden");$("feedback").innerHTML="<b>✗ נרשם בניסיון הראשון</b><br>"+q.e+"<br><small>אפשר לנסות שוב; הדוח שומר את הניסיון הראשון.</small>";return;}locked=true;btn.classList.add("correct");[...$("options").children].forEach(b=>b.disabled=true);$("forgot").disabled=true;$("never").disabled=true;$("feedback").classList.remove("hidden");$("feedback").innerHTML="<b>✓ נכון</b><br>"+q.e;$("next").classList.remove("hidden");}
+function self(status){if(locked)return;const q=bank[i];firstRecord(q,status);locked=true;[...$("options").children].forEach(b=>b.disabled=true);$("forgot").disabled=true;$("never").disabled=true;$("feedback").classList.remove("hidden");$("feedback").innerHTML="<b>"+(status==="forgot"?"נרשם: למדתי אבל לא זוכר":"נרשם: לא למדתי")+"</b><br>"+q.e;$("next").classList.remove("hidden");}
+function finish(){clearInterval(timerId);$("quiz").classList.add("hidden");$("summary").classList.remove("hidden");const c=rows.filter(r=>r.status==="correct").length,w=rows.filter(r=>r.status==="wrong").length,f=rows.filter(r=>r.status==="forgot").length,n=rows.filter(r=>r.status==="never").length;$("sRight").textContent=c;$("sWrong").textContent=w;$("sForgot").textContent=f;$("sNever").textContent=n;
+const topics=[...new Set(Q.map(x=>x.topic))];$("topics").innerHTML=topics.map(t=>{const rr=rows.filter(r=>r.topic===t),cc=rr.filter(r=>r.status==="correct").length;let label="דורש חיזוק";if(rr.length&&cc===rr.length)label="נקי במבחן הזה";else if(rr.some(r=>r.status==="never"))label="לא למדתי";else if(rr.some(r=>r.status==="forgot"))label="למדתי ולא זוכר";const misses=rr.filter(r=>r.status!=="correct").map(r=>Q.find(q=>q.id===r.id)?.q).filter(Boolean);return '<div class="topic-row"><div><b>'+t+'</b><small>'+(misses.length?misses.join(" · "):"לא נחשף פער במבחן הזה")+'</small></div><span class="pill">'+cc+'/'+rr.length+' · '+label+'</span></div>'}).join("");
+const bad=rows.filter(r=>r.status!=="correct").map(r=>r.id);localStorage.setItem("gapClosureLast",JSON.stringify({at:new Date().toISOString(),rows,durationSec:Math.floor((Date.now()-startedAt)/1000)}));$("retry").disabled=!bad.length;$("retry").onclick=()=>start(bad.map(id=>Q.find(q=>q.id===id)).filter(Boolean));}
+$("start").onclick=()=>start();$("next").onclick=()=>{i++;render()};$("forgot").onclick=()=>self("forgot");$("never").onclick=()=>self("never");$("restart").onclick=()=>start();
+</script>
+</body></html>
