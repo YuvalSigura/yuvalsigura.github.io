@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>מבחנים מלאים — Exam Recall</title>
+<meta name="description" content="מבחני בדידה 2 אמיתיים לתרגול עצמאי, ללא פתרונות.">
+<link rel="stylesheet" href="styles.css?v=20261004-exams1">
+<style>
+.exam-wrap{width:min(980px,94vw);margin:24px auto 70px}.exam-top{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:16px}.exam-top a{color:var(--muted,#9fb0c8)}
+.exam-picker{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:18px 0}.exam-choice{cursor:pointer;text-align:right;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);padding:16px;border-radius:16px}.exam-choice.active{outline:2px solid #6ea8fe;background:rgba(110,168,254,.08)}
+.exam-meta{display:flex;gap:8px;flex-wrap:wrap;margin:.5rem 0 0}.exam-meta span{font-size:.85rem;padding:.2rem .55rem;border-radius:999px;background:rgba(255,255,255,.06)}
+.exam-toolbar{position:sticky;top:0;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 14px;border-radius:14px;background:rgba(7,11,20,.94);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.08);margin:14px 0}
+.exam-clock{font-variant-numeric:tabular-nums;font-size:1.25rem;font-weight:800}.exam-content{display:none}.exam-content.active{display:block}.q{margin:18px 0;padding:18px;border:1px solid rgba(255,255,255,.08);border-radius:18px;background:rgba(255,255,255,.025)}.q h2{margin-top:0}.q h3{margin-top:1.1rem}.math{direction:ltr;text-align:center;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:1.03rem;overflow-x:auto;padding:.25rem}.done-row{display:flex;align-items:center;gap:8px;margin-top:14px;padding-top:12px;border-top:1px dashed rgba(255,255,255,.1)}.done-row input{width:20px;height:20px}
+.warn{border-color:#7b5c16!important;background:rgba(255,190,46,.06)!important}.hidden{display:none!important}.small-note{font-size:.92rem;opacity:.82}.exam-plan{margin:18px 0}
+@media(max-width:650px){.exam-toolbar{top:6px}.q{padding:14px}.exam-choice{padding:13px}}
+</style>
+</head>
+<body>
+<main class="exam-wrap">
+  <div class="exam-top">
+    <div><span class="eyebrow">FULL EXAMS</span><h1 style="font-size:clamp(2rem,6vw,3.1rem);margin:.15rem 0">מבחנים מלאים — בלי פתרונות</h1><p>תרגול אמיתי עד הבחינה. בחר מבחן, הפעל טיימר ופתור על דף/Notability.</p></div>
+    <a href="./">← חזרה לאתר הראשי</a>
+  </div>
+
+  <section class="panel exam-plan">
+    <b>תוכנית מומלצת:</b> מחר — 2025 סמ׳ ב מועד א׳ ואז 2025 סמ׳ ג מועד א׳. ביום שלפני הבחינה — לכל היותר מבחן מלא אחד נוסף: 2024 מועד א׳.
+  </section>
+
+  <section class="exam-picker" id="picker">
+    <button class="exam-choice active" data-exam="e1"><b>1️⃣ 2025 — סמ׳ ב — מועד א׳</b><div class="exam-meta"><span>3 שעות</span><span>6 שאלות</span><span>4 הטובות נספרות</span></div></button>
+    <button class="exam-choice" data-exam="e2"><b>2️⃣ 2025 — סמ׳ ג — מועד א׳</b><div class="exam-meta"><span>3 שעות</span><span>5 שאלות</span><span>4 מתוך 5</span></div></button>
+    <button class="exam-choice" data-exam="e3"><b>3️⃣ 2024 — מועד א׳</b><div class="exam-meta"><span>3 שעות</span><span>4 שאלות</span><span>100 נק׳</span></div></button>
+  </section>
+
+  <div class="exam-toolbar">
+    <div><b id="currentTitle">2025 — סמ׳ ב — מועד א׳</b><div class="small-note">הטיימר נשמר גם אם מרעננים את הדף.</div></div>
+    <div class="exam-clock" id="clock">03:00:00</div>
+    <div><button id="startBtn" class="primary">התחל מבחן ▶</button> <button id="resetBtn" class="ghost">אפס טיימר</button></div>
+  </div>
+
+  <section id="e1" class="exam-content active">
+    <section class="panel"><b>06.07.2025 · קורס 20068</b><p>6 שאלות, 25 נק׳ כל אחת. אפשר לפתור את כולן; 4 השאלות עם הציון הגבוה ביותר נלקחות בחשבון. ללא חומר עזר, מחשבון כיס מותר.</p></section>
+
+    <article class="q"><h2>שאלה 1 — 25 נק׳</h2><p>בכל סעיף: הגדירו את המונח וענו על השאלה.</p>
+      <h3>א — 8 נק׳ · עקרון הסכום</h3><p>תהי הקבוצה:</p><div class="math">A={1,2,3,...,100}</div><p>חשבו כמה מספרים מ־A מתחלקים ב־3 או ב־49 או ב־37.</p>
+      <h3>ב — 8 נק׳ · תמורה</h3><p>תהי:</p><div class="math">A={1,2,3,...,7}</div><p>חשבו את מספר התמורות שבהן 1,2,3 מופיעים בסמיכות, ובנוסף 1 נמצא לפני 2 וגם לפני 3.</p>
+      <h3>ג — 9 נק׳ · קוטר של גרף לא־מכוון</h3><p>יהי G=(V,E) גרף לא־מכוון בעל לפחות 3 צמתים. הוכיחו או הפריכו:</p><div class="math">1) G=K(m,n) ⇒ diam(G)=2</div><div class="math">2) diam(G)=2 ⇒ G=K(m,n)</div>
+      <label class="done-row"><input type="checkbox" data-done="e1q1"> סיימתי את שאלה 1</label>
+    </article>
+
+    <article class="q"><h2>שאלה 2 — 25 נק׳</h2>
+      <h3>א — 8 נק׳</h3><p>מה מספר הפתרונות השלמים של:</p><div class="math">x₁+x₂+x₃ ≤ 20</div><div class="math">1&lt;x₁,  -2&lt;x₂,  4&lt;x₃,  x₁,x₂,x₃∈Z</div>
+      <h3>ב — 11 נק׳</h3><p>חשבו את מספר המחלקים של f(n) שמתחלקים ב־12, כאשר n∈N, n&gt;9, וגם:</p>
+      <div class="math">f(n)=(Σ C(n,k)·2^(n-k))·(Σ C(n,k)·6^k)·(Σ C(n,k)·5^k),  k=0..n</div>
+      <h3>ג — 6 נק׳</h3><p>נתונה:</p><div class="math">Ω={f | f:{1,...,10}→{1,...,n}},  n∈N, n&gt;9</div>
+      <p>1. כמה פונקציות ב־Ω הן עולות ממש ומקיימות:</p><div class="math">f({1,2,3})={3,4,5}</div>
+      <p>2. כמה פונקציות ב־Ω הן על, חד־חד־ערכיות וגם מקיימות:</p><div class="math">f(1)=1</div>
+      <label class="done-row"><input type="checkbox" data-done="e1q2"> סיימתי את שאלה 2</label>
+    </article>
+
+    <article class="q"><h2>שאלה 3 — 25 נק׳</h2>
+      <h3>א — 14 נק׳</h3><p>מצאו צורה מפורשת והראו חסם O:</p><div class="math">aₙ=6aₙ₋₁−9aₙ₋₂+3·2ⁿ,  n≥2</div><div class="math">a₀=16, a₁=36</div><div class="math">הראו: aₙ=O(3ⁿ)</div>
+      <h3>ב — 5 נק׳</h3><p>יהי n∈N, n&gt;1. אם:</p><div class="math">7² | n</div><p>הראו כי:</p><div class="math">21 | φ(n)</div>
+      <h3>ג — 6 נק׳</h3><p>לקבוצה A={1,2,...,n} יש 435 תתי־קבוצות בגודל n−2. חשבו כמה תתי־קבוצות של A מכילות בדיוק 3 מספרים שמתחלקים ב־4 וגם 6 מספרים ראשוניים.</p>
+      <label class="done-row"><input type="checkbox" data-done="e1q3"> סיימתי את שאלה 3</label>
+    </article>
+
+    <article class="q warn"><h2>שאלה 4 — 25 נק׳</h2>
+      <h3>א — 4 נק׳</h3><p>הוכיחו או הפריכו: לא קיים גרף בלתי־מכוון בעל סדרת הדרגות:</p><div class="math">2,2,2,2,4,4,6</div>
+      <h3>ב — 5 נק׳</h3><p>אם T=(V,E) הוא עץ בעל 4 צלעות, הראו שהמשלים שלו אינו דו־צדדי.</p>
+      <h3>ג — 16 נק׳</h3><p><b>התרשים המקורי של G לא נגיש בתמלול האתר.</b> הסעיף המקורי שואל על G והמשלים H: Euler/Hamilton ותתי־גרפים מושרים P₄,C₄,K₄,C₅.</p><p>לסימולציה באתר: דלגו על שאלה 4 ובחרו 4 שאלות אחרות.</p>
+      <label class="done-row"><input type="checkbox" data-done="e1q4"> סימנתי/דילגתי על שאלה 4</label>
+    </article>
+
+    <article class="q"><h2>שאלה 5 — 25 נק׳</h2>
+      <h3>א — 7 נק׳</h3><p>לקבוצה A={1,2,...,n} יש 1276 תתי־קבוצות בגודל לכל היותר 2. חשבו את מספר תתי־הקבוצות של A המכילות בדיוק 5 מספרים שמתחלקים ב־5 וגם 2 מספרים שמתחלקים ב־11.</p>
+      <h3>ב — 13 נק׳</h3><p>יהי G=(V,E) גרף לא־מכוון, E≠∅. הוכיחו או הפריכו:</p><div class="math">1) |E|&gt;|V| ⇒ G קשיר</div><div class="math">2) |E|&lt;|V| ⇒ G אינו קשיר</div><p>3. אם deg(v) אי־זוגי לכל v∈V ו־T=(V,U) עץ פורש של G, אז |U| אי־זוגי.</p>
+      <h3>ג — 5 נק׳</h3><p>נתונה A={a,b,c,d}. כמה סדרות עם חזרות בנות 7 אותיות ניתן ליצור כך שכל סדרה מתחילה ב־a, מסתיימת ב־d, וגם a מופיעה פעם אחת בלבד?</p>
+      <label class="done-row"><input type="checkbox" data-done="e1q5"> סיימתי את שאלה 5</label>
+    </article>
+
+    <article class="q"><h2>שאלה 6 — 25 נק׳</h2>
+      <h3>א — 12 נק׳</h3><p>יהי T=(V,E) עץ, n=|V|&gt;10. ב־T קיים צומת יחיד בדרגה 2 וכל צומת אחר מדרגה 1 או 3.</p><p>1. הראו ש־n אי־זוגי. 2. חשבו את מספר העלים כפונקציה של n. 3. האם המשלים של T Hamilton? 4. האם המשלים של T Euler?</p>
+      <h3>ב — 13 נק׳</h3><p>תהי:</p><div class="math">Ω={f | f:{1,...,10}→{1,...,10}}</div><p>כמה פונקציות f∈Ω הן על / חד־חד־ערכיות / הפיכות ומקיימות:</p><div class="math">f(1)=1  או  f(10)=10</div>
+      <label class="done-row"><input type="checkbox" data-done="e1q6"> סיימתי את שאלה 6</label>
+    </article>
+  </section>
+
+  <section id="e2" class="exam-content">
+    <section class="panel"><b>2025 · סמסטר ג׳ · מועד א׳ · קורס 20068</b><p>5 שאלות, 25 נק׳ כל אחת. יש לפתור 4 מתוך 5. ללא חומר עזר, דף נוסחאות מצורף, מחשבון פשוט מותר.</p></section>
+
+    <article class="q"><h2>שאלה 1 — 25 נק׳</h2>
+      <h3>א — 9 נק׳</h3><p>א1. הגדירו פונקציה על. א2. חשבו את מספר הפונקציות על:</p><div class="math">f:{1,2,3,4,5,6}→{1,2,3,4}</div>
+      <h3>ב — 8 נק׳</h3><p>ב1. הגדירו g=Θ(f). ב2. הוכיחו:</p><div class="math">n²+2 ln n = Θ(3n²+(ln n)²)</div>
+      <h3>ג — 8 נק׳</h3><p>ג1. הגדירו גרף דו־צדדי. ג2. האם המשלים של C₆ הוא דו־צדדי? נמקו.</p>
+      <label class="done-row"><input type="checkbox" data-done="e2q1"> סיימתי את שאלה 1</label>
+    </article>
+
+    <article class="q"><h2>שאלה 2 — 25 נק׳</h2>
+      <h3>א — 9 נק׳</h3><p>תהי U={100,101,...,300}. כמה מהמספרים ב־U אינם מתחלקים ב־11, וגם אינם מתחלקים ב־6, וגם אינם מתחלקים ב־5?</p>
+      <h3>ב — 8 נק׳</h3><p>מצאו נוסחה מפורשת:</p><div class="math">aₙ=3aₙ₋₁−2aₙ₋₂+2ⁿ,  a₀=1, a₁=3</div>
+      <h3>ג — 8 נק׳</h3><p>חשבו את מספר המחלקים הזוגיים של m:</p><div class="math">m=(Σ C(n,k)·4^(n+k)·10^(n-k))·(Σ C(n,k)·2^(n-k)·7^(n+k)),  k=0..n</div>
+      <label class="done-row"><input type="checkbox" data-done="e2q2"> סיימתי את שאלה 2</label>
+    </article>
+
+    <article class="q"><h2>שאלה 3 — 25 נק׳</h2>
+      <h3>א — 8 נק׳</h3><p>יהי n&gt;2. הוכיחו:</p><div class="math">12 | φ(21n)</div>
+      <h3>ב — 9 נק׳</h3><p>תהי A={a,b,c,d}. כמה מילים בנות 25 אותיות, בלי חשיבות לסדר, ניתן ליצור כך ש־a מופיעה לפחות 4, b לפחות 7, c לפחות 2, d לפחות 3?</p>
+      <h3>ג — 8 נק׳</h3><p>1. האם קיים n&gt;1 כך שהמשלים של Pₙ יהיה גרף Euler? נמקו.</p><p>2. לאילו ערכי n&gt;1 המשלים של Pₙ יהיה גרף Hamilton? נמקו.</p>
+      <label class="done-row"><input type="checkbox" data-done="e2q3"> סיימתי את שאלה 3</label>
+    </article>
+
+    <article class="q"><h2>שאלה 4 — 25 נק׳</h2>
+      <h3>א — 6 נק׳</h3><p>מה ערכו של המסלול הארוך ביותר בגרף:</p><div class="math">K₁₁</div>
+      <h3>ב — 6 נק׳</h3><p>האם קיים גרף בעל סדרת הדרגות:</p><div class="math">3,3,4,4,4,6,6</div><p>אם כן, בנו גרף כזה.</p>
+      <h3>ג — 13 נק׳</h3><p>נתון G=(V,E) גרף לא־מכוון, קשיר, עם צומת אחד בלבד בדרגה 2 ושאר הצמתים בדרגה 3.</p><p>1. הוכיחו שיש ב־G מספר אי־זוגי של צמתים. 2. הוכיחו ש־G אינו דו־צדדי.</p>
+      <label class="done-row"><input type="checkbox" data-done="e2q4"> סיימתי את שאלה 4</label>
+    </article>
+
+    <article class="q"><h2>שאלה 5 — 25 נק׳</h2>
+      <h3>א — 8 נק׳</h3><p>א1. הגדירו תמורה אי־סדר מלא. א2. עבור A={1,2,3,4,5,6,7,8}, מצאו את מספר התמורות אי־סדר מלא.</p>
+      <h3>ב — 9 נק׳</h3><p>ב1. הגדירו גרף פורש. ב2. הוכיחו או הפריכו: לכל גרף לא־מכוון וקשיר G=(V,E), |V|=n&gt;2, קיים עץ פורש.</p>
+      <h3>ג — 8 נק׳</h3><p>חשבו:</p><div class="math">φ( Σ C(11,k)·k·7^k ),  k=0..11</div>
+      <label class="done-row"><input type="checkbox" data-done="e2q5"> סיימתי את שאלה 5</label>
+    </article>
+  </section>
+
+  <section id="e3" class="exam-content">
+    <section class="panel"><b>11.07.2024 · סמסטר ב׳ · מועד א׳ · קורס 20068</b><p>4 שאלות, 25 נק׳ כל אחת. 3 שעות. ללא חומר עזר; דף נוסחאות מצורף; מחשבון פשוט מותר.</p></section>
+
+    <article class="q"><h2>שאלה 1 — 25 נק׳</h2><p>בכל סעיף: הגדירו את המונח וענו על השאלה.</p>
+      <h3>א · תמורה של קבוצה</h3><p>בכמה תמורות של {1,2,3,4,5,6} לא מופיע הרצף 123?</p>
+      <h3>ב · צירוף בלי חזרות</h3><p>בכמה צירופים בלי חזרות בגודל 5 של {1,2,3,4,5,6,7,8,9} מופיעות 1,2 אך לא מופיעות 5,7?</p>
+      <h3>ג · גרף משלים</h3><p>הוכיחו או הפריכו: לא קיים עץ T=(V,E) עם |V|≥5 כך שהמשלים שלו גם עץ.</p>
+      <label class="done-row"><input type="checkbox" data-done="e3q1"> סיימתי את שאלה 1</label>
+    </article>
+
+    <article class="q"><h2>שאלה 2 — 25 נק׳</h2>
+      <h3>א — 7 נק׳</h3><p>מהו מספר התמורות אי־סדר מלא של {1,2,3,4,5,6,7,8} שבהן בארבעת המקומות הראשונים נמצאים 1,2,3,4?</p>
+      <h3>ב — 10 נק׳</h3><p>תהי A={1,2,3,4,5,6}. חשבו את מספר תתי־הקבוצות B בגודל 4 המקיימות לפחות אחד:</p><div class="math">1,2∈B  או  5,6∈B</div>
+      <h3>ג — 8 נק׳</h3><p>1. מצאו את כל n∈N המקיימים:</p><div class="math">n | φ(n)</div><p>2. אם 2&lt;p&lt;q ו־p,q∈N, הראו:</p><div class="math">φ(n) | n,  כאשר n=2^p·3^q</div>
+      <label class="done-row"><input type="checkbox" data-done="e3q2"> סיימתי את שאלה 2</label>
+    </article>
+
+    <article class="q"><h2>שאלה 3 — 25 נק׳</h2>
+      <h3>א — 5 נק׳</h3><p>בכמה אופנים ניתן לבחור 15 עצמים מתוך 4 סוגים שונים כך שמכל סוג יהיו לפחות 2?</p>
+      <h3>ב — 14 נק׳</h3><p>מצאו צורה מפורשת והראו:</p><div class="math">aₙ=6aₙ₋₁−9aₙ₋₂+4·5ⁿ,  n≥2</div><div class="math">a₀=26, a₁=128,  וכן aₙ=O(5ⁿ)</div>
+      <h3>ג — 6 נק׳</h3><p>יהי r&gt;2 ראשוני. הוכיחו או הפריכו: לא קיים גרף לא־מכוון G שהוא r־רגולרי וגם המשלים שלו r־רגולרי.</p>
+      <label class="done-row"><input type="checkbox" data-done="e3q3"> סיימתי את שאלה 3</label>
+    </article>
+
+    <article class="q"><h2>שאלה 4 — 25 נק׳</h2>
+      <h3>א — 10 נק׳</h3><p>תהי A={1,2,3,...,n}, n&gt;2. אם ל־A יש 300 תתי־קבוצות בגודל 2, חשבו כמה תתי־קבוצות B מכילות 3 מספרים ראשוניים וגם 4 מספרים לא־ראשוניים.</p>
+      <h3>ב — 10 נק׳</h3><p>חשבו את מספר המחלקים d של m שמקיימים 49|d, כאשר:</p><div class="math">m=(Σ C(n,k)·2^(n+k)·5^(n-k))·(Σ C(n,k)·4^(n+k)·3^(n-k)),  k=0..n</div>
+      <h3>ג — 5 נק׳</h3><p>יהי T=(V,E) עץ כך ש־deg(v)∈{1,3} לכל v. אם ב־T יש p&gt;3 עלים, הראו שב־T יש p−2 צמתים מדרגה 3.</p>
+      <label class="done-row"><input type="checkbox" data-done="e3q4"> סיימתי את שאלה 4</label>
+    </article>
+  </section>
+</main>
+
+<script>
+const EXAMS={e1:{title:"2025 — סמ׳ ב — מועד א׳",seconds:10800},e2:{title:"2025 — סמ׳ ג — מועד א׳",seconds:10800},e3:{title:"2024 — מועד א׳",seconds:10800}};
+let current=localStorage.getItem("fullExamCurrent")||"e1",tick=null;
+const $=id=>document.getElementById(id);
+function key(x){return "fullExamTimer:"+x}
+function renderClock(){
+ const saved=JSON.parse(localStorage.getItem(key(current))||"null");
+ let left=EXAMS[current].seconds;
+ if(saved&&saved.running){left=Math.max(0,Math.ceil((saved.endsAt-Date.now())/1000))}
+ else if(saved&&Number.isFinite(saved.left))left=saved.left;
+ $("clock").textContent=[Math.floor(left/3600),Math.floor((left%3600)/60),left%60].map(x=>String(x).padStart(2,"0")).join(":");
+ if(left<=0&&saved?.running){localStorage.setItem(key(current),JSON.stringify({running:false,left:0}));clearInterval(tick);tick=null}
+}
+function selectExam(id){
+ current=id;localStorage.setItem("fullExamCurrent",id);
+ document.querySelectorAll(".exam-choice").forEach(b=>b.classList.toggle("active",b.dataset.exam===id));
+ document.querySelectorAll(".exam-content").forEach(s=>s.classList.toggle("active",s.id===id));
+ $("currentTitle").textContent=EXAMS[id].title;renderClock();
+ if(tick){clearInterval(tick);tick=null}
+ const saved=JSON.parse(localStorage.getItem(key(current))||"null");if(saved?.running)tick=setInterval(renderClock,1000);
+}
+document.querySelectorAll(".exam-choice").forEach(b=>b.addEventListener("click",()=>selectExam(b.dataset.exam)));
+$("startBtn").addEventListener("click",()=>{
+ const saved=JSON.parse(localStorage.getItem(key(current))||"null");
+ let left=saved&&Number.isFinite(saved.left)?saved.left:EXAMS[current].seconds;
+ if(saved?.running)return;
+ localStorage.setItem(key(current),JSON.stringify({running:true,endsAt:Date.now()+left*1000}));
+ if(tick)clearInterval(tick);tick=setInterval(renderClock,1000);renderClock();
+});
+$("resetBtn").addEventListener("click",()=>{if(!confirm("לאפס את טיימר המבחן הזה ל־3 שעות?"))return;localStorage.setItem(key(current),JSON.stringify({running:false,left:EXAMS[current].seconds}));if(tick){clearInterval(tick);tick=null}renderClock()});
+document.querySelectorAll("input[data-done]").forEach(c=>{
+ const k="fullExamDone:"+c.dataset.done;c.checked=localStorage.getItem(k)==="1";
+ c.addEventListener("change",()=>localStorage.setItem(k,c.checked?"1":"0"));
+});
+selectExam(current);
+</script>
+</body>
+</html>
