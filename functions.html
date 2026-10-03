@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>תרגול פונקציות — בדידה 2</title>
+<link rel="stylesheet" href="styles.css?v=20261003-functions1">
+<style>
+.fx-wrap{width:min(900px,92vw);margin:24px auto 60px}.fx-top{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:16px}
+.fx-top a{color:#c4b5fd;text-decoration:none;font-weight:800}.fx-card{background:rgba(16,25,43,.96);border:1px solid #273653;border-radius:18px;padding:24px;margin:14px 0}
+.fx-progress{display:flex;justify-content:space-between;gap:12px;color:#98a6c5;font-size:.86rem}.fx-q{font-size:clamp(1.35rem,3.2vw,2.1rem);line-height:1.65;margin:18px 0}
+.fx-math{direction:ltr;unicode-bidi:isolate;text-align:center;background:#08111f;border:1px solid #2d4264;border-radius:12px;padding:12px;margin:12px 0}
+.fx-options{display:grid;gap:10px}.fx-opt{width:100%;text-align:right;background:#111d33;color:#f8fafc;border:1px solid #354866;border-radius:14px;padding:15px;font-weight:750;line-height:1.6}
+.fx-opt.correct{border-color:#10b981;background:rgba(16,185,129,.16)}.fx-opt.wrong{border-color:#ef4444;background:rgba(239,68,68,.15)}
+.fx-feedback{margin-top:14px;padding:14px;border-radius:12px;background:#0a1323;border:1px solid #273653;line-height:1.7}.fx-actions{display:flex;gap:10px;margin-top:14px}
+.fx-actions button{flex:1}.fx-summary-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.fx-box{background:#0a1323;border:1px solid #273653;border-radius:12px;padding:14px;text-align:center}.fx-box b{display:block;font-size:1.5rem}
+.fx-table{width:100%;border-collapse:collapse;margin-top:12px}.fx-table th,.fx-table td{border-bottom:1px solid #273653;padding:10px;text-align:right}.fx-note{color:#98a6c5;line-height:1.7}
+@media(max-width:700px){.fx-top,.fx-actions{flex-direction:column;align-items:stretch}.fx-summary-grid{grid-template-columns:1fr}.fx-table{font-size:.88rem}}
+</style>
+</head>
+<body>
+<main class="fx-wrap">
+  <div class="fx-top">
+    <div><span class="eyebrow">FUNCTIONS FOCUS</span><h1 style="font-size:clamp(2rem,6vw,3.2rem);margin:.2rem 0">מבחן ממוקד — פונקציות</h1></div>
+    <a href="./">← חזרה לאתר הראשי</a>
+  </div>
+
+  <section id="intro" class="fx-card">
+    <h2>מטרה: לזכור את הטבלה דרך פתרון</h2>
+    <p class="fx-note">20 שאלות: קודם כל הפונקציות / חח״ע / על / משלים, ואז 4 שאלות ממוקדות על <span dir="ltr">f(S) ⊆ T</span>. כל שאלה נבדקת לפי הניסיון הראשון.</p>
+    <table class="fx-table">
+      <tr><th>מה מבקשים</th><th>כלל</th></tr>
+      <tr><td>כל הפונקציות</td><td><span dir="ltr">|B|<sup>|A|</sup></span></td></tr>
+      <tr><td>חד־חד־ערכית</td><td><span dir="ltr">P(|B|,|A|)</span></td></tr>
+      <tr><td>על</td><td>הכלה והדחה</td></tr>
+      <tr><td>גם על וגם חח״ע, כשגדלים שווים</td><td><span dir="ltr">n!</span></td></tr>
+      <tr><td>לא חח״ע / לא על</td><td>כל הפונקציות פחות הרצויות</td></tr>
+      <tr><td><span dir="ltr">f(S) ⊆ T</span></td><td>איברי S בוחרים רק מתוך T</td></tr>
+    </table>
+    <button id="start" class="primary big-start" style="margin-top:18px">התחל מבחן ▶</button>
+  </section>
+
+  <section id="quiz" class="fx-card hidden">
+    <div class="fx-progress"><span id="progress"></span><span id="firstScore"></span></div>
+    <div id="question" class="fx-q"></div>
+    <div id="options" class="fx-options"></div>
+    <div id="feedback" class="fx-feedback hidden"></div>
+    <div class="fx-actions"><button id="next" class="primary hidden">הבא ←</button></div>
+  </section>
+
+  <section id="summary" class="fx-card hidden">
+    <span class="eyebrow">RESULT</span><h2>סיכום מבחן פונקציות</h2>
+    <div class="fx-summary-grid">
+      <div class="fx-box"><b id="sRight">0</b><span>נכון בניסיון ראשון</span></div>
+      <div class="fx-box"><b id="sWrong">0</b><span>טעויות</span></div>
+      <div class="fx-box"><b id="sPct">0%</b><span>דיוק</span></div>
+    </div>
+    <div id="missed" class="fx-note" style="margin-top:16px"></div>
+    <div class="fx-actions"><button id="retryMissed" class="primary">תרגל רק טעויות</button><button id="restart" class="ghost">מבחן מחדש</button></div>
+  </section>
+</main>
+<script>
+const Q=[
+{id:"f01",q:"מה פירוש הסימון |A| = 4?",o:["יש 4 פונקציות מ-A","יש 4 איברים בקבוצה A","כל איבר ב-A נבחר 4 פעמים","A היא פונקציה"],a:1,e:"הקווים |A| מציינים את מספר האיברים בקבוצה A."},
+{id:"f02",q:"אם |A|=3 ו-|B|=4, כמה פונקציות רגילות יש מ-A ל-B?",o:["3^4 = 81","4^3 = 64","4·3 = 12","4! = 24"],a:1,e:"כל אחד מ-3 איברי A בוחר אחד מתוך 4 איברי B: 4·4·4 = 4^3."},
+{id:"f03",q:"אם |A|=2 ו-|B|=5, כמה פונקציות רגילות יש מ-A ל-B?",o:["2^5 = 32","5^2 = 25","5·4 = 20","5! = 120"],a:1,e:"הבסיס הוא מספר האפשרויות לכל איבר: |B|=5. המעריך הוא מספר האיברים שבוחרים: |A|=2."},
+{id:"f04",q:"מתי פונקציה חד־חד־ערכית מ-A ל-B יכולה להיות קיימת?",o:["רק אם |A|≥|B|","רק אם |A|≤|B|","רק אם |A|=|B|","תמיד"],a:1,e:"בחד־חד־ערכית אסור ששני איברי A יגיעו לאותו יעד, לכן חייבים לפחות as many יעדים כמו איברי תחום."},
+{id:"f05",q:"אם |A|=3 ו-|B|=5, כמה פונקציות חד־חד־ערכיות יש?",o:["5^3 = 125","5·4·3 = 60","3! = 6","5! = 120"],a:1,e:"בלי חזרות ביעדים: 5 אפשרויות לראשון, 4 לשני, 3 לשלישי."},
+{id:"f06",q:"אם |A|=4 ו-|B|=3, כמה פונקציות חד־חד־ערכיות יש?",o:["3^4","3!","0","4·3·2"],a:2,e:"אי אפשר: יש יותר איברים בתחום מאשר יעדים. שובך היונים מחייב חזרה על יעד."},
+{id:"f07",q:"מה התנאי הבסיסי לפונקציה להיות על?",o:["כל איבר ב-A מקבל לפחות חץ","כל איבר ב-B מקבל לפחות חץ אחד","אסור לשני איברי A להגיע לאותו B","כל איבר B מקבל בדיוק חץ אחד"],a:1,e:"'על' פירושו שכל איבר בקבוצת היעד B מופיע כתמונה לפחות פעם אחת."},
+{id:"f08",q:"אם |A|=3 ו-|B|=5, כמה פונקציות על יכולות להיות?",o:["0","5^3","3!","5!"],a:0,e:"אין מספיק איברים ב-A כדי לכסות את כל 5 איברי B."},
+{id:"f09",q:"אם |A|=4 ו-|B|=2, כמה פונקציות על יש?",o:["16","14","12","2"],a:1,e:"יש 2^4=16 פונקציות. לא־על הן רק 'הכול ל-a' או 'הכול ל-b': 2. לכן 16-2=14."},
+{id:"f10",q:"אם |A|=3 ו-|B|=3, כמה פונקציות על יש?",o:["27","9","6","3"],a:2,e:"כשהגדלים שווים, כדי להיות על כל יעד חייב לקבל בדיוק איבר אחד; לכן זו גם ביֶקציה: 3!=6."},
+{id:"f11",q:"ב-A יש 4 איברים וב-B יש 3. כמה פונקציות על יש?",o:["3^4 = 81","81 - 3·2^4 + 3·1^4 = 36","4! = 24","3! = 6"],a:1,e:"הכלה והדחה: כל 81 הפונקציות, פחות אלו שמפספסות יעד אחד, ועוד אלו שמפספסות שני יעדים."},
+{id:"f12",q:"אם |A|=|B|=4, כמה פונקציות שהן גם על וגם חד־חד־ערכיות יש?",o:["4^4","4!","4·3","2^4"],a:1,e:"כששתי הקבוצות באותו גודל, ביֶקציה היא התאמה של כל ארבעת היעדים: 4!."},
+{id:"f13",q:"אם |A|=3 ו-|B|=5, כמה פונקציות אינן חד־חד־ערכיות?",o:["125-60=65","125-6=119","60","65-5=60"],a:0,e:"כל הפונקציות: 5^3=125. חד־חד־ערכיות: 5·4·3=60. המשלים: 125-60=65."},
+{id:"f14",q:"אם |A|=4 ו-|B|=2, כמה פונקציות אינן על?",o:["14","2","16","4"],a:1,e:"רק שתי פונקציות מפספסות יעד: כולם לראשון או כולם לשני."},
+{id:"f15",q:"בפונקציות מ-A ל-B, מי 'מבצע את הבחירה'?",o:["כל איבר ב-B בוחר איבר מ-A","כל איבר ב-A בוחר בדיוק יעד אחד ב-B","רק איברים שמופיעים בתמונה בוחרים","אין משמעות לכיוון"],a:1,e:"הכיוון f:A→B אומר שכל איבר בתחום A מקבל בדיוק ערך אחד מתוך B."},
+{id:"f16",q:"איזו שיטת ספירה טיפוסית משמשת לפונקציות על?",o:["רק עצרת","הכלה והדחה על יעדים שלא קיבלו חץ","Stars and Bars","שובך היונים בלבד"],a:1,e:"סופרים את כל הפונקציות ומחסירים פונקציות שמפספסות יעדים, עם תיקוני חיתוכים."},
+{id:"f17",q:"אם S⊆A, מה פירוש f(S)?",o:["כל B","קבוצת הערכים ב-B שאליהם נשלחים איברי S","מספר האיברים ב-S","כל הפונקציות מ-S"],a:1,e:"f(S) היא התמונה של S: אוספים את כל הערכים שהפונקציה נותנת לאיברי S."},
+{id:"f18",q:"מה פירוש f(S) ⊆ T?",o:["חייבים להשתמש בכל T","כל איברי S נשלחים לערכים שנמצאים בתוך T","T חייב להיות שווה ל-B","כל איברי A נשלחים ל-T"],a:1,e:"מוכל פירושו שכל התמונות של S נמצאות בתוך T; לא חייבים להשתמש בכל איברי T."},
+{id:"f19",q:"|A|=5, |B|=4, |S|=2, |T|=3. כמה פונקציות רגילות מקיימות f(S)⊆T?",o:["3^2·4^3 = 576","4^5 = 1024","3^5 = 243","3·2·4·3·2 = 144"],a:0,e:"שני איברי S בוחרים מתוך 3 יעדי T: 3^2. שלושת האיברים האחרים ב-A בוחרים מכל 4 יעדי B: 4^3."},
+{id:"f20",q:"|A|=4, |B|=6, |S|=2, |T|=3. כמה פונקציות חד־חד־ערכיות מקיימות f(S)⊆T?",o:["3^2·6^2","P(3,2)·P(4,2)=72","P(6,4)=360","3!·6!"],a:1,e:"קודם משבצים את 2 איברי S לשני יעדים שונים מתוך T: P(3,2)=6. נשארו 4 יעדים פנויים ב-B, ולשני איברי A\S בוחרים שניים שונים: P(4,2)=12. יחד 72."}
+];
+let bank=Q.slice(),i=0,right=0,first=[],answered=false;
+const $=id=>document.getElementById(id);
+function start(list=Q){bank=list.slice();i=0;right=0;first=[];$("intro").classList.add("hidden");$("summary").classList.add("hidden");$("quiz").classList.remove("hidden");render();}
+function render(){if(i>=bank.length)return finish();answered=false;$("feedback").classList.add("hidden");$("next").classList.add("hidden");const q=bank[i];$("progress").textContent=(i+1)+" מתוך "+bank.length;$("firstScore").textContent="נכון בניסיון ראשון: "+right;$("question").innerHTML=q.q;$("options").innerHTML=q.o.map((x,k)=>'<button class="fx-opt" data-i="'+k+'">'+x+'</button>').join("");[...$("options").children].forEach((b,k)=>b.onclick=()=>answer(b,k,q));}
+function answer(btn,k,q){if(answered&&k===q.a)return;const isFirst=!answered;if(isFirst){answered=true;first.push({id:q.id,correct:k===q.a});if(k===q.a)right++;}
+if(k===q.a){btn.classList.add("correct");[...$("options").children].forEach(b=>b.disabled=true);$("feedback").classList.remove("hidden");$("feedback").innerHTML="<b>✓ נכון</b><br>"+q.e;$("next").classList.remove("hidden");}
+else{btn.classList.add("wrong");btn.disabled=true;$("feedback").classList.remove("hidden");$("feedback").innerHTML="<b>✗ לא בניסיון הראשון</b><br>"+q.e+"<br><small>אפשר לנסות שוב; בדוח נשמר הניסיון הראשון.</small>";}}
+function finish(){$("quiz").classList.add("hidden");$("summary").classList.remove("hidden");const wrong=first.filter(x=>!x.correct),pct=first.length?Math.round(100*right/first.length):0;$("sRight").textContent=right;$("sWrong").textContent=wrong.length;$("sPct").textContent=pct+"%";const names=wrong.map(x=>Q.find(q=>q.id===x.id)?.q).filter(Boolean);$("missed").innerHTML=names.length?"<b>לחזרה:</b><br>"+names.map(x=>"• "+x).join("<br>"):"לא נרשמו טעויות בניסיון הראשון.";localStorage.setItem("functionsFocusLast",JSON.stringify({at:new Date().toISOString(),right,total:first.length,wrong:wrong.map(x=>x.id)}));$("retryMissed").disabled=!wrong.length;$("retryMissed").onclick=()=>start(wrong.map(x=>Q.find(q=>q.id===x.id)).filter(Boolean));}
+$("start").onclick=()=>start();$("next").onclick=()=>{i++;render()};$("restart").onclick=()=>start();
+</script>
+</body></html>
