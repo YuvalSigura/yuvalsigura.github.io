@@ -46,3 +46,29 @@ button,select{font:inherit}button{cursor:pointer}.ghost,.mode{border:1px solid v
 #deepOptions .option,#wOptions .option,#chainOptions .option{line-height:1.8}
 #deepFeedbackText .math-inline,#wFeedbackText .math-inline,#chainFeedbackText .math-inline{margin:0 .12em}
 .feedback p{unicode-bidi:plaintext}
+
+
+/* RTL-safe math: formulas and Latin notation are isolated from Hebrew bidi flow. */
+.math-token{
+  direction:ltr!important;
+  unicode-bidi:isolate!important;
+  display:inline-block;
+  white-space:nowrap;
+  font-family:Arial,Helvetica,sans-serif;
+  font-variant-numeric:lining-nums tabular-nums;
+  letter-spacing:.01em;
+  background:rgba(96,165,250,.075);
+  border:1px solid rgba(96,165,250,.16);
+  border-radius:.38em;
+  padding:.02em .22em;
+  margin:0 .07em;
+  vertical-align:baseline;
+}
+.math-token sup,.math-token sub{font-size:.72em;line-height:0}
+.math-only{font-size:1.03em}
+.question-math,.option .math-token,.gap-opt .math-token,.fx-opt .math-token,.opt .math-token{unicode-bidi:isolate!important}
+#wPrompt,.gap-q,.fx-q,.q,#chainPrompt,#chainStem,#deepPrompt{unicode-bidi:plaintext}
+#wOptions .option,.gap-opt,.fx-opt,.opt,#chainOptions .option,#deepOptions .option{unicode-bidi:plaintext}
+@media(max-width:700px){
+  .math-token{white-space:normal;max-width:100%;overflow-wrap:anywhere}
+}
