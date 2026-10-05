@@ -4,7 +4,7 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>מבחנים מלאים — Exam Recall</title>
 <meta name="description" content="מבחני בדידה 2 אמיתיים לתרגול עצמאי, ללא פתרונות.">
-<link rel="stylesheet" href="styles.css?v=20261004-exams1">
+<link rel="stylesheet" href="styles.css?v=20261005-math1">
 <style>
 .exam-wrap{width:min(980px,94vw);margin:24px auto 70px}.exam-top{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:16px}.exam-top a{color:var(--muted,#9fb0c8)}
 .exam-picker{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:18px 0}.exam-choice{cursor:pointer;text-align:right;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);padding:16px;border-radius:16px}.exam-choice.active{outline:2px solid #6ea8fe;background:rgba(110,168,254,.08)}
@@ -158,7 +158,9 @@
   </section>
 </main>
 
+<script src="math-format.js?v=20261005-math1"></script>
 <script>
+document.querySelectorAll(".q p").forEach(p=>{if(!p.children.length)p.innerHTML=ExamMath.mixed(p.textContent)});
 const EXAMS={e1:{title:"2025 — סמ׳ ב — מועד א׳",seconds:10800},e2:{title:"2025 — סמ׳ ג — מועד א׳",seconds:10800},e3:{title:"2024 — מועד א׳",seconds:10800}};
 let current=localStorage.getItem("fullExamCurrent")||"e1",tick=null;
 const $=id=>document.getElementById(id);
