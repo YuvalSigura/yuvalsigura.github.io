@@ -4,7 +4,7 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>מבחני חימום — בדידה 2</title>
 <meta name="description" content="מבחני חימום קצרים מותאמים אישית לבדידה 2 לפני מבחנים מלאים.">
-<link rel="stylesheet" href="styles.css?v=20261004-warmups1">
+<link rel="stylesheet" href="styles.css?v=20261005-math1">
 <style>
 .wu-wrap{width:min(900px,94vw);margin:24px auto 70px}.wu-top{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}.wu-top a{color:#c4b5fd;text-decoration:none;font-weight:800}
 .sets{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:18px 0}.setbtn{cursor:pointer;text-align:right;padding:16px;border-radius:16px;border:1px solid #2d4264;background:#10192b;color:#f8fafc}.setbtn.active{outline:2px solid #60a5fa;background:#12233c}.setbtn small{display:block;color:#98a6c5;margin-top:6px}
@@ -52,6 +52,7 @@
     <div class="actions"><button id="retry" class="primary">רק הטעויות</button><button id="restart" class="ghost">אותו חימום מחדש</button><button class="ghost" onclick="location.href='exams.html'">למבחנים המלאים ←</button></div>
   </section>
 </main>
+<script src="math-format.js?v=20261005-math1"></script>
 <script>
 const SETS={
 a:[
@@ -104,9 +105,9 @@ function choose(k){setKey=k;localStorage.setItem("warmupSet",k);document.querySe
 document.querySelectorAll(".setbtn").forEach(b=>b.onclick=()=>choose(b.dataset.set));
 function start(list=SETS[setKey]){bank=list.slice();i=0;first=[];right=0;started=Date.now();clearInterval(timer);timer=setInterval(tick,500);tick();$("intro").classList.add("hidden");$("summary").classList.add("hidden");$("quiz").classList.remove("hidden");render()}
 function tick(){const s=Math.floor((Date.now()-started)/1000);$("timer").textContent=String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0")}
-function render(){if(i>=bank.length)return finish();locked=false;$("feedback").classList.add("hidden");$("next").classList.add("hidden");const q=bank[i];$("progress").textContent=(i+1)+" מתוך "+bank.length;$("score").textContent="נכון ראשון: "+right;$("question").textContent=q.q;$("options").innerHTML=q.o.map((x,k)=>'<button class="opt">'+x+'</button>').join("");[...$("options").children].forEach((b,k)=>b.onclick=()=>answer(b,k,q))}
-function answer(btn,k,q){if(locked)return;const rec=first.find(x=>x.id===q.id);if(!rec){first.push({id:q.id,correct:k===q.a,t:q.t});if(k===q.a)right++}if(k!==q.a){btn.classList.add("wrong");btn.disabled=true;$("feedback").classList.remove("hidden");$("feedback").innerHTML="<b>✗ לא בניסיון הראשון</b><br><b>נושא:</b> "+q.t+"<br>"+q.e;return}locked=true;btn.classList.add("correct");[...$("options").children].forEach(b=>b.disabled=true);$("feedback").classList.remove("hidden");$("feedback").innerHTML="<b>✓ נכון</b><br><b>נושא:</b> "+q.t+"<br>"+q.e;$("next").classList.remove("hidden")}
-function finish(){clearInterval(timer);$("quiz").classList.add("hidden");$("summary").classList.remove("hidden");const wrong=first.filter(x=>!x.correct),pct=Math.round(100*right/first.length);$("sRight").textContent=right;$("sWrong").textContent=wrong.length;$("sPct").textContent=pct+"%";const ids=new Set(wrong.map(x=>x.id));const missed=bank.filter(q=>ids.has(q.id));$("missed").innerHTML=missed.length?"<b>רק אלה דורשים בדיקה:</b>"+missed.map(q=>'<div class="topicline"><b>'+q.t+'</b> — '+q.q+'</div>').join(""):"<b>אין טעויות בניסיון הראשון.</b>";$("verdict").textContent=right>=9?"מספיק. אל תמשיך לחמם — עבור למבחן המלא.":"בדוק את הטעויות פעם אחת בלבד, ואז עבור למבחן המלא.";localStorage.setItem("warmupLast:"+setKey,JSON.stringify({at:new Date().toISOString(),right,total:first.length,wrong:wrong.map(x=>x.id)}));$("retry").disabled=!wrong.length;$("retry").onclick=()=>start(missed)}
+function render(){if(i>=bank.length)return finish();locked=false;$("feedback").classList.add("hidden");$("next").classList.add("hidden");const q=bank[i];$("progress").textContent=(i+1)+" מתוך "+bank.length;$("score").textContent="נכון ראשון: "+right;$("question").innerHTML=ExamMath.mixed(q.q);$("options").innerHTML=q.o.map((x,k)=>'<button class="opt">'+ExamMath.mixed(x)+'</button>').join("");[...$("options").children].forEach((b,k)=>b.onclick=()=>answer(b,k,q))}
+function answer(btn,k,q){if(locked)return;const rec=first.find(x=>x.id===q.id);if(!rec){first.push({id:q.id,correct:k===q.a,t:q.t});if(k===q.a)right++}if(k!==q.a){btn.classList.add("wrong");btn.disabled=true;$("feedback").classList.remove("hidden");$("feedback").innerHTML="<b>✗ לא בניסיון הראשון</b><br><b>נושא:</b> "+q.t+"<br>"+ExamMath.mixed(q.e);return}locked=true;btn.classList.add("correct");[...$("options").children].forEach(b=>b.disabled=true);$("feedback").classList.remove("hidden");$("feedback").innerHTML="<b>✓ נכון</b><br><b>נושא:</b> "+q.t+"<br>"+ExamMath.mixed(q.e);$("next").classList.remove("hidden")}
+function finish(){clearInterval(timer);$("quiz").classList.add("hidden");$("summary").classList.remove("hidden");const wrong=first.filter(x=>!x.correct),pct=Math.round(100*right/first.length);$("sRight").textContent=right;$("sWrong").textContent=wrong.length;$("sPct").textContent=pct+"%";const ids=new Set(wrong.map(x=>x.id));const missed=bank.filter(q=>ids.has(q.id));$("missed").innerHTML=missed.length?"<b>רק אלה דורשים בדיקה:</b>"+missed.map(q=>'<div class="topicline"><b>'+q.t+'</b> — '+ExamMath.mixed(q.q)+'</div>').join(""):"<b>אין טעויות בניסיון הראשון.</b>";$("verdict").textContent=right>=9?"מספיק. אל תמשיך לחמם — עבור למבחן המלא.":"בדוק את הטעויות פעם אחת בלבד, ואז עבור למבחן המלא.";localStorage.setItem("warmupLast:"+setKey,JSON.stringify({at:new Date().toISOString(),right,total:first.length,wrong:wrong.map(x=>x.id)}));$("retry").disabled=!wrong.length;$("retry").onclick=()=>start(missed)}
 $("start").onclick=()=>start();$("next").onclick=()=>{i++;render()};$("restart").onclick=()=>start(SETS[setKey]);choose(setKey);
 </script>
 </body></html>
