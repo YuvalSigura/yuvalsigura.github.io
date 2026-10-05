@@ -259,7 +259,7 @@ function renderWarm(){
  current=p[Math.floor(Math.random()*p.length)];
  $("wCourse").textContent=names[current.course];$("wTopic").textContent=current.topic;$("wType").textContent=current.type;$("wCount").textContent=p.length+" כרטיסים זמינים";setRichText("wPrompt",current.prompt);
  const opts=shuffle([{text:current.answer,correct:true,why:null},...(current.wrong||[]).map(x=>typeof x==="string"?{text:x,correct:false,why:"זו אפשרות שמתאימה למבנה אחר."}:{text:x.text,correct:false,why:x.why})]).slice(0,4);
- $("wOptions").innerHTML=opts.map((o,i)=>'<button class="option" data-i="'+i+'">'+o.text+'</button>').join("");
+ $("wOptions").innerHTML=opts.map((o,i)=>'<button class="option" data-i="'+i+'"><span class="option-text">'+richMixedText(o.text)+'</span></button>').join("");
  [...$("wOptions").children].forEach((b,i)=>b.onclick=()=>answerWarm(b,opts[i],opts));
  startClock("wTimer","wSpeed");
 }
@@ -296,7 +296,7 @@ function renderChainStep(){
  locked=false;$("chainFeedback").className="feedback hidden";$("chainNext").classList.add("hidden");
  const s=chain.steps[chainStep];$("chainTitle").textContent=chain.title;$("chainProgress").textContent=(chainStep+1)+" מתוך "+chain.steps.length;setRichText("chainStem",chain.stem);setRichText("chainPrompt",s.prompt);
  const opts=chainOptionsForStep(s);$("chainOptions").className=opts.length>8?"options bank-options":"options";
- $("chainOptions").innerHTML=opts.map((o,i)=>'<button class="option" data-i="'+i+'">'+o.text+'</button>').join("");
+ $("chainOptions").innerHTML=opts.map((o,i)=>'<button class="option" data-i="'+i+'"><span class="option-text">'+richMixedText(o.text)+'</span></button>').join("");
  [...$("chainOptions").children].forEach((b,i)=>b.onclick=()=>answerChain(b,opts[i],s));
  startClock("chainTimer","chainSpeed");
 }
@@ -366,11 +366,7 @@ function looksMathish(s){
   return /[=^∑ΣφΦΘ]|C\(|\bO\(|\bn[!²³]?\b|\ba[_\(]|[0-9]\s*[·×]\s*[0-9A-Za-z]/.test(String(s));
 }
 function richMixedText(raw){
-  const text=String(raw);
-  if(!looksMathish(text)) return escapeHtml(text);
-  if(!/[א-ת]/.test(text)) return '<span class="math-inline math-rich" dir="ltr">'+prettyMath(text)+'</span>';
-  const chunks=text.split(/(\b(?:C\([^)]*\)|[A-Za-zφΦΘ][A-Za-z0-9_()^+\-−·×=]*|[0-9]+(?:\^[A-Za-z0-9()+\-−]+)?(?:[·×][A-Za-z0-9φΦΘ^()_+\-−]+)*|[|][VE][|]|O\([^)]*\)|Θ\([^)]*\))\b)/g);
-  return chunks.map(x=>looksMathish(x)?'<span class="math-inline math-rich" dir="ltr">'+prettyMath(x)+'</span>':escapeHtml(x)).join("");
+  return window.ExamMath ? ExamMath.mixed(raw) : escapeHtml(raw);
 }
 function deepOptionHtml(o,i){
   const cls=looksMathish(o.text)?" math-option":"";
@@ -408,11 +404,11 @@ const DEEP_PROMPT_HTML={
  d25:'<div>נתון גרף קשיר עם:</div><div class="math-block">|V| = n,&nbsp;&nbsp; |E| = n − 1</div><div>מה אפשר להסיק?</div>'
 };
 function renderDeepPrompt(q){
-  $("deepPrompt").innerHTML=DEEP_PROMPT_HTML[q.id]||q.prompt;
+  $("deepPrompt").innerHTML=DEEP_PROMPT_HTML[q.id]||richMixedText(q.prompt);
 }
 function deepOptionHtml(o,i){
   const pureMath=!/[א-ת]/.test(o.text);
-  return '<button class="option'+(pureMath?' math-option':'')+'" '+(pureMath?'dir="ltr"':'dir="rtl"')+' data-i="'+i+'">'+o.text+'</button>';
+  return '<button class="option'+(pureMath?' math-option':'')+'" '+(pureMath?'dir="ltr"':'dir="rtl"')+' data-i="'+i+'"><span class="option-text">'+richMixedText(o.text)+'</span></button>';
 }
 
 let deepIndex=0,deepResults=[],deepFirstAnswered=false,deepCurrentOpts=[];
