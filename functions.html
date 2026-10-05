@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>תרגול פונקציות — בדידה 2</title>
-<link rel="stylesheet" href="styles.css?v=20261003-functions1">
+<link rel="stylesheet" href="styles.css?v=20261005-math1">
 <style>
 .fx-wrap{width:min(900px,92vw);margin:24px auto 60px}.fx-top{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:16px}
 .fx-top a{color:#c4b5fd;text-decoration:none;font-weight:800}.fx-card{background:rgba(16,25,43,.96);border:1px solid #273653;border-radius:18px;padding:24px;margin:14px 0}
@@ -60,6 +60,7 @@
     <div class="fx-actions"><button id="retryMissed" class="primary">תרגל רק טעויות</button><button id="restart" class="ghost">מבחן מחדש</button></div>
   </section>
 </main>
+<script src="math-format.js?v=20261005-math1"></script>
 <script>
 const Q=[
 {id:"f01",q:"מה פירוש הסימון |A| = 4?",o:["יש 4 פונקציות מ-A","יש 4 איברים בקבוצה A","כל איבר ב-A נבחר 4 פעמים","A היא פונקציה"],a:1,e:"הקווים |A| מציינים את מספר האיברים בקבוצה A."},
@@ -88,11 +89,11 @@ const Q=[
 let bank=Q.slice(),i=0,right=0,first=[],answered=false;
 const $=id=>document.getElementById(id);
 function start(list=Q){bank=list.slice();i=0;right=0;first=[];$("intro").classList.add("hidden");$("summary").classList.add("hidden");$("quiz").classList.remove("hidden");render();}
-function render(){if(i>=bank.length)return finish();answered=false;$("feedback").classList.add("hidden");$("next").classList.add("hidden");const q=bank[i];$("progress").textContent=(i+1)+" מתוך "+bank.length;$("firstScore").textContent="נכון בניסיון ראשון: "+right;$("question").innerHTML=q.q;$("options").innerHTML=q.o.map((x,k)=>'<button class="fx-opt" data-i="'+k+'">'+x+'</button>').join("");[...$("options").children].forEach((b,k)=>b.onclick=()=>answer(b,k,q));}
+function render(){if(i>=bank.length)return finish();answered=false;$("feedback").classList.add("hidden");$("next").classList.add("hidden");const q=bank[i];$("progress").textContent=(i+1)+" מתוך "+bank.length;$("firstScore").textContent="נכון בניסיון ראשון: "+right;$("question").innerHTML=ExamMath.mixed(q.q);$("options").innerHTML=q.o.map((x,k)=>'<button class="fx-opt" data-i="'+k+'">'+ExamMath.mixed(x)+'</button>').join("");[...$("options").children].forEach((b,k)=>b.onclick=()=>answer(b,k,q));}
 function answer(btn,k,q){if(answered&&k===q.a)return;const isFirst=!answered;if(isFirst){answered=true;first.push({id:q.id,correct:k===q.a});if(k===q.a)right++;}
-if(k===q.a){btn.classList.add("correct");[...$("options").children].forEach(b=>b.disabled=true);$("feedback").classList.remove("hidden");$("feedback").innerHTML="<b>✓ נכון</b><br>"+q.e;$("next").classList.remove("hidden");}
-else{btn.classList.add("wrong");btn.disabled=true;$("feedback").classList.remove("hidden");$("feedback").innerHTML="<b>✗ לא בניסיון הראשון</b><br>"+q.e+"<br><small>אפשר לנסות שוב; בדוח נשמר הניסיון הראשון.</small>";}}
-function finish(){$("quiz").classList.add("hidden");$("summary").classList.remove("hidden");const wrong=first.filter(x=>!x.correct),pct=first.length?Math.round(100*right/first.length):0;$("sRight").textContent=right;$("sWrong").textContent=wrong.length;$("sPct").textContent=pct+"%";const names=wrong.map(x=>Q.find(q=>q.id===x.id)?.q).filter(Boolean);$("missed").innerHTML=names.length?"<b>לחזרה:</b><br>"+names.map(x=>"• "+x).join("<br>"):"לא נרשמו טעויות בניסיון הראשון.";localStorage.setItem("functionsFocusLast",JSON.stringify({at:new Date().toISOString(),right,total:first.length,wrong:wrong.map(x=>x.id)}));$("retryMissed").disabled=!wrong.length;$("retryMissed").onclick=()=>start(wrong.map(x=>Q.find(q=>q.id===x.id)).filter(Boolean));}
+if(k===q.a){btn.classList.add("correct");[...$("options").children].forEach(b=>b.disabled=true);$("feedback").classList.remove("hidden");$("feedback").innerHTML="<b>✓ נכון</b><br>"+ExamMath.mixed(q.e);$("next").classList.remove("hidden");}
+else{btn.classList.add("wrong");btn.disabled=true;$("feedback").classList.remove("hidden");$("feedback").innerHTML="<b>✗ לא בניסיון הראשון</b><br>"+ExamMath.mixed(q.e)+"<br><small>אפשר לנסות שוב; בדוח נשמר הניסיון הראשון.</small>";}}
+function finish(){$("quiz").classList.add("hidden");$("summary").classList.remove("hidden");const wrong=first.filter(x=>!x.correct),pct=first.length?Math.round(100*right/first.length):0;$("sRight").textContent=right;$("sWrong").textContent=wrong.length;$("sPct").textContent=pct+"%";const names=wrong.map(x=>Q.find(q=>q.id===x.id)?.q).filter(Boolean);$("missed").innerHTML=names.length?"<b>לחזרה:</b><br>"+names.map(x=>"• "+ExamMath.mixed(x)).join("<br>"):"לא נרשמו טעויות בניסיון הראשון.";localStorage.setItem("functionsFocusLast",JSON.stringify({at:new Date().toISOString(),right,total:first.length,wrong:wrong.map(x=>x.id)}));$("retryMissed").disabled=!wrong.length;$("retryMissed").onclick=()=>start(wrong.map(x=>Q.find(q=>q.id===x.id)).filter(Boolean));}
 $("start").onclick=()=>start();$("next").onclick=()=>{i++;render()};$("restart").onclick=()=>start();
 </script>
 </body></html>
